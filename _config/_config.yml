@@ -1,0 +1,7 @@
+Name: orderprofilefeature
+After:
+  - '#modules-framework'
+---
+SilverStripe\Core\Manifest\ModuleManifest:
+  module_priority:
+    - schrattenholz/orderprofilefeature

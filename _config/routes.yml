@@ -1,0 +1,10 @@
+---
+Name: approutes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    'groupconfirmation//$Action/$ID': 'Schrattenholz\OrderProfileFeature\OrderProfileFeature_GroupConfirmation_Controller'
+    'doubleoptin//$Action/$ID': 'Schrattenholz\OrderProfileFeature\OrderProfileFeature_DoubleOptIn_Controller'

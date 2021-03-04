@@ -1,0 +1,47 @@
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\ORM\FieldType\DBForeignKey:
+    class: DBForeignKey_Extension
+Schrattenholz\OrderProfileFeature\OrderProfileFeature_Basket:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_PriceCalculation_Extension
+Schrattenholz\OrderProfileFeature\OrderProfileFeature_ClientOrder:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_PriceCalculation_Extension
+SilverStripe\Security\Member:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeatureMemberExtension
+Schrattenholz\Order\OrderConfig:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderConfigExtension
+Schrattenholz\Order\Preis:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_PreisExtension
+    - Schrattenholz\OrderProfileFeature\DiscountScale_PreisExtension
+    - Schrattenholz\OrderProfileFeature\ProductOption_PreisExtension
+Schrattenholz\Order\Product:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductExtension
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductDiscountExtension
+Schrattenholz\Order\ProductController:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductController
+Schrattenholz\Order\ProductListController:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductListController
+Schrattenholz\Order\ProductList:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductList
+Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductListContainer:
+    - Schrattenholz\OrderProfileFeature\Extensions\ProductOption_ProductContainerExtension
+SilverStripe\CMS\Controllers\ContentController:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_OrderExtension
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_OrderExtension
+Schrattenholz\Order\OrderAdmin:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_OrderAdmin
+Schrattenholz\Order\Basket:
+  extensions:
+    - Schrattenholz\OrderProfileFeature\PageTypes\OrderProfileFeature_BasketControllerExtension
