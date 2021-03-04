@@ -1,5 +1,8 @@
 <?php
 
+// Shopinterne Gruppenspezifikation, die eine Relation auf eine Gruppe aus dem Framework hat
+
+
 namespace Schrattenholz\OrderProfileFeature;
 
 use Silverstripe\ORM\DataObject;

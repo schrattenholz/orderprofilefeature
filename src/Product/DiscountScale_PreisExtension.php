@@ -46,9 +46,8 @@ class DiscountScale_PreisExtension extends DataExtension{
 	public function updateCMSFields(FieldList $fields){
 			$gridFieldConfig=GridFieldConfig::create()
 			->addComponent(new GridFieldButtonRow('before'))
-	->addComponent($dataColumns=new GridFieldDataColumns())
+			->addComponent($dataColumns=new GridFieldDataColumns())
 			->addComponent($editableColumns=new GridFieldEditableColumns())
-			
 			->addComponent(new GridFieldSortableHeader())
 			->addComponent(new GridFieldPaginator())
 			->addComponent(new GridFieldOrderableRows('SortOrder'))
@@ -60,7 +59,6 @@ class DiscountScale_PreisExtension extends DataExtension{
 			->addComponent(new GridFieldAddNewButton())
 			;
 			$editableColumns->setDisplayFields(array(
-
 				'Min'  =>array(
 						'title'=>'Von (in g/ml/stk)',
 						'callback'=>function($record, $column, $grid) {
@@ -88,7 +86,6 @@ class DiscountScale_PreisExtension extends DataExtension{
 				'CMSPrice'=>'Preise',
 				//'Inventory'=>'Stückzahl'
 			]);
-		
 			$fields->addFieldToTab('Root.Rabattstaffel',LiteralField::create("RS_Info","<p><strong>Info:</strong></p><p> Rabatte werden immer auf den Grundpreis der jeweiligen Kundengruppe angerechnet.</br>Mengen werden je nach Produkt in Gramm,Milliliter oder Stück angegeben.</p>"));
 			$fields->addFieldToTab('Root.Rabattstaffel', GridField::create(
 				'DiscountScale_DiscountElements',
