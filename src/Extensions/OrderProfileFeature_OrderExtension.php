@@ -226,13 +226,13 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			}
 			$b->delete();
 		}
-		$productContainers=OrderProfileFeature_ProductContainer::get()->filter([
+		/*$productContainers=OrderProfileFeature_ProductContainer::get()->filter([
 			'LastEdited:LessThan'=>$expires,
 			'ClientOrderID'=>0
 			]);
 		foreach($productContainers as $pC){
 			$pC->delete();
-		}
+		}*/
 		return true;
 	}
 	public function CreateBasket(){
