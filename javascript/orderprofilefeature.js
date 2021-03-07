@@ -270,6 +270,7 @@ function checkUserActivity(){
 				$('#keepBasket').on('click',function(){
 					keepBasket();
 				});
+				
 				//$('#dialogBox .alert').addClass('alert-danger').css('display','block').fadeTo(100,1);//.delay(2000).fadeTo(100,0,function(){$(this).removeClass('alert-danger');$(this).css('display','none');});
 			}
 
@@ -304,7 +305,13 @@ function clearBasket(){
 	jQuery.ajax({
 		url: "$Link/clearBasket",
 		success: function(data) {
-			window.location.reload(false);
+			var message="Dein Warenkorb wurde zurückgesetzt und die Produkte für andere Kunden wieder frei gegeben, weil Du 10 Minuten inaktiv warst und wir davon ausgehen, dass Du Deinen Einkauf nicht mehr abschliessen möchtest.";
+			var title="Warenkorb wurde geleert";
+			$('#clearBasket').addClass("d-none").attr("disabled","disabled");
+			$('#keepBasket').addClass("d-none").attr("disabled","disabled");
+			$('#dialogBox .modal-body').html(message);
+			$('#ProductInBasket').val(0);
+			//window.location.reload(false);
 		}
 	});
 }
