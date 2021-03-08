@@ -217,9 +217,19 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
      */
     public function generatePrintData(GridField $gridField)
     {
-        $searchedColumns = $this->getPrintColumnsForGridField($gridField);
-		//array_push($printColumns,DataObject::singleton("Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductContainer")->summaryFields());
-
+		$ob=$gridField->getRequest();
+		 $searchedColumns = $this->getPrintColumnsForGridField($gridField);
+		$sFs=json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"];
+		var_dump($sFs);
+		$searchedFields=new ArrayList();
+		if($sFs){
+			foreach($sFs as $field => $label){
+				if($field=="Created" && $label!=""){
+					$label="ab ".strftime("%d.%m.%Y",strtotime($label));
+				}
+				$searchedFields->push(array("Title"=>$searchedColumns[$field],"Value"=>$label,"Field"=>$field));
+			}
+		}
 		 $printColumns=new ArrayList();
 		 $printColumns['Created']="Bestelldatum";
 		 $printColumns['ShippingDate']="Abhol/Lieferdatum";
@@ -241,16 +251,29 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
         }
 		
         $items = $gridField->getList();
+Injector::inst()->get(LoggerInterface::class)->error(' anzahl Bestellungen:'.$searchedFields->Count());
+        /** @var DataObject $item */
+		
+		foreach($searchedFields as $sF){
+			
+			if($sF->Value!=""){
+				
+				//PartialMatchFilter
+				Injector::inst()->get(LoggerInterface::class)->error("suchparameter=> ".$sF->Field.': '.$sF->Value);
+				$items=$items->filter($sF->Field,$sF->Value);
+			}
+		}
+		
 		$allItems=new ArrayList();
 		foreach($items->limit(null) as $item){
 			foreach($item->ProductContainers() as $product){
 				$newItem=new OrderProfileFeature_ClientOrder();
-				
 				$newItem->Created=strftime("%d.%m.%Y",strtotime($item->Created));
 				$newItem->ShippingDate=strftime("%d.%m.%Y",strtotime($item->ShippingDate));
 				$newItem->ClientContainer=$item->ClientContainerID;
 				$newItem->ProductTitle=$product->Product()->Title.": ".$product->PriceBlockElement()->getFullTitle(false);
 				$newItem->ProductQuantity=$product->Quantity;
+				$newItem->OrderStatus=$product->OrderStatus;
 				$allItems->push($newItem);
 			}
 		}
@@ -259,7 +282,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
         /** @var GridFieldDataColumns $gridFieldColumnsComponent */
         $gridFieldColumnsComponent = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
 
-        /** @var DataObject $item */
+		
         foreach ($allItems->limit(null) as $item) {
             $itemRow = new ArrayList();
 
@@ -268,7 +291,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
                 $value = $gridFieldColumnsComponent
                     ? strip_tags($gridFieldColumnsComponent->getColumnContent($gridField, $item, $field))
                     : $gridField->getDataFieldValue($item, $field);
-					Injector::inst()->get(LoggerInterface::class)->error($field.' printColumns:'.$value);
+					//Injector::inst()->get(LoggerInterface::class)->error($field.' printColumns:'.$value);
                 $itemRow->push(new ArrayData([
                     "CellString" => $value,
                 ]));
@@ -281,21 +304,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
                 $item->destroy();
             }
         }
-		$ob=$gridField->getRequest();
 
-		$sFs=json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"];
-		$searchedFields=new ArrayList();
-
-			if($sFs){
-					foreach($sFs as $field => $label){
-						
-						if($field=="Created" && $label!=""){
-							
-							$label="ab ".strftime("%d.%m.%Y",strtotime($label));
-						}
-						$searchedFields->push(array("Title"=>$searchedColumns[$field],"Value"=>$label));
-					}
-			}
         $ret = new ArrayData([
 			"SearchedFields"=>$searchedFields,
             "Title" => SiteConfig::get()->First()->Title,
