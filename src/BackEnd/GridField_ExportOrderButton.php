@@ -218,8 +218,9 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
     public function generatePrintData(GridField $gridField)
     {
 		$ob=$gridField->getRequest();
-		 $searchedColumns = $this->getPrintColumnsForGridField($gridField);
+		$searchedColumns = $this->getPrintColumnsForGridField($gridField);
 		$sFs=json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"];
+		// Suchparmeter finden
 		$searchedFields=new ArrayList();
 		if($sFs){
 			foreach($sFs as $field => $label){
@@ -229,18 +230,19 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 				$searchedFields->push(array("Title"=>$searchedColumns[$field],"Value"=>$label,"Field"=>$field));
 			}
 		}
+		
+		// AusgabeFelder definieren
 		 $printColumns=new ArrayList();
 		 $printColumns['Created']="Bestelldatum";
 		 $printColumns['ShippingDate']="Abhol/Lieferdatum";
 		 $printColumns['ClientContainer.ID']="KDNR";
 		 $printColumns['ProductTitle']="Produktname";
 		 $printColumns['ProductQuantity']="Menge";
- 
+		
+		//Kopfzeile erstellen
         $header = null;
-
         if ($this->printHasHeader) {
             $header = new ArrayList();
-
             foreach ($printColumns as $field => $label) {
 				//Kopfzeile
                 $header->push(new ArrayData([
@@ -248,22 +250,15 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
                 ]));
             }
         }
-		
         $items = $gridField->getList();
-Injector::inst()->get(LoggerInterface::class)->error(' anzahl Bestellungen:'.$searchedFields->Count());
-        /** @var DataObject $item */
-		
+		// Ergebnis nch searchedFields filtern
 		foreach($searchedFields as $sF){
-			
 			if($sF->Value!=""){
-				
-				//PartialMatchFilter
-				Injector::inst()->get(LoggerInterface::class)->error("suchparameter=> ".$sF->Field.': '.$sF->Value);
 				$items=$items->filter($sF->Field,$sF->Value);
 			}
 		}
-		
 		$allItems=new ArrayList();
+		// AusgabeListe erstellen
 		foreach($items->limit(null) as $item){
 			foreach($item->ProductContainers() as $product){
 				$newItem=new OrderProfileFeature_ClientOrder();
@@ -280,13 +275,9 @@ Injector::inst()->get(LoggerInterface::class)->error(' anzahl Bestellungen:'.$se
 
         /** @var GridFieldDataColumns $gridFieldColumnsComponent */
         $gridFieldColumnsComponent = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
-
-		
         foreach ($allItems->limit(null) as $item) {
             $itemRow = new ArrayList();
-
             foreach ($printColumns as $field => $label) {
-						
                 $value = $gridFieldColumnsComponent
                     ? strip_tags($gridFieldColumnsComponent->getColumnContent($gridField, $item, $field))
                     : $gridField->getDataFieldValue($item, $field);
@@ -295,15 +286,13 @@ Injector::inst()->get(LoggerInterface::class)->error(' anzahl Bestellungen:'.$se
                     "CellString" => $value,
                 ]));
             }
-
-            $itemRows->push(new ArrayData([
+           $itemRows->push(new ArrayData([
                 "ItemRow" => $itemRow
             ]));
             if ($item->hasMethod('destroy')) {
                 $item->destroy();
             }
         }
-
         $ret = new ArrayData([
 			"SearchedFields"=>$searchedFields,
             "Title" => SiteConfig::get()->First()->Title,
