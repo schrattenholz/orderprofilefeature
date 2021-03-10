@@ -303,12 +303,13 @@ function loadProductBadge(){
 }
 function clearBasket(){
 	jQuery.ajax({
-		url: "$Link/clearBasket",
+		url: "$Link/deleteInactiveBasket",
 		success: function(data) {
 			var message="Dein Warenkorb wurde zurückgesetzt und die Produkte für andere Kunden wieder frei gegeben, weil Du 10 Minuten inaktiv warst und wir davon ausgehen, dass Du Deinen Einkauf nicht mehr abschliessen möchtest.";
 			var title="Warenkorb wurde geleert";
 			$('#clearBasket').addClass("d-none").attr("disabled","disabled");
 			$('#keepBasket').addClass("d-none").attr("disabled","disabled");
+			$('#dialogBox .modal-title').html(title);
 			$('#dialogBox .modal-body').html(message);
 			$('#ProductInBasket').val(0);
 			//window.location.reload(false);
