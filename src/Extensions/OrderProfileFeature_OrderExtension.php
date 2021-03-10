@@ -56,7 +56,8 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		'saveOrderModel',
 		'searchProducts',
 		'CurrentOrderCustomerGroup',
-		'getDiscountScale'
+		'getDiscountScale',
+		'deleteInactiveBasket'
 	);
 		public function getDiscountScale($data){
 		$priceBlockElementID=$data['priceBlockElementID'];
@@ -213,7 +214,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		$now = date("Y-m-d H:i:s");
 		$timestamp = "2016-04-20 00:37:15";
 		$start_date = date($now);
-		$expires = strtotime('-10 minute', strtotime($now));
+		$expires = strtotime('-1 minute', strtotime($now));
 		$date_diff=($expires-strtotime($now)) / 86400;
 		$baskets=OrderProfileFeature_Basket::get()->filter('LastEdited:LessThan',$expires);
 		foreach($baskets as $b){
@@ -226,13 +227,16 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			}
 			$b->delete();
 		}
-		/*$productContainers=OrderProfileFeature_ProductContainer::get()->filter([
+		$productContainers=OrderProfileFeature_ProductContainer::get()->filter([
 			'LastEdited:LessThan'=>$expires,
 			'ClientOrderID'=>0
 			]);
 		foreach($productContainers as $pC){
-			$pC->delete();
-		}*/
+			if(!OrderProfileFeature_Basket::get()->byID($pC->BasketID)){
+					$pC->delete();
+			}
+		
+		}
 		return true;
 	}
 	public function CreateBasket(){
@@ -736,6 +740,21 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			//$this->ClearAddress();
 
 		}
+	}
+	public function deleteInactiveBasket(){
+		$basket=$this->getBasket();
+		
+		if($basket->ProductContainers()->Count()>0){
+			foreach($basket->ProductContainers() as $pc){
+				$pc->delete();
+			}
+			if($basket->ClientContainerID){
+				$basket->ClientContainer()->delete();
+			}
+		}
+		$basket->delete();
+		
+		
 	}
 	public function ClearBasket(){
 		$basket=$this->getBasket();
