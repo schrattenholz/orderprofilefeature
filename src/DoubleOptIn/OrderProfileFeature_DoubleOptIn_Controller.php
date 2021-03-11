@@ -52,7 +52,7 @@ class OrderProfileFeature_DoubleOptIn_Controller extends PageController{
 				$doc->Content="Die Registrierung ist bereits abgeschlossen.";
 			}
 			
-			return $doc->renderWith('Page'); 
+			return $doc->renderWith('Schrattenholz\\OrderProfileFeature\\DoubleOptIn'); 
 
 	}
 	public function sendGroupConfirmation($client,$message)
