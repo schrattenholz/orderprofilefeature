@@ -34,20 +34,22 @@ class OrderProfileFeature_DoubleOptIn_Controller extends PageController{
 					$client->DoubleOptIn=true;
 					$doc->Content="Deine Registrieung ist nun abgeschlossen. ";
 					$defaultCostumerGroup=OrderCustomerGroup::get()->filter('IsDefault',true)->First();
-					if($defaultCostumerGroup->ID!=$client->RequestedGroupID){
-						$doc->Content.="<p>Da du dich als ".$client->RequestedGroup->Title." prüfen wir nun deine Gruppenzugehörigkeit und benachrichtigen dich dann umgehend per E-Mail. Bis dahin wirst im Shop als ".$defaultCostumerGroup->Title." behandelt. Natürlich werden wir die Preise auf der entgültigen Rechnung entsprechend deiner tatsächlichen Gruppenzugehörikeit anpassen.";
+					Injector::inst()->get(LoggerInterface::class)->error("defaultCostumerGroup->ID=".$defaultCostumerGroup->ID."client->RequestedGroupID=".$client->RequestedGroupID);
+					if($defaultCostumerGroup->GroupID!=$client->RequestedGroupID){
+						
+						$doc->Content.="Da du dich als ".$client->RequestedGroup->Title." angemeldet hast, prüfen wir nun deine Gruppenzugehörigkeit und benachrichtigen dich dann umgehend per E-Mail. Bis dahin wirst Du im Shop als ".$defaultCostumerGroup->Group()->Title." behandelt. Natürlich werden wir die Preise auf der entgültigen Rechnung entsprechend deiner tatsächlichen Gruppenzugehörikeit anpassen.";
 						$this->owner->sendGroupRequestToAdmin($client);
 					}
 					$client->NeedsDoubleOptIn=false;
 					$message="confirmed";
 				}else if($this->getRequest()->param('Action')=='deny'){
 					$client->delete();
-					$doc->Content="Die Registrieung wurde abgebrochen und Deine E-Mai-Adresse aus unserer Datenbank gelöscht.";
+					$doc->Content="Die Registrierung wurde abgebrochen und Deine E-Mai-Adresse aus unserer Datenbank gelöscht.";
 					$message="denied";
 				}
 				$client->write();
 			}else{
-				$doc->Content="Die Registrieung ist bereits abgeschlossen.";
+				$doc->Content="Die Registrierung ist bereits abgeschlossen.";
 			}
 			
 			return $doc->renderWith('Page'); 
