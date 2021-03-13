@@ -258,11 +258,12 @@ function checkUserActivity(){
 		success: function(data) {
 		if(parseInt(data)>0){
 				//startActivitiyModal
-				var message="Sie sind seit 10 Minuten inaktiv. Um Ihre Bestellung fortzusetzen, klicken Sie bitte auf \"Weiter bestellen\". Anderenfalls wird Ihr Warenkorb geleert.";
+				var message="Du bist seit 10 Minuten inaktiv. Um Deine Bestellung fortzusetzen, klicken bitte auf \"Weiter bestellen\". Anderenfalls wird Ihr Warenkorb geleert.";
 				var title="Einkauf fortsetzen?";
 				$('#dialogBox .modal-title').html(title);
-				countdown(1);
 				$('#dialogBox .modal-body').html(message);
+				countdown(1);
+				
 				$('#dialogBox').modal()
 				$('#clearBasket').on('click',function(){
 					clearBasket();
