@@ -214,7 +214,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		$now = date("Y-m-d H:i:s");
 		$timestamp = "2016-04-20 00:37:15";
 		$start_date = date($now);
-		$expires = strtotime('-1 minute', strtotime($now));
+		$expires = strtotime('-11 minute', strtotime($now));
 		$date_diff=($expires-strtotime($now)) / 86400;
 		$baskets=OrderProfileFeature_Basket::get()->filter('LastEdited:LessThan',$expires);
 		foreach($baskets as $b){
@@ -232,7 +232,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			'ClientOrderID'=>0
 			]);
 		foreach($productContainers as $pC){
-			if(!OrderProfileFeature_Basket::get()->byID($pC->BasketID)){
+			if(!OrderProfileFeature_Basket::get()->byID($pC->BasketID) && !$pC->ClientOrderID){
 					$pC->delete();
 			}
 		
