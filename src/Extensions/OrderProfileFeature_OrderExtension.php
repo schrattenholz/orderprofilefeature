@@ -508,7 +508,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			$clientContainer->BasketID=$basket->ID;
 
 
-			if(!isset($personenDaten['CreateUserAccount'])){
+			if(!isset($personenDaten['CreateUserAccount_Val']) || !isset($personenDaten['CreateUserAccount_Val'])==0){
 				
 				//Wenn keine Benutzeraccount angelegt werden soll wird die Gruppe auf die Default Gruppe eingestellt
 				$cg=OrderCustomerGroup::get()->filter('IsDefault',true)->First();
@@ -522,7 +522,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			$returnValues->Status="good";
 			$returnValues->Message="Benutzerdaten gespeichert. Kein Benutzerkonto angelegt";
 			$returnValues->Value='';
-			if(isset($personenDaten['CreateUserAccount']) && $personenDaten['CreateUserAccount']==1){
+			if(isset($personenDaten['CreateUserAccount_Val']) && $personenDaten['CreateUserAccount_Val']==1){
 
 				$client=$this->CreateClient($personenDaten);
 				if($client->Status!="error"){
