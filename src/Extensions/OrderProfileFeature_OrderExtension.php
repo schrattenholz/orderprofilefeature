@@ -217,6 +217,8 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		$expires = strtotime('-11 minute', strtotime($now));
 		$date_diff=($expires-strtotime($now)) / 86400;
 		$baskets=OrderProfileFeature_Basket::get()->filter('LastEdited:LessThan',$expires);
+		
+		//Warenkorb und Produkte, die seit 11 Minuten inaktiv sind
 		foreach($baskets as $b){
 			foreach($b->ProductContainers() as $pc){
 				$pc->delete();
@@ -758,21 +760,27 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 	}
 	public function ClearBasket(){
 		$basket=$this->getBasket();
-		
-		if($basket->ProductContainers()->Count()>0){
-			
-			// NUR ZUM TESTEN
-			/*
-			foreach($basket->ProductContainers() as $pc){
-				$pc->delete();
+		//Injector::inst()->get(LoggerInterface::class)->error('ClearBasket OrderProfile');
+		if(isset($basket)){
+			if($basket->ProductContainers()->Count()>0){
+				
+
+				foreach($basket->ProductContainers() as $pc){
+					if($pc->ClientOrderID==0){
+					$pc->delete();
+					}
+				}
+				/*
+				//Nur loeschen, wenn keine ClientOrder existiert
+				if($basket->ClientContainerID){
+					$basket->ClientContainer()->delete();
+				}
+				*/
+				
+				// ENDE NUR ZUM TESTEN
 			}
-			if($basket->ClientContainerID){
-				$basket->ClientContainer()->delete();
-			}
-			*/
-			// ENDE NUR ZUM TESTEN
+			$basket->delete();
 		}
-		$basket->delete();
 	}
 		public function genProductData($data){
 		$productData=Array();
