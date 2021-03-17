@@ -7,6 +7,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\CheckboxField;
@@ -23,6 +24,7 @@ use UncleCheese\DisplayLogic\Wrapper;
 use SilverStripe\View\Requirements;
 use Schrattenholz\Order\Product;
 use SilverStripe\Security\Security;
+use Schrattenholz\Delivery\City;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
 class OrderProfileFeature_RegistrationForm extends Form 
@@ -81,7 +83,8 @@ class OrderProfileFeature_RegistrationForm extends Form
 					$company=TextField::create('Company', 'Firmenname (ggf.)',$currentClient->Company),
 					$street=TextField::create('Street', 'Strasse/Nr',$currentClient->Street),
 					$zip=TextField::create('ZIP', 'Postleizahl',$currentClient->ZIP),
-					$city=TextField::create('City', 'Ort',$currentClient->City)
+					
+					$city=DropdownField::create('City', 'Ort',City::get()->filter("Title",$currentClient->City)->map("Title","Title"))->setValue($currentClient->City)->setEmptyString("Bitte wählen")
 				);
 				$c3=CompositeField::create(
 					$header3=HeaderField::create('Header3', 'Kontaktdaten'),
@@ -98,7 +101,7 @@ class OrderProfileFeature_RegistrationForm extends Form
 					$company=TextField::create('Company', 'Firmenname (ggf.)'),
 					$street=TextField::create('Street', 'Strasse/Nr'),
 					$zip=TextField::create('ZIP', 'Postleizahl'),
-					$city=TextField::create('City', 'Ort')
+					$city=DropdownField::create('City', 'Ort')->setEmptyString('(Bitte zunächste PLZ eingeben)')
 				);
 				$c3=CompositeField::create(
 					$header3=HeaderField::create('Header3', 'Kontaktdaten'),
@@ -162,7 +165,7 @@ class OrderProfileFeature_RegistrationForm extends Form
 		$zip->addExtraClass('col-sm-6');
 		$zip->setAttribute("oninput",'if(this.value.charAt(0)=="0"){this.value=this.value.replace(/\D/g,"");}else{this.value=this.value.replace(/\D/g,"");}');
 		$zip->setAttribute("pattern",".{4,5}");
-		$city->addExtraClass('col-sm-6');
+		$city->addExtraClass('col-sm-6','ui-autocomplete-input');
 		$gender->addExtraClass('col-12');
 		$surname->addExtraClass('col-sm-6');
 		$surname->setAttribute("pattern","[a-zA-ZöäüÖÄÜß \-]*");
