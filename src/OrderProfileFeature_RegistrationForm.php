@@ -124,7 +124,7 @@ class OrderProfileFeature_RegistrationForm extends Form
 							$c3,
 							$c2,
 							$cUA=CompositeField::create(
-							$useraccount=CheckboxField::create('CreateUserAccount','Möchten Sie einen Nutzerkonto anlegen?'),
+							$useraccount=CheckboxField::create('CreateUserAccount','Möchtest Du ein Nutzerkonto anlegen?'),
 							$customerGroup=OptionSetField::create('CreateUserAccountCustomerGroup', 'Sie sind:', OrderCustomerGroup::get()->filter("SelectableForFrontendUser",1),OrderCustomerGroup::get()->filter("IsDefault",1)->First()->ID),
 							$password=PasswordField::create ("CreateUserAccountPassword","Passwort"),
 							$passwordConfirm=PasswordField::create ("CreateUserAccountPasswordConfirm","Passwort-Wiederholung")
