@@ -224,10 +224,11 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		$searchedFields=new ArrayList();
 		if($sFs){
 			foreach($sFs as $field => $label){
-				if($field=="Created" && $label!=""){
+				/*if($field=="Created" && $label!=""){
 					$label="ab ".strftime("%d.%m.%Y",strtotime($label));
-				}
+				}*/
 				$searchedFields->push(array("Title"=>$searchedColumns[$field],"Value"=>$label,"Field"=>$field));
+				Injector::inst()->get(LoggerInterface::class)->error('-----------------____-----_____ Export before Value='.$label.' Field='.$field);
 			}
 		}
 		
@@ -238,6 +239,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		 $printColumns['ClientContainer.ID']="KDNR";
 		 $printColumns['ProductTitle']="Produktname";
 		 $printColumns['ProductQuantity']="Menge";
+		 $printColumns['OrderStatus']="Bestellstatus";
 		
 		//Kopfzeile erstellen
         $header = null;
@@ -267,7 +269,8 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 				$newItem->ClientContainer=$item->ClientContainerID;
 				$newItem->ProductTitle=$product->Product()->Title.": ".$product->PriceBlockElement()->getFullTitle(false);
 				$newItem->ProductQuantity=$product->Quantity;
-				$newItem->OrderStatus=$product->OrderStatus;
+				$newItem->PriceBlockElementID=$product->PriceBlockElementID;
+				$newItem->OrderStatus=$item->OrderStatus;
 				$allItems->push($newItem);
 			}
 		}
@@ -275,7 +278,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 
         /** @var GridFieldDataColumns $gridFieldColumnsComponent */
         $gridFieldColumnsComponent = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
-        foreach ($allItems->limit(null) as $item) {
+        foreach ($allItems->limit(null)->sort("PriceBlockElementID") as $item) {
             $itemRow = new ArrayList();
             foreach ($printColumns as $field => $label) {
                 $value = $gridFieldColumnsComponent
