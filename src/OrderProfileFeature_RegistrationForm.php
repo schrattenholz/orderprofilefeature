@@ -199,8 +199,6 @@ class OrderProfileFeature_RegistrationForm extends Form
 			$continue=FormAction::create('continue', 'Weiter zur Bestellübersicht')->setUseButtonTag(true)
                 ->addExtraClass('action btn btn-primary btn-shadow mb-2 mr-1')
         );*/
-		
-		
 		// Get the actions
     // As actions is a FieldList, push, insertBefore, removeByName and other
     // methods described for `Fields` also work for actions.
