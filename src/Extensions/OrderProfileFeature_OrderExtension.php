@@ -628,7 +628,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			->setHTMLTemplate('Schrattenholz\\OrderProfileFeature\\Layout\\Email_DoubleOptIn')
 			->setData([
 				//'BaseHref' => $_SERVER['SERVER_NAME'],
-				'CheckoutAdress' =>$client,
+				'CheckoutAddress' =>$client,
 				'OrderConfig'=>OrderConfig::get()->First()
 
 			])
@@ -648,7 +648,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			->setHTMLTemplate('Schrattenholz\\OrderProfileFeature\\Layout\\Email_GroupRequestToAdmin')
 			->setData([
 				//'BaseHref' => $_SERVER['SERVER_NAME'],
-				'CheckoutAdress' =>$client,
+				'CheckoutAddress' =>$client,
 				'OrderConfig'=>OrderConfig::get()->First()
 
 			])
@@ -658,7 +658,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		$email->send();
 		//return $this->getOwner()->httpError(500, "stop");
 	}
-	 public function getCheckoutAdress(){
+	 public function getCheckoutAddress(){
 		if($this->getBasket()){
 			$basket=$this->getBasket();
 		}else{
@@ -700,11 +700,11 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		->setData([
 				'BaseHref' => $_SERVER['DOCUMENT_ROOT'],
 				'Basket' => $basket,
-				'CheckoutAdress' => $this->getCheckoutAdress(),
+				'CheckoutAddress' => $this->getCheckoutAddress(),
 				'OrderConfig'=>OrderConfig::get()->First()
 		])
 		->setFrom(OrderConfig::get()->First()->OrderEmail)
-		->setTo($this->getCheckoutAdress()->Email)
+		->setTo($this->getCheckoutAddress()->Email)
 		->setSubject("Bestellbestätigung Hof Lehnmühle");
 		$email->send();
 		$email = Email::create()
@@ -712,7 +712,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		->setData([
 			'BaseHref' => $_SERVER['DOCUMENT_ROOT'],
 			'Basket' => $basket,
-			'CheckoutAdress' => $this->getCheckoutAdress(),
+			'CheckoutAddress' => $this->getCheckoutAddress(),
 			'OrderConfig'=>OrderConfig::get()->First()
 		])
 		->setFrom(OrderConfig::get()->First()->OrderEmail)

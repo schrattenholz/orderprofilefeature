@@ -35,7 +35,7 @@ class OrderProfileFeature_RegistrationForm extends Form
      * method. We'll create the fields and actions in here.
      *
      */
-	 public static function getCheckoutAdress($controller){
+	 public static function getCheckoutAddress($controller){
 		$basket=$controller->getBasket();
 		
 		if(Security::getCurrentUser()){
@@ -58,7 +58,7 @@ class OrderProfileFeature_RegistrationForm extends Form
     public function __construct($controller, $name) 
     {
 		//$currentClient=new OrderProfileFeature_OrderExtension();
-		$currentClient=$this->getCheckoutAdress($controller);
+		$currentClient=$this->getCheckoutAddress($controller);
 		$basket=$controller->getBasket();
 
 			if($currentClient && $currentClient->Readonly){
@@ -204,7 +204,7 @@ class OrderProfileFeature_RegistrationForm extends Form
     // methods described for `Fields` also work for actions.
 
     /*$actions->push(
-        FormAction::create('toCheckOutAdress', 'Another Button')
+        FormAction::create('toCheckoutAddress', 'Another Button')
     );*/
 	//$actions->addExtraClass('col-12 d-flex justify-content-between');
 	//	$continue->addExtraClass('col-12');
@@ -233,7 +233,7 @@ class OrderProfileFeature_RegistrationForm extends Form
         $this->disableSecurityToken();
         $this->loadDataFrom($_REQUEST);
     }
-	public function toCheckOutAdress($data, $form){
+	public function toCheckoutAddress($data, $form){
 		$this->redirect('adresse');
 	}
 }

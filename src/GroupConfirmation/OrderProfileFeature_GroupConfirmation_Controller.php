@@ -62,7 +62,7 @@ class OrderProfileFeature_GroupConfirmation_Controller extends PageController{
 			->setHTMLTemplate('Schrattenholz\\OrderProfileFeature\\Layout\\Email_GroupConfirmationToClient') 
 			->setData([
 				//'BaseHref' => $_SERVER['DOCUMENT_ROOT'],
-				'CheckoutAdress' =>$client,
+				'CheckoutAddress' =>$client,
 				'OrderConfig'=>OrderConfig::get()->First(),
 				'Message'=>$message
 				
