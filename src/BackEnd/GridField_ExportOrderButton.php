@@ -142,7 +142,14 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
         $data = $this->generatePrintData($gridField);
 
         $this->extend('updatePrintData', $data);
-
+		/*
+		$f=$this->array_to_csv_download(array(
+			array(1,2,3,4), // this array is going to be the first row
+			array(1,2,3,4)), // this array is going to be the second row
+			"numbers.csv"
+		);
+		*/
+		return $f;
         if ($data) {
             return $data->renderWith(ThemeResourceLoader::inst()->findTemplate(
 				"Schrattenholz\\OrderProfileFeature\\BackEnd\\OrderExport",
@@ -153,6 +160,23 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
         return null;
     }
 
+	public function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+		header("Content-type: text/csv");
+		header("Content-Disposition: attachment; filename=file.csv");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		ob_get_clean();
+		// open the "output" stream
+		// see http://www.php.net/manual/en/wrappers.php.php#refsect2-wrappers.php-unknown-unknown-unknown-descriptioq
+		$f = fopen('php://output', 'w');
+
+		foreach ($array as $line) {
+			fputcsv($f, $line, $delimiter);
+		}
+		//fclose($f);
+		return $f;
+		
+	}  
     /**
      * Return the columns to print
      *
