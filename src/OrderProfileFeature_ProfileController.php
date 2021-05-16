@@ -31,7 +31,7 @@ class OrderProfileFeature_ProfilController extends PageController{
 	public function loadForm(){
 		return $this->OrderProfileFeature_ProfilLoginForm();
 	}
-	 public static function getCheckoutAdress($controller){
+	 public static function getCheckoutAddress($controller){
 		$basket=$controller->getBasket();
 		
 		if(Security::getCurrentUser()){
