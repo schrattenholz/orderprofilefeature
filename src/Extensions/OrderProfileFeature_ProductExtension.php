@@ -68,7 +68,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		
 
 		//Produktoptionen
-		/*$gridFieldConfig=GridFieldConfig::create()
+		$gridFieldConfig=GridFieldConfig::create()
 			->addComponent(new GridFieldButtonRow('before'))
 
 			->addComponent($editableColumns=new GridFieldEditableColumns())
@@ -105,7 +105,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		));
 		
 		$fields->addFieldToTab('Root.Produktoptionen',new LiteralField("po","<p>Wählen Sie die benötigten Produktoptionen aus.</p><p>Wenn Sie Staffelpreise verwenden, können Sie die Produktoptionen in den einzelnen Staffelpreisen zusätzlich individualisieren.</p><p>&nbsp;</p>"),"ProductOptions_Product");
-		*/
+		
 		
 		
 		//Kilopreise pro Kundengruppe
@@ -198,7 +198,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 				//Bruttopreis anzeigen
 				$price=$ocg_product->Price;
 			}
-			return new ArrayData(["Price"=>$price]);
+			return new ArrayData(["Price"=>$price,"BasePrice"=>$price]);
 		}else{
 			return false;
 		}

@@ -76,6 +76,14 @@ function loadFilteredProductList(type,id,close){
 	}
 var pageLink="$Link";
 	jQuery( document ).ready(function() {
+		
+		if($('.masonry').length>0){
+			$('.masonry').masonry({
+			  itemSelector: '.masonry-item', // use a separate class for itemSelector, other than .col-
+			  columnWidth: '.masonry-sizer',
+			  percentPosition: true
+			});
+		}
 		startUserActivityTimeout(false);
 	if($('.product-list-filter').length>0){
 		startShopPageListener();

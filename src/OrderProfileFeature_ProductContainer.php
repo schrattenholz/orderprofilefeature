@@ -89,6 +89,7 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 		parent::onBeforeWrite();
 	}
 public function CompletePrice(){
+	Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductContainer::CompletePrice-'.$this->Product()->Title);
 			$productPrice=$this->ProductPrice();
 			$basePrice=$productPrice->Price;//:floatval
 			
@@ -103,8 +104,8 @@ public function CompletePrice(){
 				
 				 
 			}
-			if($this->owner->PriceBlockElement()){
-					if(Preis::get()->byID($this->owner->PriceBlockElementID)->CaPrice){
+			if($this->PriceBlockElementID>0){
+					if(Preis::get()->byID($this->PriceBlockElementID)->CaPrice){
 						$caPrice=true;
 					}
 				}else{
@@ -136,7 +137,8 @@ public function CompletePrice(){
 				return new ArrayData(["Netto"=>$ocg_price->getNetto($orderCustomerGroup->Vat),"Brutto"=>$ocg_price->BasePrice($orderCustomerGroup->Vat),"Price"=>$ocg_price->BasePrice(),"Vat"=>$ocg_price->getIncludedVAT($orderCustomerGroup->Vat)]);
 			}
 		}else{
-			return $this->Product()->KiloPrice()->BasePrice();
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductContainer::ProductPrice----------------- kein Staffelement'.$this->Product()->Title);
+			return $this->Product()->KiloPrice();
 		}
 	}
 	public function getDiscount(){
