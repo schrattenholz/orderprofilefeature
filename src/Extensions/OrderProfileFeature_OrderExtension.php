@@ -324,15 +324,15 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 	}
 	public function getProductDetails($pd){
 		if($pd){
-			if(isset($pd['variant01'])){
-				
+			if(isset($pd['variant01']) && $pd['variant01']!="undefined"){
+				//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_OrderExtension getProductDetails VariantID benutzen variant01='.$pd['variant01']);
 				$productDetails=Preis::get()->byID(intval($pd['variant01']));
 				
 			}else{
-				$productDetails=Product::get()->byID($pd['productID']);				
+				//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_OrderExtension getProductDetails benutzen productID='.$pd['productID']);
+				$productDetails=Product::get()->byID($pd['productID']);
 			}
 		}else{
-			
 			if($this->owner->Preise()){
 				$productDetails=$this->owner->Preise()->First();
 			}else{
@@ -370,10 +370,11 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
     }
 	public function getProductBadge($ajaxData) 
     {
+		$data=new ArrayData();
 	   if(isset($ajaxData['v'])){
-			$data=new ArrayData(["VariantID"=>$ajaxData['v']]);
+			$data=new ArrayData(["VariantID"=>$ajaxData['v'],"ProductID"=>$ajaxData['id']]);
 	   }else{
-		   $data=array();
+		   $data=new ArrayData();
 	   }
         $productBadge = $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
             "Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge",

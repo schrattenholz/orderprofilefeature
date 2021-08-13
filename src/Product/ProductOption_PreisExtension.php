@@ -80,13 +80,13 @@ class ProductOption_PreisExtension extends DataExtension{
 							return CheckboxField::create($column);
 					})
 			));
-			/*$fields->addFieldToTab('Root.Produktoptionen', GridField::create(
+			$fields->addFieldToTab('Root.Produktoptionen', GridField::create(
 				'ProductOptions_Preis',
 				'Preise',
 				ProductOptions_Preis::get()->filter('PreisID',$this->getOwner()->ID),
 				$gridFieldConfig
 			));
-			*/
+			
 			$fields->removeFieldFromTab('Root.Main','Price');
 			$fields->removeByName('Preise');
     }
