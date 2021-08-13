@@ -13,9 +13,19 @@ use Psr\Log\LoggerInterface;
 
 class OrderProfileFeature_ProductList extends DataExtension{
 	private static $db=[
-		"Design"=>"Enum('KategorieListe,Produktfilter','KategorieListe')"
+		"Design"=>"Enum('KategorieListe,Produktfilter,KategorieMosaik','KategorieListe')"
 	];
 	public function updateCMSFields( FieldList $fields){
 		$fields->addFieldToTab("Root.Main", new DropdownField( 'Design', 'Design', singleton(ProductList::class)->dbObject('Design')->enumValues()),'Content'); 
+	}
+	public function BasicExtension_DefaultImage($defaultImage){
+		Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductList.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->TeaserImage()->Filename);
+		if($defaultImage){
+			
+		}else if($this->owner->MainImageID>0){
+			return $defaultImage->DefaultImage=$this->owner->MainImage();
+		}else if($this->owner->Children()->First()->DefaultImage()){
+			return $defaultImage->DefaultImage=$this->owner->Children()->First()->DefaultImage();
+		}
 	}
 }

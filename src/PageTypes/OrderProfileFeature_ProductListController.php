@@ -14,12 +14,20 @@ use SilverStripe\View\ArrayData;
 use SilverStripe\ORM\PaginatedList;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Injector\Injector;
-
+use SilverStripe\View\Requirements;
 class OrderProfileFeature_ProductListController extends DataExtension{
 	private static $allowed_actions=[
 		"getFilteredProductList",
 		"loadShopPage",
 	];
+	 public function onAfterInit(){
+		$vars = [
+			"Link"=>$this->getOwner()->Link(),
+			"ID"=>$this->owner->ID
+		];
+		Requirements::javascriptTemplate("schrattenholz/orderprofilefeature:javascript/masonry.pkgd.min.js",$vars);
+		
+	}
 	public function loadShopPage($data){
 		$page=$data['page'];
 		$categoryID=$data['categoryID'];
@@ -61,6 +69,11 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		if($this->owner->Design=="Produktfilter"){
 			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
 				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter",
+				SSViewer::config()->uninherited('themes')
+			));
+		}else if($this->owner->Design=="KategorieMosaik"){
+			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
+				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListMasonry",
 				SSViewer::config()->uninherited('themes')
 			));
 		}else{
