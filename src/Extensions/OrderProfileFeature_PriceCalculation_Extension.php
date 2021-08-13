@@ -27,9 +27,11 @@ class OrderProfileFeature_PriceCalculation_Extension extends DataExtension{
 		$vat=0;
 		$caPrice=false;
 		foreach($this->owner->ProductContainers() as $po){
-			$price+=($po->CompletePrice()->Price);
-			$vat+=($po->CompletePrice()->Vat);
-			if($po->CompletePrice()->CaPrice){
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_PriceCalculation_Extension::TotalPrice ->CompletePrice');
+			$cP=$po->CompletePrice();
+			$price+=($cP->Price);
+			$vat+=($cP->Vat);
+			if($cP->CaPrice){
 				$caPrice=true;
 			}
 		}
@@ -51,7 +53,7 @@ class OrderProfileFeature_PriceCalculation_Extension extends DataExtension{
 						return Group::get()->byID($cg->GroupID);
 					}
 				}
-				//Injector::inst()->get(LoggerInterface::class)->error('is not in customerGroups');
+				
 				return Group::get()->byID(OrderCustomerGroup::get()->filter('IsDefault',true)->First()->GroupID);
 		} else {
 			//Injector::inst()->get(LoggerInterface::class)->error('is not logged in get default group:'.OrderCustomerGroup::get()->filter('IsDefault',true)->First()->GroupID);

@@ -2,13 +2,16 @@
 
 namespace Schrattenholz\OrderProfileFeature;
 
-use Silverstripe\ORM\DataExtension;
+use Silverstripe\Core\Extension;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\ThemeResourceLoader;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\RequestHandler;
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
+use Schrattenholz\Order\OrderConfig;
 
-
-class OrderProfileFeature_ProductController extends DataExtension{
+class OrderProfileFeature_ProductController extends Extension{
 	public function index(HTTPRequest $request){
 		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
 			  "Page",

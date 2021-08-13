@@ -30,6 +30,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Security\Security;
 use Silverstripe\Security\Group;
 use SilverStripe\ORM\ValidationException;
+use Schrattenholz\Order\OrderConfig;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
@@ -67,7 +68,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		
 
 		//Produktoptionen
-		/*$gridFieldConfig=GridFieldConfig::create()
+		$gridFieldConfig=GridFieldConfig::create()
 			->addComponent(new GridFieldButtonRow('before'))
 
 			->addComponent($editableColumns=new GridFieldEditableColumns())
@@ -104,7 +105,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		));
 		
 		$fields->addFieldToTab('Root.Produktoptionen',new LiteralField("po","<p>Wählen Sie die benötigten Produktoptionen aus.</p><p>Wenn Sie Staffelpreise verwenden, können Sie die Produktoptionen in den einzelnen Staffelpreisen zusätzlich individualisieren.</p><p>&nbsp;</p>"),"ProductOptions_Product");
-		*/
+		
 		
 		
 		//Kilopreise pro Kundengruppe
@@ -197,7 +198,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 				//Bruttopreis anzeigen
 				$price=$ocg_product->Price;
 			}
-			return new ArrayData(["Price"=>$price]);
+			return new ArrayData(["Price"=>$price,"BasePrice"=>$price]);
 		}else{
 			return false;
 		}
@@ -253,4 +254,27 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		
 		parent::onAfterWrite();
 	}
+	public function BasicExtension_DefaultImage($defaultImage){
+		
+		
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->MainImage()->Filename);
+			
+		if ($defaultImage->DefaultImage->ID>0){
+			$defaultImage=$this->owner->MainImage();
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage ProductImage()->ID= default vorhanden');
+		//	Injector::inst()->get(LoggerInterface::class)->error('BlogExtension.php BasicExtension_DefaultImage ImageID='.$defaultImage->ID);
+		
+		}else if($this->owner->ProductImages()->Count()>0){
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage erstes produktbild='.$this->owner->ProductImages()->First()->Filename);
+			$defaultImage->DefaultImage= $this->owner->ProductImages()->Sort("SortOrder","ASC")->First();
+		}else{
+			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage kein produktbild='. OrderConfig::get()->First()->ProductImage()->Filename);
+			$defaultImage->DefaultImage= OrderConfig::get()->First()->ProductImage();
+		}
+		return $defaultImage;
+	}
+	/*public function DefaultImage(){
+		Injector::inst()->get(LoggerInterface::class)->error('ProductExtension.php BasicExtension_DefaultImage TeaserImage()->ID=');
+		return "muh";
+	}*/
 }
