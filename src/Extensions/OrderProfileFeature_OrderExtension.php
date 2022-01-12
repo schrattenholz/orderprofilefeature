@@ -48,6 +48,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		'expandBasketLiveTime',
 		'getBasketLiveTime',
 		'ClearOutdatedBaskets',
+		'SetOrderStatusOfOutdatedOrders',
         'getBasketNavList',
 		'getHandheldToolbar',
 		'getProductBadge',
@@ -241,6 +242,19 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		}
 		return true;
 	}
+	public function SetOrderStatusOfOutdatedOrders(){
+		$count=0;
+		$now = date("Y-m-d");
+		foreach(OrderProfileFeature_ClientOrder::get()->filter([
+			'ShippingDate:LessThan'=>strtotime($now),
+			'OrderStatus:not'=>'abgeschlossen'
+			]) as $order){
+				$count++;
+				$order->OrderStatus="abgeschlossen";
+				$order->write();
+		}
+		return "Status für ".$count." Aufträge geändert"; 
+	}
 	public function CreateBasket(){
 		$basket=new OrderProfileFeature_Basket();
 		$basket->write();
@@ -324,15 +338,15 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 	}
 	public function getProductDetails($pd){
 		if($pd){
-			if(isset($pd['variant01']) && $pd['variant01']!="undefined"){
-				//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_OrderExtension getProductDetails VariantID benutzen variant01='.$pd['variant01']);
+			if(isset($pd['variant01'])){
+				
 				$productDetails=Preis::get()->byID(intval($pd['variant01']));
 				
 			}else{
-				//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_OrderExtension getProductDetails benutzen productID='.$pd['productID']);
-				$productDetails=Product::get()->byID($pd['productID']);
+				$productDetails=Product::get()->byID($pd['productID']);				
 			}
 		}else{
+			
 			if($this->owner->Preise()){
 				$productDetails=$this->owner->Preise()->First();
 			}else{
@@ -370,11 +384,10 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
     }
 	public function getProductBadge($ajaxData) 
     {
-		$data=new ArrayData();
 	   if(isset($ajaxData['v'])){
-			$data=new ArrayData(["VariantID"=>$ajaxData['v'],"ProductID"=>$ajaxData['id']]);
+			$data=new ArrayData(["VariantID"=>$ajaxData['v']]);
 	   }else{
-		   $data=new ArrayData();
+		   $data=array();
 	   }
         $productBadge = $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
             "Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge",
