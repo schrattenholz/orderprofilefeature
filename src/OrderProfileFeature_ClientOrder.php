@@ -25,7 +25,7 @@ class OrderProfileFeature_ClientOrder extends DataObject{
 	private static $db=[
 		'Title'=>'Text',
 		'AdditionalNotes'=>'Text',
-		'OrderStatus'=>'Enum("offen,abgeschlossen","offen")',
+		'OrderStatus'=>'Enum("offen,inBearbeitung,abgeschlossen","offen")',
 		'IsModel'=>'Boolean'
 	];
 	private static $default_sort = 'Created DESC';
