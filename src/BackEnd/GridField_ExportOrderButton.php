@@ -142,27 +142,44 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
         $data = $this->generatePrintData($gridField);
 
         $this->extend('updatePrintData', $data);
-		/*
-		$f=$this->array_to_csv_download(array(
-			array(1,2,3,4), // this array is going to be the first row
-			array(1,2,3,4)), // this array is going to be the second row
+		
+		// START CSV EXPORT
+		$headerArray=array();
+		foreach($data->Header as $headerItem){			
+			array_push($headerArray,$headerItem->CellString);
+		}
+		$dataArray=array();
+		array_push($dataArray,$headerArray);
+		foreach($data->ItemRows as $item){		
+		
+			$itemArray=array();
+			
+			foreach($item->ItemRow as $itemCell){
+				array_push($itemArray,urldecode($itemCell->CellString));
+				Injector::inst()->get(LoggerInterface::class)->error('---'.urldecode($itemCell->CellString));
+			}
+			Injector::inst()->get(LoggerInterface::class)->error('-----------------____-----_____ ');
+			array_push($dataArray,$itemArray);
+		}
+		$array=$this->array_to_csv_download($dataArray, // this array is going to be the second row
 			"numbers.csv"
 		);
-		*/
-		return $f;
-        if ($data) {
-            return $data->renderWith(ThemeResourceLoader::inst()->findTemplate(
+		// ENDA CSV EXPORT
+		/*
+        if ($test) {
+            return $test->renderWith(ThemeResourceLoader::inst()->findTemplate(
 				"Schrattenholz\\OrderProfileFeature\\BackEnd\\OrderExport",
 				SSViewer::config()->uninherited('themes')
 			));
         }
-
-        return null;
+*/
+        return " ";
     }
-
+ 
 	public function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
 		header("Content-type: text/csv");
-		header("Content-Disposition: attachment; filename=file.csv");
+		header("charset:UTF-8");
+		header("Content-Disposition: attachment; filename=".$filename);
 		header("Pragma: no-cache");
 		header("Expires: 0");
 		ob_get_clean();
@@ -173,7 +190,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		foreach ($array as $line) {
 			fputcsv($f, $line, $delimiter);
 		}
-		//fclose($f);
+		fclose($f);
 		return $f;
 		
 	}  
@@ -252,7 +269,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 					$label="ab ".strftime("%d.%m.%Y",strtotime($label));
 				}*/
 				$searchedFields->push(array("Title"=>$searchedColumns[$field],"Value"=>$label,"Field"=>$field));
-				Injector::inst()->get(LoggerInterface::class)->error('-----------------____-----_____ Export before Value='.$label.' Field='.$field);
+				//Injector::inst()->get(LoggerInterface::class)->error('-----------------____-----_____ Export before Value='.$label.' Field='.$field);
 			}
 		}
 		
