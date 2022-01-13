@@ -156,9 +156,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 			
 			foreach($item->ItemRow as $itemCell){
 				array_push($itemArray,urldecode($itemCell->CellString));
-				Injector::inst()->get(LoggerInterface::class)->error('---'.urldecode($itemCell->CellString));
 			}
-			Injector::inst()->get(LoggerInterface::class)->error('-----------------____-----_____ ');
 			array_push($dataArray,$itemArray);
 		}
 		$array=$this->array_to_csv_download($dataArray, // this array is going to be the second row
