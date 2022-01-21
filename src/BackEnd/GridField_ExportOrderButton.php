@@ -160,7 +160,7 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 			array_push($dataArray,$itemArray);
 		}
 		$array=$this->array_to_csv_download($dataArray, // this array is going to be the second row
-			"numbers.csv"
+			"orders.csv"
 		);
 		// ENDA CSV EXPORT
 		/*
