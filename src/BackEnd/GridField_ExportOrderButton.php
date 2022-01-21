@@ -258,10 +258,12 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
     {
 		$ob=$gridField->getRequest();
 		$searchedColumns = $this->getPrintColumnsForGridField($gridField);
-		$sFs=json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"];
+		if(isset(json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"])){
+			$sFs=json_decode($ob->getVars()["Schrattenholz-OrderProfileFeature-OrderProfileFeature_ClientOrder"] ["GridState"],true)["GridFieldFilterHeader"] ["Columns"];
+		}
 		// Suchparmeter finden
 		$searchedFields=new ArrayList();
-		if($sFs){
+		if(isset($sFs)){
 			foreach($sFs as $field => $label){
 				/*if($field=="Created" && $label!=""){
 					$label="ab ".strftime("%d.%m.%Y",strtotime($label));
