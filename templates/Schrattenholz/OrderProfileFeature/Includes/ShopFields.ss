@@ -1,0 +1,1 @@
+<input type="hidden" id="ProductInBasket" name="ProductInBasket" value="$ProductsInBasket" />
