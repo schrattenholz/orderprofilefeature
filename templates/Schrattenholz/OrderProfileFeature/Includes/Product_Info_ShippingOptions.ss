@@ -1,3 +1,4 @@
+<h1>themes</h1>
 
 					<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
 					<% if $Top.getBasket().DeliverySpecial && not $IsPrimary%>
@@ -7,8 +8,11 @@
 					<% end_if %>
 					<!-- Abholtage -->
 						<% if $CollectionDays %>
-						<div class="card-body font-size-sm" data-pbe_id="$ID" id="pbe_1">
-						<h4 class="font-size-md">Abholtage</h4>
+							<div class="card-body font-size-sm" data-pbe_id="$ID" id="pbe_1">
+							<% if $MinOrderValue($Top.CurrentOrderCustomerGroup.ID,"collection")>0 %>
+								<h5 class="font-size-md"><i class="text-body czi-announcement"></i> Mindesbestellwert: $Top.FormattedNumber($MinOrderValue($Top.CurrentOrderCustomerGroup.ID,"collection")) €</h5>
+							<% end_if %>
+							<h4 class="font-size-md">Abholtage</h4>
 						
 							<% loop $getNextCollectionDays($Top.CurrentOrderCustomerGroup.ID,$ID) %>
 								
@@ -29,9 +33,9 @@
 					<% if $getCities($Top.CurrentOrderCustomerGroup.ID) %>
 					<div class="card-body font-size-sm" data-pbe_id="$ID" id="pbe_2">
 						<h4 class="font-size-md">Lieferorte</h4>
-					<% if $getCities($Top.CurrentOrderCustomerGroup.ID).First.Routes.First.DeliveryType.MinOrderValue %>
-					<h6><i class="text-body czi-announcement"></i> Mindesbestellwert: $Top.FormattedNumber($getCities($Top.CurrentOrderCustomerGroup.ID).First.Routes.First.DeliveryType.MinOrderValue) €</h6>
-					<% end_if %>
+					<% if $MinOrderValue($Top.CurrentOrderCustomerGroup.ID,"delivery")>0 %>
+								<h5 class="font-size-md"><i class="text-body czi-announcement"></i> Mindesbestellwert: $Top.FormattedNumber($MinOrderValue($Top.CurrentOrderCustomerGroup.ID,"delivery")) €</h5>
+							<% end_if %>
 						<div class="card-body">
 						  <div class="widget widget-links cz-filter">
 							<div class="input-group-overlay input-group-sm mb-2">
