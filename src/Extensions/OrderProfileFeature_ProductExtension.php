@@ -38,13 +38,17 @@ use Psr\Log\LoggerInterface;
 
 class OrderProfileFeature_ProductExtension extends DataExtension{
 		public function getAvailability($customerGroup=0){
+
 		// Pruefen ob das Preiselement eine Bestand hat und für die aktive Nutzergruppe aktiviert ist.
 		$availability=false;
 		if(!$this->owner->OutOfStock){
 			foreach($this->owner->Preise() as $p){
+				
 				if($p->IsActive()){
+					
 					// Das Element ist für die aktive Benutzgruppe aktiviert
 					if($p->Inventory>0 || $p->InfiniteInventory){
+						Injector::inst()->get(LoggerInterface::class)->error(' getAvailability='.$p->Title);
 						$availability=true;
 					}
 				}

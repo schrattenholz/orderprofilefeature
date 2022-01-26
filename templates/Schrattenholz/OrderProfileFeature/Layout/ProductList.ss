@@ -11,10 +11,11 @@
     </div>
     <!-- Page Content-->
     <div class="container pb-4 pb-sm-5">
+	<h1>orderprofilefeture modul</h1>
       <!-- Categories grid-->
       <div class="row pt-5">
 		<% if $Children %>
-			<% loop $Children.Sort('Date','DESC') %>
+			<% loop $AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID) %>
 			<!-- Catogory-->
 			<div class="col-md-4 col-sm-6 mb-3">
 			<div class="card border-0">

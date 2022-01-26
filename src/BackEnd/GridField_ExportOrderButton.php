@@ -280,7 +280,6 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		 $printColumns['ClientContainer.ID']="KDNR";
 		 $printColumns['ProductTitle']="Produktname";
 		 $printColumns['ProductQuantity']="Menge";
-		 $printColumns['AdditionalNotes']="Bemerkungen";
 		 $printColumns['OrderStatus']="Bestellstatus";
 		
 		//Kopfzeile erstellen
@@ -313,7 +312,6 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 				$newItem->ProductQuantity=$product->Quantity;
 				$newItem->PriceBlockElementID=$product->PriceBlockElementID;
 				$newItem->OrderStatus=$item->OrderStatus;
-				$newItem->AdditionalNotes=$item->AdditionalNotes;
 				$allItems->push($newItem);
 			}
 		}

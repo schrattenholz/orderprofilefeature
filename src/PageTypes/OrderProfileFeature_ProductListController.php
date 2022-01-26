@@ -40,7 +40,7 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 			$products->push($cat);
 			//return "muh";//new ArrayList($cat);
 		}else{
-			$products=$this->CategoryProducts($categoryID,$products);
+			$products=$this->CategoryProducts($categoryID,$products,$this->owner->CurrentOrderCustomerGroup());
 		}
 		$paginatedProducts=new PaginatedList($products, ['start'=>$page]);
 		$paginatedProducts->setPageLength(9);
@@ -86,33 +86,53 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 	public function PaginationPos(){
 		return $this->owner->getRequest()['start'];
 	}
-	public function AllProductsOfCategory($categoryID=0,$nextPageStart=0){
+	public function AllProductsOfCategory($categoryID=0,$nextPageStart=0,$customerGroup){
 		if($categoryID==0)$categoryID=$this->owner->ID;
 		$cat=SiteTree::get()->byID($categoryID);
 		//return $cat->ClassName;//new ArrayList($cat);
 		$products=new ArrayList();
 		
 		if($cat->ClassName=="Schrattenholz\Order\Product"){
-			
+			$cat->Available=$cat->getAvailability($customerGroup);
 			$products->push($cat);
 			//return "muh";//new ArrayList($cat);
 		}else{
-			$products=$this->CategoryProducts($categoryID,$products);
+			$products=$this->CategoryProducts($categoryID,$products,$customerGroup);
 		}
-		$paginatedProducts=new PaginatedList($products, ['start'=>$nextPageStart]);
+		$paginatedProducts=new PaginatedList($products->Sort("Available","DESC"), ['start'=>$nextPageStart]);
 		$paginatedProducts->setPageLength(9);
 		return $paginatedProducts;
 	}
-	public function CategoryProducts($categoryID,$productList){
+	public function CategoryProducts($categoryID,$productList,$customerGroup){
+		
 		foreach(SiteTree::get()->byID($categoryID)->Children() as $subPage){
 			if($subPage->ClassName=="Schrattenholz\Order\Product"){
+				//Injector::inst()->get(LoggerInterface::class)->error($customerGroup.' CategoryProducts='.$subPage->getAvailability($customerGroup));
+				$subPage->Available=$subPage->getAvailability($customerGroup);
 				$productList->push($subPage);
 
 			}else if($subPage->Children()){
-				$productList=$this->CategoryProducts($subPage->ID,$productList);
+				$productList=$this->CategoryProducts($subPage->ID,$productList,$customerGroup);
 			}
 		}
-		return $productList;
+		return $productList->Sort("Available","DESC");
+	}
+	public function CategoryItems($customerGroup){
+		$itemList=new ArrayList();
+		foreach ($this->owner->Children() as $item){
+			if($item->ClassName="Schrattenholz\Order\Product" || $item->ClassName=="Schrattenholz\Order\ProductList"){
+				if($item->ClassName=="Schrattenholz\Order\Product"){
+					//Injector::inst()->get(LoggerInterface::class)->error($customerGroup.' CategoryProducts='.$subPage->getAvailability($customerGroup));
+					$item->Available=$item->getAvailability($customerGroup);
+				}else{
+					$item->Available=true;
+					
+				}
+				$itemList->push($item);
+			}
+			
+		}
+		return $itemList->Sort("Available","DESC");
 	}
 	public function getFilteredProductList($data){
 		//return $data['id'];

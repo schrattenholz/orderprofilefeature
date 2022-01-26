@@ -1,4 +1,4 @@
-<% loop $AllProductsOfCategory($CategoryID,$CurrentPageStart) %>
+<% loop $AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID) %>
 	<!-- Product-->
 	<div id="p$ID" data-productid="$ID" data-title="$MenuTitle.XML"  class="col-md-4 col-sm-6 px-2 mb-4">
 	  <div class="card product-card">
@@ -24,5 +24,5 @@
 	  <hr class="d-sm-none">
 	</div>
 <% end_loop %>
-	<input type="hidden" id="currentPage" name="currentPage" value="$AllProductsOfCategory($CategoryID,$CurrentPageStart).CurrentPage" readonly="readonly" />
-	<input type="hidden" id="totalPages" name="totalPages" value="$AllProductsOfCategory($CategoryID,$CurrentPageStart).TotalPages" readonly="readonly" />
+	<input type="hidden" id="currentPage" name="currentPage" value="$AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID).CurrentPage" readonly="readonly" />
+	<input type="hidden" id="totalPages" name="totalPages" value="$AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID).TotalPages" readonly="readonly" />
