@@ -278,6 +278,8 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		 $printColumns['Created']="Bestelldatum";
 		 $printColumns['ShippingDate']="Abhol/Lieferdatum";
 		 $printColumns['ClientContainer.ID']="KDNR";
+		 $printColumns['ClientContainer.Surname']="Nachname";
+		 $printColumns['ClientContainer.Email']="E-Mail";
 		 $printColumns['ProductTitle']="Produktname";
 		 $printColumns['ProductQuantity']="Menge";
 		 $printColumns['OrderStatus']="Bestellstatus";
