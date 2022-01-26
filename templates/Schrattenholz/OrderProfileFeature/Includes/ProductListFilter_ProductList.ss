@@ -8,7 +8,7 @@
 			<i class="czi-heart"></i>
 		</button>
 		-->
-		<a class="card-img-top d-block overflow-hidden" href="$Link"><img src="$CoverImage.Fill(518,484).URL" alt="Product"></a>
+		<a class="card-img-top d-block overflow-hidden" href="$Link"><img src="$DefaultImage.Fill(518,484).URL" alt="Product"></a>
 		<div class="card-body py-2">
 		<a class="product-meta d-block font-size-xs pb-1" href="$Parent.Link">$Parent.MenuTitle.XML</a>
 		  <h3 class="product-title font-size-sm">
