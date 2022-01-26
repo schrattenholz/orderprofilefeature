@@ -277,19 +277,21 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		 $printColumns=new ArrayList();
 		 $printColumns['Created']="Bestelldatum";
 		 $printColumns['ShippingDate']="Abhol/Lieferdatum";
-		 $printColumns['ClientContainer.ClientID']="reg KDNR"
-		 if($printColumns['ClientContainer.ClientID']>0){
+		 $printColumns['ClientContainer.ClientID']="KDNR";
+		 
+		 //$printColumns['ClientContainerID']="tmp KDNR";
+		 /*if($printColumns['ClientContainer.ClientID']>0){
 			 $printColumns['ClientContainer.ClientID']="KDNR"	; 
 		 }else{			 
 			 $printColumns['ClientContainer.ID']="tmp KDNR";
-		 }
+		 }*/
 		 
 		 $printColumns['ClientContainer.Surname']="Nachname";
 		 $printColumns['ClientContainer.Email']="E-Mail";
 		 $printColumns['ProductTitle']="Produktname";
 		 $printColumns['ProductQuantity']="Menge";
 		 $printColumns['OrderStatus']="Bestellstatus";
-		
+		 $printColumns['ID']="Bestellnummer";
 		//Kopfzeile erstellen
         $header = null;
         if ($this->printHasHeader) {
@@ -315,11 +317,13 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 				$newItem=new OrderProfileFeature_ClientOrder();
 				$newItem->Created=strftime("%d.%m.%Y",strtotime($item->Created));
 				$newItem->ShippingDate=strftime("%d.%m.%Y",strtotime($item->ShippingDate));
-				$newItem->ClientContainer=$item->ClientContainerID;
+				$newItem->ClientContainerID=$item->ClientContainerID;
+				
 				$newItem->ProductTitle=$product->Product()->Title.": ".$product->PriceBlockElement()->getFullTitle(false);
 				$newItem->ProductQuantity=$product->Quantity;
 				$newItem->PriceBlockElementID=$product->PriceBlockElementID;
 				$newItem->OrderStatus=$item->OrderStatus;
+				$newItem->ID=$item->ID;
 				$allItems->push($newItem);
 			}
 		}
