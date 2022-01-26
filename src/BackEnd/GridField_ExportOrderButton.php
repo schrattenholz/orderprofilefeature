@@ -278,8 +278,8 @@ class GridField_ExportOrderButton implements GridField_HTMLProvider, GridField_A
 		 $printColumns['Created']="Bestelldatum";
 		 $printColumns['ShippingDate']="Abhol/Lieferdatum";
 		 
-		 if($printColumns['ClientContainer.ClientID']){
-			 $printColumns['ClientContainer.ClientID']	; 
+		 if($printColumns['ClientContainer.ClientID']>0){
+			 $printColumns['ClientContainer.ClientID']="KDNR"	; 
 		 }else{			 
 			 $printColumns['ClientContainer.ID']="KDNR";
 		 }
