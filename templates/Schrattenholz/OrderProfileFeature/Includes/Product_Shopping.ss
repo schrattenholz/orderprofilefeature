@@ -90,7 +90,7 @@
 							value="<% if $loadSelectedParameters(0).Quantity>0 %><% if $loadSelectedParameters(0).ProductDetails.Portionable %>$Top.formattedWeight($loadSelectedParameters(0).Quantity)<% else %>$loadSelectedParameters(0).Quantity<% end_if %><% else %><% if $loadSelectedParameters(0).ProductDetails.Portionable %>{$loadSelectedParameters(0).ProductDetails.PortionMin}g<% else %>0<% end_if %><% end_if %>">
 						</div>
 					</div>
-					<div id="currentlyInBasket" class="col-7 offset-2 <% if $Top.loadSelectedParameters(0).Quantity %>d-block<% else %>d-none<% end_if %>" style="padding:10px 30px 10px 3px;"><p class="pl-3">Bereits im Warenkorb</p>
+					<div id="currentlyInBasket" class="col-7 offset-2 <% if $Top.loadSelectedParameters(0).Quantity %>d-block<% else %>d-none<% end_if %>" style="padding:10px 30px 10px 3px;"><p class="pl-3 mt-2 mt-md-4">Bereits im Warenkorb</p>
 					</div>
 				</div>
 				<div class="form-group col-12 messageBox px-0">
