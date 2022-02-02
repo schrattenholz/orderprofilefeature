@@ -58,6 +58,7 @@
 </div>
 
 	<section class="container pt-5 pb-3 pb-lg-5" role="main" id="profile_orders">
+	<h1>Orders</h1>
 	<% if $CurrentUser %>
 		<div class="row">
 			<div class="col-md-3 oderprofilefeature_profil_menu list-group">
@@ -123,9 +124,9 @@
 										<% end_loop %>
 									</tbody>	 
 								</table>
-								<!--
+								
 								<button type="button" data-toggle="modal" data-target="#orderModal" data-clientorderid="$ID" class="btn btn-primary btn-sm saveOrderAsModelButton" id="#saveOrderAsModel_$ID"><i class="czi-sign-in mr-2" ></i>Als Vorlage speichern</button>
-								-->
+								
 							</div>
 						</div>
 					</div>

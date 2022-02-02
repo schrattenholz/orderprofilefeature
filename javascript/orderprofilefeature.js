@@ -63,8 +63,8 @@ function loadFilteredProductList(type,id,close){
 		});
 	}
 	function startShopPageListener(){
-		$('#pageLoadIcon').addClass('d-inlineblock');
-		$(window).bind('scroll',shopPageListener);
+		$('#pageLoadIcon').removeClass('d-none').addClass('d-inlineblock');
+		$(window).unbind('scroll').bind('scroll',shopPageListener);
 	}
 	var shopPageListener= function ShopPageListener(){
 		var footer = document.getElementById("footer");
@@ -302,9 +302,9 @@ function loadBasketNavList(){
 	});
 	
 }
-function loadProductBadge(){
+function loadProductBadge(id){
 	jQuery.post({
-		url: "$Link/getProductBadge?id=$ID&v="+jQuery("#variant01").val()+"&vac="+getVac(),
+		url: "$Link/getProductBadge?id=$ID&v="+jQuery(id+" .variant01").val()+"&vac="+getVac(),
 		success: function(data) {
 			$('.productbadge').html(data);
 		}

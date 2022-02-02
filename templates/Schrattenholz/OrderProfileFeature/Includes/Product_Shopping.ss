@@ -14,11 +14,11 @@
 					<% end_if %>
 				<!-- Produktvarianten/Staffelpreise -->
 				<% if $GroupPreise %>
-					<div id="product-variants" class="form-group product-variants" >
-						<h5>Varianten</h5>
+					<div class="product-variants" class="form-group product-variants" >
+						<h5 class="mt-4">Varianten</h5>
 						
 						<div class="selectric-wrapper">
-							<select id="variant01"   class="custom-select" style="width:100%;" onchange="refreshSelectedProduct('variantChange')" <% if $GroupPreise.Count<=1 %>disabled="disabled"<% end_if %>>
+							<select  class=" variant01 custom-select" style="width:100%;" onchange="refreshSelectedProduct('variantChange','#p_$Top.ID')" <% if $GroupPreise.Count<=1 %>disabled="disabled"<% end_if %>>
 							<% loop $GroupPreise.Sort('SortID','ASC') %>
 								<option 
 									value="$ID" 
@@ -42,11 +42,12 @@
 					<% end_if %>
 				<!-- Produktoptionen -->
 				<% if $ProductOptions && not $GroupPreise %>
-				<div id="product-options" class="form-group product-options ">
+				<h2>ProduktOptionen keine Produktvarianten</h2>
+				<div class="product-options" class="form-group product-options ">
 					<% loop $ProductOptions %>
 					<% if $ProductOptions_Product.Active %>
 						<div class="custom-control custom-checkbox">
-						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" onchange="refreshSelectedProduct('attributeChange')" 
+						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 						  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 						  /> 
 						  <label class="custom-control-label" for="productoption_$ID">$Title (zzgl. $Top.formattedNumber($ProductOptions_Product.PriceObject.Price) &euro;/Stk.)</label>
@@ -55,12 +56,13 @@
 					<% end_loop %>
 				</div>
 				<% else_if $ProductOptions && $GroupPreise %>
-					<% loop $GroupPreise.Sort('Price','ASC') %>
+				<h5 class="mt-4">ProduktOptionen</h5>
+					<% loop $GroupPreise.Sort('SortID','ASC') %>
 					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
 						<% loop $ProductOptions %>
 						<% if $ProductOptions_Preis.Active %>
 							<div class="custom-control custom-checkbox">
-							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" onchange="refreshSelectedProduct('attributeChange')" 
+							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 							  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 							  /> 
 							  <label class="custom-control-label" for="productoption_{$Up.ID}_{$ID}">$Title (zzgl. $Top.formattedNumber($ProductOptions_Preis.PriceObject.Price) &euro;/Stk.)</label>
@@ -78,7 +80,7 @@
 						
 							<input 
 							oninput="this.value=onlyNumber(this.value);"
-							id="amount" 
+							class="amount" 
 							type="text" 
 							data-portionable="$loadSelectedParameters(0).ProductDetails.Portionable"
 							min="<% if $loadSelectedParameters(0).ProductDetails.Portionable %>$loadSelectedParameters(0).ProductDetails.PortionMin<% else %>0<% end_if %>" 
@@ -99,19 +101,19 @@
 				<div class="form-group d-flex align-items-center">
 					<div class="container">
 						<div id="addFunction" class="row" <% if $Top.loadSelectedParameters(0).Quantity>0 %>style="display:none;"<% end_if %>>
-						<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('$ID','new');"><i class="czi-cart font-size-lg mr-2"></i>In den Warenkorb</a>
+						<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('#p_$ID','new');"><i class="czi-cart font-size-lg mr-2"></i>In den Warenkorb</a>
 						</div>
 						<div id="editFunction" class="row" <% if $Top.loadSelectedParameters(0).Quantity==0 || $Top.loadSelectedParameters(0).Quantity=="" %>style="display:none;"<% end_if %>>
 							 <div class="col-md-6 pl-md-0">
-								<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('$ID','edit');"><i class="czi-reload font-size-lg mr-2"></i>Aktualisieren</a>
+								<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('#p_$ID','edit');"><i class="czi-reload font-size-lg mr-2"></i>Aktualisieren</a>
 							</div>
 
 							<div class="col-md-6 pr-md-0 mt-2 mt-sm-0">
-								<a class="btn btn-danger btn-shadow btn-block" href="javascript:javascript:removeProductFromBasket('$ID','{$Top.BaseHref}{$Top.Link}');" title="Produkt aus dem Warenkorb entfernen"><i class="font-size-lg mr-2 czi-close-circle"></i>Entfernen</a>
+								<a class="btn btn-danger btn-shadow btn-block" href="javascript:javascript:removeProductFromBasket('#p_$ID','{$Top.BaseHref}{$Top.Link}');" title="Produkt aus dem Warenkorb entfernen"><i class="font-size-lg mr-2 czi-close-circle"></i>Entfernen</a>
 							</div>
 							<!--
 							<div class="col-12 pl-md-0 pr-md-0 pt-3">
-								<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('$ID','new');"><i class="czi-cart font-size-lg mr-2"></i>Als neues Produkt in den Warenkorb</a>
+								<a class="btn btn-dark btn-shadow btn-block" href="javascript:addToList('#p_$ID','new');"><i class="czi-cart font-size-lg mr-2"></i>Als neues Produkt in den Warenkorb</a>
 							</div>
 							-->
 						</div>

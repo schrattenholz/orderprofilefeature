@@ -81,34 +81,39 @@
 									</thead>
 									<tbody>
 										<% loop $ProductContainers.Sort('ProductSort') %>
-								<tr id="product_{$ID}" data-productid="$ProductID" data-quantity="$Quantity" data-priceblockelement="$PriceBlockElement.ID" data-vacuum="$Vacuum" >
+								<tr id="product_{$ID}" data-productid="$Product.ID" data-producttitle="$Product.Title" data-quantity="$Quantity" data-priceblockelement="$PriceBlockElement.ID" data-vacuum="$Vacuum" >
 									<td>
 									<a href="$Product.Link">$Product.SummaryTitle</a>
 									<% if $PriceBlockElement %>
 									<div class="font-size-sm">
 										<span class="text-muted mr-2">$PriceBlockElement.Title</span>
+										<input type="hidden" class="variant01" value="$PriceBlockElement.ID" >
 									</div>
 									<% end_if %>
 									</td>
 									<td>
 									<div class="quantity position-relative clearfix d-inline-block align-top">
-									<input class="amount" type="number" min="0" max="100" step="1"value="$Quantity">
+									<input class="amount" type="text" min="0" max="100" step="1" value="$Quantity">
 									</div>
 									</td>
 									<td data-value="$Vacuum">
+									
 									<% if $ProductOptions %>
 										<dl class="row mb-0 font-size-xs">
-										<% loop $ProductOptions %>
-										<% loop $ProductContainers %>									
-											<% if $ID==$Up.Up.ID && $ProductOptions_ProductContainer.Active  %>
-												<dt class="col-sm-9 mb-0">$Up.Title</dt>
+										<% loop $Product.ProductOptions %>
+										
+										<dt class="col-sm-9 mb-0"> 
+										<% loop $Up.Up.ProductOptions.Filter("ProductOptionID",$ID) %>
+											<% if $ProductOptions_ProductContainer.Active %>
+												$Title
 											<% end_if %>
 										<% end_loop %>
+									 
 										<% end_loop %>
 										</dl>
 									<% end_if %>
 									</td>
-									<td><a href="javascript:addProduct($ID);" title="Produkt in den Warenkorb legen"><i class="czi-basket"></i></a></td>
+									<td><a href="javascript:addToList('#orderlist_$ClientOrderID #product_$ID');" title="Produkt in den Warenkorb legen"><i class="czi-basket"></i></a></td>
 								</tr>
 							  <% end_loop %>	 
 								</table>
@@ -128,7 +133,7 @@
 	<% end_if %>
 </section>
 
-
+<% include Schrattenholz\OrderProfileFeature\Layout\Product_JavaScript %>
 <script>
 function editTitel(id){
 	jQuery('#title_'+id).css('display','none');

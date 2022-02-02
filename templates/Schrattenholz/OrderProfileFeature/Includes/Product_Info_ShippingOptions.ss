@@ -1,5 +1,5 @@
-<h1>themes</h1>
-
+<h1>module</h1>
+$ID,$v
 					<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
 					<% if $Top.getBasket().DeliverySpecial && not $IsPrimary%>
 					<div class="card-body font-size-sm">
