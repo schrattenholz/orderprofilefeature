@@ -76,7 +76,7 @@
 				<!-- Bestellmenge -->
 				<div class="row">
 					<div class="col-3 form-group d-flex align-items-center">
-						<div class="quantity position-relative clearfix d-inline-block align-top">
+						<div class="quantity position-relative clearfix d-inline-block align-top mt-2 mt-md-4">
 						
 							<input 
 							oninput="this.value=onlyNumber(this.value);"
