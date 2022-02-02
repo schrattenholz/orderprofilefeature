@@ -230,6 +230,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		return $sumTitle;//." mit ".$this->Wheels." Rädern";
 	}
 	public function onAfterWrite(){
+		
 		foreach(OrderCustomerGroup::get() as $ocg){
 			if($this->getOwner()->OrderCustomerGroups()->filter('ID',$ocg->ID)){
 				$this->getOwner()->OrderCustomerGroups()->add($ocg);

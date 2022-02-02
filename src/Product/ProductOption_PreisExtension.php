@@ -97,7 +97,7 @@ class ProductOption_PreisExtension extends DataExtension{
 			}
 				$option=ProductOptions_Preis::get()->where(["ProductOptionID"=>$po->ID,"PreisID"=>$this->owner->ID])->First();
 				$productID=Preis::get()->byID($option->PreisID)->ProductID;
-				if(!$option->Price){
+				if(!$option->Price && $productID){
 					$option->Price=ProductOptions_Product::get()->where(["ProductOptionID"=>$po->ID,"ProductID"=>$productID])->First()->Price;
 					$option->write();
 				}else if ($option->Price && $option->AutoCalc){
