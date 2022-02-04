@@ -38,17 +38,18 @@ class ProductOption extends DataObject{
 		$fields->addFieldToTab ('Root.Main',new TextField('Content','Bezeichnung'));
 		return $fields;
     }
-	public function onAfterWrite(){		
-		foreach(Product::get() as $p){
-			foreach(ProductOption::get() as $pO){
+	public function onAfterWrite(){	
+		foreach(ProductOption::get() as $pO){	
+			foreach(Product::get() as $p){			
 				if($p->ProductOptions()->filter('ProductOptionID',$pO->ID)->Count==0){
 					$p->ProductOptions()->add($pO);
 				}
+				foreach($p->Preise() as $pbe){
+					if($pbe->ProductOptions()->filter('ProductOptionID',$pO->ID)->Count==0){
+						$pbe->ProductOptions()->add($pO);
+					}					
+				}				
 			}
-			/*if(!$p->ProductOptions()->filter())
-			foreach($p->Prices() as $productVariant){
-				
-			}*/
 		}
 		parent::onAfterWrite();
 		
