@@ -108,7 +108,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 			$gridFieldConfig
 		));
 		
-		$fields->addFieldToTab('Root.Produktoptionen',new LiteralField("po","<p>Wählen Sie die benötigten Produktoptionen aus.</p><p>Wenn Sie Staffelpreise verwenden, können Sie die Produktoptionen in den einzelnen Staffelpreisen zusätzlich individualisieren.</p><p>&nbsp;</p>"),"ProductOptions_Product");
+		$fields->addFieldToTab('Root.Produktoptionen',new LiteralField("po","<p>Wählen Sie die benötigten Produktoptionen aus.</p><p>Wenn Sie Produktvarianten verwenden, können Sie die Produktoptionen in den einzelnen Produktvariantenn zusätzlich individualisieren.</p><p>&nbsp;</p>"),"ProductOptions_Product");
 		
 		
 		
@@ -149,8 +149,8 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		),'Quantity');
 		
 		
-		//Staffelpreise
-		$fields->addFieldToTab('Root.Staffelpreise', $gridfield=GridField::create(
+		//Produktvarianten
+		$fields->addFieldToTab('Root.Produktvarianten', $gridfield=GridField::create(
 		'Preise',
 		'Staffelelemente muh',
 		$this->getOwner()->Preise()->sort('SortOrder'),
