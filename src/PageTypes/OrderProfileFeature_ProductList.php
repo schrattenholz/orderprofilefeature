@@ -19,11 +19,10 @@ class OrderProfileFeature_ProductList extends DataExtension{
 		$fields->addFieldToTab("Root.Main", new DropdownField( 'Design', 'Design', singleton(ProductList::class)->dbObject('Design')->enumValues()),'Content'); 
 	}
 	public function BasicExtension_DefaultImage($defaultImage){
-		Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductList.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->TeaserImage()->Filename);
+		//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductList.php BasicExtension_DefaultImage ');
 		if($defaultImage){
 		}else if($this->owner->ProductImages->Count>0){
-			return $defaultImage->DefaultImage=$this->owner->ProductImages()->First;
-			
+			return $defaultImage->DefaultImage=$this->owner->ProductImages()->First;	
 		}else if($this->owner->MainImageID>0){
 			return $defaultImage->DefaultImage=$this->owner->MainImage();
 		}else if($this->owner->Children()->First()->DefaultImage()){
