@@ -3,8 +3,12 @@
 
 namespace Schrattenholz\OrderProfileFeature;
 
-use Silverstripe\ORM\DataObject;
+use Schrattenholz\Order\Product;
 
+
+use Silverstripe\ORM\DataObject;
+use Silverstripe\Forms\TextField;
+use Silverstripe\Forms\NumericField;
 class ProductOption extends DataObject{
 	private static $table_name='ProductOption';
 	private static $db=[
@@ -20,5 +24,34 @@ class ProductOption extends DataObject{
 	];
 	private static $singular_name="Produktoption";
 	private static $plural_name="Produktoptionen";
+	public function getCMSFields(){
+		$fields=parent::getCMSFields();
+		$fields->removeByName('Prices');
+		$fields->removeByName('Products');
+		$fields->removeByName('ProductContainers');
+		$num=new NumericField("Price","Preis");
+		$num->setLocale("DE_De");
+		$num->setScale(2);
+		$fields->addFieldToTab ('Root.Main',new TextField('Title','Bezeichnung'));
+		$fields->addFieldToTab ('Root.Main',new TextField('Shortcode','Kurzbezeichnung'));
+		$fields->addFieldToTab ('Root.Main',$num);
+		$fields->addFieldToTab ('Root.Main',new TextField('Content','Bezeichnung'));
+		return $fields;
+    }
+	public function onAfterWrite(){		
+		foreach(Product::get() as $p){
+			foreach(ProductOption::get() as $pO){
+				if($p->ProductOptions()->filter('ProductOptionID',$pO->ID)->Count==0){
+					$p->ProductOptions()->add($pO);
+				}
+			}
+			/*if(!$p->ProductOptions()->filter())
+			foreach($p->Prices() as $productVariant){
+				
+			}*/
+		}
+		parent::onAfterWrite();
+		
+	}
 }
 ?>
