@@ -96,10 +96,10 @@ class ProductOption_PreisExtension extends DataExtension{
 				$this->getOwner()->ProductOptions()->add($po);
 			}
 				$option=$this->getOwner()->ProductOptions()->filter(["ProductOptionID"=>$po->ID,"PreisID"=>$this->owner->ID])->First();
-				Injector::inst()->get(LoggerInterface::class)->error('ProductOption_PreisExtension ProductOptionID='.$po->ID.' PreisID='. $this->owner->ID);
+				//Injector::inst()->get(LoggerInterface::class)->error('ProductOption_PreisExtension ProductOptionID='.$po->ID.' PreisID='. $this->owner->ID);
 				$productID=Preis::get()->byID($this->owner->ID)->ProductID;
 					if(!$option->Price && $productID){
-						Injector::inst()->get(LoggerInterface::class)->error('ProductOption_PreisExtension ProductOptionID='.$po->ID.' ProductID='. $productID);
+						//Injector::inst()->get(LoggerInterface::class)->error('ProductOption_PreisExtension ProductOptionID='.$po->ID.' ProductID='. $productID);
 						$option->Price=ProductOptions_Product::get()->where(["ProductOptionID"=>$po->ID,"ProductID"=>$productID])->First()->Price;
 						$option->write();
 					}else if ($option->Price && $option->AutoCalc){
