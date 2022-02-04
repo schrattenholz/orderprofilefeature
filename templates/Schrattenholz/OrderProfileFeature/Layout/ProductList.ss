@@ -24,6 +24,9 @@
 			</a>
 				<div class="card-body">
 				<h2 class="h5">$MenuTitle.XML</h2>
+				<% if $ClassName=="Schrattenholz\\Order\\Product" && not $Children %>
+						<% if $CaPrice %>ca. <% end_if %>$Top.formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode
+					<% end_if %>
 				<% if $Children %>
 				<ul class="list-unstyled font-size-sm mb-0">
 				<% loop $Children.Limit(7) %>
