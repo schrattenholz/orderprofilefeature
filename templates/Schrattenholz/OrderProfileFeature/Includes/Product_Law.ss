@@ -1,2 +1,9 @@
-<p class="font-size-xs">* $CurrentOrderCustomerGroup.VatNote</p>
-<p class="font-size-xs">$OrderConfig.ProductFooter</p>
+<table>
+<tbody>
+<tr>
+<td style="vertical-align: top; width: 21px;">*</td>
+<td>$CurrentOrderCustomerGroup.VatNote<br /><br /></td>
+</tr>
+</tbody>
+</table>
+$OrderConfig.ProductFooter

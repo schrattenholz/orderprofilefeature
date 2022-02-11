@@ -89,7 +89,7 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 		parent::onBeforeWrite();
 	}
 public function CompletePrice(){
-	Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductContainer::CompletePrice-'.$this->Product()->Title);
+	//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductContainer::CompletePrice-'.$this->Product()->Title);
 			$productPrice=$this->ProductPrice();
 			$basePrice=$productPrice->Price;//:floatval
 			

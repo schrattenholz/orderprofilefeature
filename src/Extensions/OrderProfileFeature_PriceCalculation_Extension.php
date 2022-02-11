@@ -27,7 +27,7 @@ class OrderProfileFeature_PriceCalculation_Extension extends DataExtension{
 		$vat=0;
 		$caPrice=false;
 		foreach($this->owner->ProductContainers() as $po){
-			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_PriceCalculation_Extension::TotalPrice ->CompletePrice');
+			//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_PriceCalculation_Extension::TotalPrice ->CompletePrice');
 			$cP=$po->CompletePrice();
 			$price+=($cP->Price);
 			$vat+=($cP->Vat);
