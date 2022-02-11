@@ -99,13 +99,15 @@
 									<td data-value="$Vacuum">
 									
 									<% if $ProductOptions %>
-										<dl class="row mb-0 font-size-xs">
+										<dl id="product-options" class="row mb-0 font-size-xs">
 										<% loop $Product.ProductOptions %>
 										
 										<dt class="col-sm-9 mb-0"> 
 										<% loop $Up.Up.ProductOptions.Filter("ProductOptionID",$ID) %>
 											<% if $ProductOptions_ProductContainer.Active %>
-												$Title
+											<input type="checkbox" id="productoption_$ID" />
+											<label class="custom-control-label" for="productoption_$ID">$Title</label>
+												
 											<% end_if %>
 										<% end_loop %>
 									 
