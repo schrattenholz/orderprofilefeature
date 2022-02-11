@@ -105,7 +105,7 @@
 										<dt class="col-sm-9 mb-0"> 
 										<% loop $Up.Up.ProductOptions.Filter("ProductOptionID",$ID) %>
 											<% if $ProductOptions_ProductContainer.Active %>
-											<input type="checkbox" id="productoption_$ID" />
+											<input class="custom-control-input" type="checkbox" id="productoption_$ID" />
 											<label class="custom-control-label" for="productoption_$ID">$Title</label>
 												
 											<% end_if %>
