@@ -51,7 +51,7 @@
 							  <li class="widget-list-item cz-filter-item">
 								
 								  <span class="cz-filter-item-text">$Delivery_ZIPCodes.First.Title, $Title</span>
-								  <span class="font-size-xs text-muted ml-3">$Routes.First.getNextDeliveryDates($Top.CurrentOrderCustomerGroup.ID,$Up.Up.ID)</span>
+								  <span class="font-size-xs text-muted ml-3"><% loop $Routes.First.getNextDeliveryDates($Top.CurrentOrderCustomerGroup.ID,$Up.Up.ID) %> $Eng<% end_loop %></span>
 								
 							  </li>
 								<% end_loop %>

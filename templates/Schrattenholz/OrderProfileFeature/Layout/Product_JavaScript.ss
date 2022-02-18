@@ -1,5 +1,6 @@
 <script>
 function getProductOptions(id){
+console.log("product-option");
 	var options=[]
 	var c=0;
 	if($(id+" .variant01").length>0){
@@ -9,7 +10,7 @@ function getProductOptions(id){
 	}
 	//console.log("getProductOptions "+rootSelector);
 	$(rootSelector).find("input").each(function(){
-	//console.log("product-options "+$(this).attr("data-id"))
+	console.log("product-options "+$(this).attr("id"))
 		var option=[];
 		option["id"]=$(this).attr("data-id");
 		option["value"]=getCheckbox($(this).attr("id"));
@@ -122,7 +123,7 @@ function refreshSelectedProduct(action,id){
 		jQuery.ajax({
 			url:"{$Link}/FreeQuantityAjax?orderedProduct="+JSON.stringify(getOrderedProduct(id)),
 			success: function(data){
-			data=JSON.parse(data);
+			//data=JSON.parse(data);
 				/*
 					data.ClientsPossibleQuantity = amount
 					data.QuantityLeft
