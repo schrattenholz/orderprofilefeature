@@ -87,7 +87,7 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		return $this->owner->getRequest()['start'];
 	}
 	public function AllProductsOfCategory($categoryID=0,$nextPageStart=0,$customerGroup){
-		if($categoryID==0)$categoryID=$this->owner->ID;
+		if(!$categoryID){$categoryID=$this->owner->ID;}
 		$cat=SiteTree::get()->byID($categoryID);
 		//return $cat->ClassName;//new ArrayList($cat);
 		$products=new ArrayList();
