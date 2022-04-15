@@ -110,8 +110,9 @@ public function CurrentGroup(){
 	public function IsActive(){
 		
 		$orderCustomerGroup=$this->getOwner()->OrderCustomerGroups()->filter('GroupID',$this->getOwner()->CurrentGroup()->ID)->First();
-
+		
 		if($orderCustomerGroup){
+			
 			$relPreis=OrderCustomerGroups_Preis::get()->filter('PreisID',$this->getOwner()->ID)->filter('OrderCustomerGroupID',$orderCustomerGroup->ID)->First();
 			return $relPreis->Active;
 		}else{

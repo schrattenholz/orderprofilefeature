@@ -56,7 +56,7 @@
 					<% end_loop %>
 				</div>
 				<% else_if $ProductOptions && $GroupPreise %>
-				<h5 class="mt-4">ProduktOptionen</h5>
+				<!--<h5 class="mt-4">ProduktOptionen</h5>-->
 					<% loop $GroupPreise.Sort('SortID','ASC') %>
 					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
 						<% loop $ProductOptions %>

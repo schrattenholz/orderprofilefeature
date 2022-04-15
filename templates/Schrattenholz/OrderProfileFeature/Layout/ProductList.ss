@@ -1,56 +1,60 @@
-    <!-- Page Title (Light)-->
-    <div class="bg-secondary py-4">
-      <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
-        <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
-          <% include BreadCrumbs Design=""%>
-        </div>
-        <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
-          <h1 class="h3 mb-0">$MenuTitle.XML</h1>
-        </div>
-      </div>
-    </div>
+	<% include PageTitle_Dark %>
     <!-- Page Content-->
-    <div class="container pb-4 pb-sm-5">
-	<h1>orderprofilefeture modul</h1>
+<div class="container pb-4 pb-sm-5">
       <!-- Categories grid-->
-      <div class="row pt-5">
-		<% if $Children %>
-			<% loop $AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID) %>
-			<!-- Catogory-->
-			<div class="col-md-4 col-sm-6 mb-3">
-			<div class="card border-0">
-			<a class="d-block overflow-hidden rounded-lg" href="shop-grid-ls.html">
-				<img class="card-img" src="$DefaultImage.Fill(400,266).URL" alt="$DefaultImage.Filename">
-			</a>
-				<div class="card-body">
-				<h2 class="h5">$MenuTitle.XML</h2>
-				<% if $ClassName=="Schrattenholz\\Order\\Product" && not $Children %>
-						<% if $CaPrice %>ca. <% end_if %>$Top.formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode
-					<% end_if %>
-				<% if $Children %>
-				<ul class="list-unstyled font-size-sm mb-0">
-				<% loop $Children.Limit(7) %>
-					<li class="d-flex align-items-center justify-content-between"><a class="nav-link-style" href="$Link" alt="Zu $MenuTitel.XML wechseln"><i class="czi-arrow-right-circle mr-2"></i>$MenuTitle.XML</a><% if $Children %><span class="font-size-ms text-muted">$Children.Count</span><% end_if %></li>
-				<% end_loop %>
-					<li>...</li>
-					<li>
-					<hr>
-					</li>
-					<li class="d-flex align-items-center justify-content-between"><a class="nav-link-style" href="$Link" alt="Zu $MenuTitel.XML wechseln"><i class="czi-arrow-right-circle mr-2"></i>Kategorie anschauen</a>
-				</ul>
-				<% end_if %>
+	<div class="<% if $HeaderImage %>spacer-white<% end_if %> bg-white">
+		<section class="container mb-md-3 mt-2 mt-sm-5">
+		  <div class="row">
+			<div class="<% if $ContentObjects %>col-md-8<% else %> col-md-12<% end_if %> mb-4">
+				<div class="pb-4 my-2 my-md-0 pb-md-5 text-center text-sm-left">
+				  $Content
+				   $Form
 				</div>
+			<div class="row">
+			<% if $Children.Filter("ClassName","Schrattenholz\\Order\\ProductList") || $Children.Filter("ClassName","Schrattenholz\\Order\\Product")  %>
+				<% loop $Children.Sort('Date','DESC') %>
+				<!-- Catogory-->
+				<div class="col-md-4 col-sm-6 mb-3">
+				<div class="card product-card border-0">
+				<% if not $Top.HideLabel %>
+					<% if $OutOfStock %>
+					<span class="badge badge-dark badge-shadow" wfd-id="218">Ausverkauft</span>
+					<% end_if %>
+				<% end_if %>
+				<a class="d-block overflow-hidden rounded-lg" href="$Link">
+					<img class="card-img" src="$DefaultImage.Fill(400,266).URL" alt="$DefaultImage.Filename">
+				</a>
+					<div class="card-body">
+					<h2 class="h5">
+					<a href="$Link">$MenuTitle.XML</a></h2>									
+					<% if $ClassName=="Schrattenholz\\Order\\Product" %>
+						<% if $CaPrice %>ca. <% end_if %>$Top.formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode
+					<% end_if %>				
+					
+					</div>
+				</div>
+				</div>
+				<% end_loop %>
+			<% else %>
+				<div class="row mb-4" >
+					<article class="card col-12  pl-0 pr-0 pl-sm-0 pr-sm-3">
+					$NoEntryText 
+					</article>
+				</div>
+			<% end_if %>
+		  </div>
 			</div>
+			<% if $ContentObjects %>
+			<div class="col-md-4 mb-4 align-self-start">
+
+				$ContentObjects.Sort('SortID').First.renderIT
+
 			</div>
-			<% end_loop %>
-		<% else %>
-			<div class="row mb-4" >
-				<article class="card col-12  pl-0 pr-0 pl-sm-0 pr-sm-3">
-				$NoEntryText 
-				</article>
-			</div>
-		<% end_if %>
-      </div>
-	 </div>
+			<% end_if %>
+		  </div>
+		</section>
+	</div>
+</div>
+
 
 

@@ -1,6 +1,5 @@
 <script>
 function getProductOptions(id){
-console.log("product-option");
 	var options=[]
 	var c=0;
 	if($(id+" .variant01").length>0){
@@ -10,7 +9,6 @@ console.log("product-option");
 	}
 	//console.log("getProductOptions "+rootSelector);
 	$(rootSelector).find("input").each(function(){
-	console.log("product-options "+$(this).attr("id"))
 		var option=[];
 		option["id"]=$(this).attr("data-id");
 		option["value"]=getCheckbox($(this).attr("id"));
@@ -106,9 +104,8 @@ function refreshSelectedProduct(action,id){
 		if(action=="variantChange"){
 					jQuery(id+' .amount').attr('data-portionable',selectedVariant.attr('data-portionable'));
 
-					//jQuery('#amount').val(getAmountWithUnit(0,id));
 					jQuery('.product-options').each(function(){
-					console.log("vC tk pC="+$(id+' .variant01').val());
+						//console.log("vC tk pC="+$(id+' .variant01').val());
 						$(this).removeClass('d-block').addClass('d-none');
 						if("product-options_"+$(id+' .variant01').val()==$(this).attr('id')){
 							$(this).removeClass('d-none').addClass('d-block');
@@ -123,7 +120,8 @@ function refreshSelectedProduct(action,id){
 		jQuery.ajax({
 			url:"{$Link}/FreeQuantityAjax?orderedProduct="+JSON.stringify(getOrderedProduct(id)),
 			success: function(data){
-			//data=JSON.parse(data);
+			
+			data=JSON.parse(data);
 				/*
 					data.ClientsPossibleQuantity = amount
 					data.QuantityLeft
@@ -132,13 +130,13 @@ function refreshSelectedProduct(action,id){
 					data.ClientQuantities
 				*/
 				//alert("action="+action)
-				console.log("data="+JSON.stringify(data.ClientQuantities));
+				//console.log("data="+JSON.stringify(data.ClientQuantities));
 				var selectedVariant=$(id+' .variant01 option[value=' + jQuery(id+' .variant01').val() + ']');
 				var quantities=checkProductOptions(data,id);
 				var quantity=quantities.ClientsQuantity;
 				var possibleQuantity=data.QuantityLeft+quantity;
 
-				console.log("ClientsQuantity ="+quantity+" action="+action+" --------");
+				//console.log("ClientsQuantity ="+quantity+" action="+action+" --------");
 				if(quantity>0){
 				
 
