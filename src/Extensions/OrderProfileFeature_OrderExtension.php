@@ -58,8 +58,46 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		'searchProducts',
 		'CurrentOrderCustomerGroup',
 		'getDiscountScale',
-		'deleteInactiveBasket'
+		'deleteInactiveBasket',
+		'CheckoutChain'
 	);
+	public function CheckoutChain(){
+		$ocg=$this->owner->CurrentOrderCustomerGroup();
+		$pages=new ArrayList();
+
+		$pages->push(
+			$this->owner->getBasketPage()
+		);
+		$pages->push(
+			$this->owner->getCheckoutAddressPage()
+		);
+		if($this->owner->DeliveryIsActive()){
+			$pages->push($this->owner->getCheckoutDeliveryPage());
+		}
+		if($this->owner->PaymentIsActive() && !$this->owner->DeliveryIsActive()){
+			$pages->push($this->owner->getCheckoutDeliveryPage());
+		}
+		$pages->push($this->owner->getCheckoutSummaryPage());
+		// Finde die Seite vor und nach der momentanen für den Vor/Zzurück-Button
+		$n=false;
+		$next=false;
+		$l=false;
+		foreach($pages as $page){
+			if($n){
+				$next=$page;
+				break;
+			}
+			if($page->ID==$this->owner->ID){
+				$last=$l;
+				$n=true;
+			}
+			$l=$page;
+			
+		}
+		$chain=new ArrayData(array("Pages"=>$pages,"Current"=>$this->owner,"Last"=>$last,"Next"=>$next));
+		return $chain;
+	}
+	
 		public function getDiscountScale($data){
 		$priceBlockElementID=$data['priceBlockElementID'];
 		$productID=$data['productID'];
@@ -793,7 +831,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 				
 				// ENDE NUR ZUM TESTEN
 			}
-			$basket->delete();
+			//$basket->delete();
 		}
 	}
 		public function genProductData($data){

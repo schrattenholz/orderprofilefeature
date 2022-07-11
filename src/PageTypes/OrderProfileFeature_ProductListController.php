@@ -86,8 +86,9 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 	public function PaginationPos(){
 		return $this->owner->getRequest()['start'];
 	}
-	public function AllProductsOfCategory($categoryID=0,$nextPageStart=0,$customerGroup){
-		if(!$categoryID){$categoryID=$this->owner->ID;}
+	public function AllProductsOfCategory($categoryID,$nextPageStart,$customerGroup){
+		if(!is_set($categoryID)){$categoryID=$this->owner->ID;}
+		if(!is_set($nextPageStart)){$nextPageStart=0;}
 		$cat=SiteTree::get()->byID($categoryID);
 		//return $cat->ClassName;//new ArrayList($cat);
 		$products=new ArrayList();

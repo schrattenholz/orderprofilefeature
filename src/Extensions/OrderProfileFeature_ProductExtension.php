@@ -68,6 +68,9 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
             'to' => 'ProductOption'
         ]
     ];
+	
+	
+	//Extension für Product::getCMSFields
 	public function addExtension(FieldList $fields){
 		
 
@@ -152,7 +155,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		//Produktvarianten
 		$fields->addFieldToTab('Root.Produktvarianten', $gridfield=GridField::create(
 		'Preise',
-		'Staffelelemente muh',
+		'Staffelelemente',
 		$this->getOwner()->Preise()->sort('SortOrder'),
 		GridFieldConfig_RecordEditor::create()
 		),"Content");

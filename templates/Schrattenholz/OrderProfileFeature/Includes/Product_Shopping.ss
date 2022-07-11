@@ -39,6 +39,7 @@
 							</select>
 						</div>
 					</div>
+			
 					<% end_if %>
 				<!-- Produktoptionen -->
 				<% if $ProductOptions && not $GroupPreise %>

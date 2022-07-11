@@ -16,7 +16,14 @@
 		<% else %>
 		<span wfd-id="215" class="d-none d-sm-inline">
 			<% if $QuantityLeft>0 %>
-				Vorverkauf<br/>noch $QuantityLeft übrig
+				<% if $ProductDetails.PreSaleMode=="presale" %>
+					Im Vorverkauf bis $ProductDetails.PreSaleEnd.Format("d MMM")<br>
+					noch $QuantityLeft übrig
+				<% else_if $ProductDetails.PreSaleMode=="openpresale" %>
+					Im Vorverkauf seit $ProductDetails.PreSaleStart.Format("d MMM")<br>
+					noch $QuantityLeft vorhanden
+				<% end_if %>
+				
 			<% else %>
 				Alles verteilt
 			<% end_if %>

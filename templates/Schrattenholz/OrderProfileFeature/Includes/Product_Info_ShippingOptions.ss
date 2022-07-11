@@ -1,7 +1,21 @@
-					<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
-					<% if $Top.getBasket().DeliverySpecial && not $IsPrimary%>
+								
+								
+								
+								<% if $loadSelectedParameters.ProductDetails.PreSaleMode=="openpresale" %>
+					<div class="row">
+					<div class="col-12 font-size-sm">
+					<% if not $v %>
+					$BasketDeliverySetup($ID,$GroupPreise.Sort('SortID','ASC').First.ID).DeliverySetup.ContentProductShippingInfo
+					<% else %>
+					$BasketDeliverySetup($ID,$v).DeliverySetup.ContentProductShippingInfo
+					<% end_if %>
+					</div>
+					</div>
+				<% else %>
+				<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
+					<% if $Up.DeliverySpecial %>
 					<div class="card-body font-size-sm">
-					<p class="font-size-md">Die Lieferoptionen werden durch ein anderes Produkt vorgegeben, dass bereits in deinem Warenkorb liegt</p>
+					<p class="font-size-md">Die Lieferoptionen werden durch ein Produkt in deinem Warenkorb vorgegeben, dass spezielle Lieferoptionen ($Title) hat.</p>
 					</div>
 					<% end_if %>
 					<!-- Abholtage -->
@@ -48,11 +62,11 @@
 							<!-- Sub-categories -->
 							<ul class="widget-list cz-filter-list pt-1" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
 							<% loop $getCities($Top.CurrentOrderCustomerGroup.ID).Sort('Title') %>
-							  <li class="widget-list-item cz-filter-item">
-								
-								  <span class="cz-filter-item-text">$Delivery_ZIPCodes.First.Title, $Title</span>
-								  <span class="font-size-xs text-muted ml-3"><% loop $Routes.First.getNextDeliveryDates($Top.CurrentOrderCustomerGroup.ID,$Up.Up.ID) %> $Eng<% end_loop %></span>
-								
+							  <li class="widget-list-item cz-filter-item">						
+								<% loop $Top.DeliveryDatesForCity($Top.CurrentOrderCustomerGroup.ID, $Delivery_ZIPCodes.First.Title,$Title).Dates %>
+								  <% if $First %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
+								  <% if $First %><span class="font-size-xs text-muted ml-3"><% end_if %>$Short<% if not $Last %>, <% end_if %><% if $Last %></span><% end_if %>
+								<% end_loop %>
 							  </li>
 								<% end_loop %>
 							</ul>
@@ -64,3 +78,4 @@
 					
 					
 					<% end_loop %>
+					<% end_if %>

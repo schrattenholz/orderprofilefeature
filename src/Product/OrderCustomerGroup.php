@@ -26,8 +26,8 @@ class OrderCustomerGroup extends DataObject{
 		'OrderConfig'=>'Schrattenholz\\Order\\OrderConfig'
 	];
 	private static $belongs_many_many=[
-		'Preise'=>'Schrattenholz\\Order\\Preis',
-		'DeliveryTypes'=>'Schrattenholz\\Delivery\\DeliveryType'
+		'Preise'=>'Schrattenholz\\Order\\Preis'
+		
 	];
 	private static $summary_fields = [
       'Title'
