@@ -1,3 +1,4 @@
+<span id="single_price" class="h3 font-weight-normal text-accent mr-1">
 <% if $GroupPreise %>
 	<% if $GroupPreise.filter("ID",$Top.loadSelectedParameters(0).Variant01) %>
 		<% loop $GroupPreise.filter("ID",$Top.loadSelectedParameters(0).Variant01) %>
@@ -14,4 +15,13 @@
 <% else %>
 	<% if $CaPrice %>ca. <% end_if %>$formattedNumber($KiloPrice.Price) &euro;
 <% end_if %>
+</span>
+<% if not $ShowBasePrice %>**<% end_if %>
+<% if $ShowBasePrice %>
+	<span>($formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode)</span>**
+<% end_if %>
+<span class="productbadge">
+	$getProductBadge(0)
+</span>
+
 
