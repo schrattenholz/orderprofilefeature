@@ -18,7 +18,7 @@
 </span>
 <% if not $ShowBasePrice %>**<% end_if %>
 <% if $ShowBasePrice %>
-	<span>($formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode)</span>**
+	<span  class="font-weight-normal">($formattedNumber($KiloPrice.Price) &euro;/$Unit.Shortcode)</span>**
 <% end_if %>
 <span class="productbadge">
 	$getProductBadge(0)
