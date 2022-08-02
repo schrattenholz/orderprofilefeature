@@ -40,10 +40,9 @@
 							</div>
 						<% end_if %>
 					<!-- Ende Abholtage -->
-					
-					
+				
 					<!-- Lieferorte -->
-					<% if $getCities($Top.CurrentOrderCustomerGroup.ID) %>
+					<% if $getCities($Top.CurrentOrderCustomerGroup.ID).Count>0 %>
 					<div class="card-body font-size-sm" data-pbe_id="$ID" id="pbe_2">
 						<h4 class="font-size-md">Lieferorte</h4>
 					<% if $MinOrderValue($Top.CurrentOrderCustomerGroup.ID,"delivery")>0 %>
