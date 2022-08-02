@@ -14,7 +14,7 @@ class ProductOptions_ProductContainer extends DataObject{
 	private static $table_name="ProductOptions_ProductContainer";
 	private static $db = [
 		'Price' => 'Decimal(6,2)',
-		'Active'=>'Boolean(1)'
+		'Active'=>'Boolean(0)'
 	];
 	private static $has_one = [
 		'ProductOption' => ProductOption::class,
