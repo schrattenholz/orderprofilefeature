@@ -42,7 +42,7 @@ $OrderConfig.ConfirmationMailBeforeContent
           <thead>
             <tr>
               <th style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">Produkt </th>
-			   <th style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></th>
+			   <th style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">Optionen</th>
               <th style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">Anzahl</th>
 			  <th style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">Ca. Preis</th>
             </tr>
@@ -50,14 +50,22 @@ $OrderConfig.ConfirmationMailBeforeContent
 		   <tbody>
 		 <% loop $Basket.ProductContainers.Sort('ProductSort') %>
 			<tr id="product_{$ID}" style="<% if $Even %>background-color: #f5ca46;<% else %>background-color: #99b473;<% end_if %>">
-				<td style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">$Product.SummaryTitle</td>
+				<td style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">
+				<p>$Product.SummaryTitle</p>
+				<% if $PriceBlockElement %>
+					<p>$PriceBlockElement.FullTitle</p>							
+				<% end_if %>
+				</td>
 				
 				<td style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">
-				<% if $PriceBlockElement %>
-					<div class="font-size-sm">
-					<span class="text-muted mr-2"><% loop $PriceBlockElement %>$FullTitle<% end_loop %>
-					</span>
-					</div>					
+				<% if $ProductOptions.Filter('Active',1).Count>0 %>
+					<ul>
+					<% loop $ProductOptions %>
+						<% if  $ProductOptions_ProductContainer.Active  %>
+						<li>$Title ($Top.formattedNumber($ProductOptions_ProductContainer.Price) &euro;)</li>
+						<% end_if %>
+					<% end_loop %>
+					</ul>
 				<% end_if %>
 				</td>
 				<td style="border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"><% if $PriceBlockElement.Portionable %>$formattedWeight($Quantity)<% else %>{$Quantity}stk<% end_if %></td>
