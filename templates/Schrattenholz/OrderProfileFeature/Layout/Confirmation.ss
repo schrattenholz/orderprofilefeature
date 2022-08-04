@@ -62,6 +62,9 @@ folgende Bestellung ist soeben eingegangen:
 				<% if $ProductOptions.Filter('Active',1).Count>0 %>
 					<ul>
 					<% loop $ProductOptions %>
+					upup=$Up.Up.formattedNumber($ProductOptions_ProductContainer.Price)
+					up=$Up.formattedNumber($ProductOptions_ProductContainer.Price)
+					parent=$Parent.formattedNumber($ProductOptions_ProductContainer.Price)
 						<% if  $ProductOptions_ProductContainer.Active  %>
 						<li>$Title ($Parent.formattedNumber($ProductOptions_ProductContainer.Price) &euro;)</li>
 						<% end_if %>
