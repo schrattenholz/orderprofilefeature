@@ -62,7 +62,7 @@ $OrderConfig.ConfirmationMailBeforeContent
 					<ul>
 					<% loop $ProductOptions %>
 						<% if  $ProductOptions_ProductContainer.Active  %>
-						<li>$Title ($Top.formattedNumber($ProductOptions_ProductContainer.Price) &euro;)</li>
+						<li>$Title ($Parent.formattedNumber($ProductOptions_ProductContainer.Price) &euro;)</li>
 						<% end_if %>
 					<% end_loop %>
 					</ul>
