@@ -43,10 +43,11 @@
 					<% end_if %>
 				<!-- Produktoptionen -->
 				<% if $ProductOptions && not $GroupPreise %>
-				<h2>ProduktOptionen keine Produktvarianten</h2>
+				
 				<div class="product-options" class="form-group product-options ">
 					<% loop $ProductOptions %>
 					<% if $ProductOptions_Product.Active %>
+					<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
 						<div class="custom-control custom-checkbox">
 						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 						  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
@@ -57,11 +58,12 @@
 					<% end_loop %>
 				</div>
 				<% else_if $ProductOptions && $GroupPreise %>
-				<!--<h5 class="mt-4">ProduktOptionen</h5>-->
+				
 					<% loop $GroupPreise.Sort('SortID','ASC') %>
 					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
 						<% loop $ProductOptions %>
 						<% if $ProductOptions_Preis.Active %>
+						<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
 							<div class="custom-control custom-checkbox">
 							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 							  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>

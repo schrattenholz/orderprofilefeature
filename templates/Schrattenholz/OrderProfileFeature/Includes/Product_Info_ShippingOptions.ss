@@ -1,7 +1,7 @@
 								
 								
 								
-								<% if $loadSelectedParameters.ProductDetails.PreSaleMode=="openpresale" %>
+				<% if $loadSelectedParameters.ProductDetails.PreSaleMode=="openpresale" %>
 					<div class="row">
 					<div class="col-12 font-size-sm">
 					<% if not $v %>
