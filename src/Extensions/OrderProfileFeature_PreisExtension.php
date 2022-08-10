@@ -108,7 +108,7 @@ public function CurrentGroup(){
 		return $cmsPrice;
 	}
 	public function IsActive(){
-		
+		Injector::inst()->get(LoggerInterface::class)->error("Finde Active in Preis_OrderCostumerGroup    ");
 		$orderCustomerGroup=$this->getOwner()->OrderCustomerGroups()->filter('GroupID',$this->getOwner()->CurrentGroup()->ID)->First();
 		
 		if($orderCustomerGroup){
