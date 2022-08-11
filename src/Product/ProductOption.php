@@ -5,17 +5,22 @@ namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\Order\Product;
 
-
+use SilverStripe\ORM\Queries\SQLUpdate;
 use Silverstripe\ORM\DataObject;
 use Silverstripe\Forms\TextField;
 use Silverstripe\Forms\NumericField;
+
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
+
 class ProductOption extends DataObject{
 	private static $table_name='ProductOption';
 	private static $db=[
 		'Title'=>'Varchar(255)',
 		'Shortcode'=>'Varchar(10)',
 		'Price'=>'Decimal(6,2)',
-		'Content'=>'Text'
+		'Content'=>'Text',
+		'EnrollToAll'=>'Boolean'
 	];
 	private static $belongs_many_many=[
 		'Prices'=>'Schrattenholz\\Order\\Preis',
@@ -39,9 +44,11 @@ class ProductOption extends DataObject{
 		return $fields;
     }
 	public function onAfterWrite(){	
+	parent::onAfterWrite();
 		foreach(ProductOption::get() as $pO){	
 			foreach(Product::get() as $p){			
 				if($p->ProductOptions()->filter('ProductOptionID',$pO->ID)->Count==0){
+					Injector::inst()->get(LoggerInterface::class)->error('productoption anelegen');
 					$p->ProductOptions()->add($pO);
 				}
 				foreach($p->Preise() as $pbe){
@@ -51,8 +58,25 @@ class ProductOption extends DataObject{
 				}				
 			}
 		}
-		parent::onAfterWrite();
+		if($this->EnrollToAll){
+					
+					//$pOID=$p->ProductOptions()->Filter("ProductOptionID",$pO->ID)->First->ID;	
+					
+					$update = SQLUpdate::create();
+					$update->setTable("ProductOptions_Product");
+					$update->addWhere(array('ProductOptionID' => $this->ID));
+					$update->addAssignments(['Price'=>$this->Price]);
+					$update->execute();
+					$update = SQLUpdate::create();
+					$update->setTable("ProductOptions_Preis");
+					$update->addWhere(array('ProductOptionID' => $this->ID));
+					$update->addAssignments(['Price'=>$this->Price]);
+					$update->execute();
+				}
 		
+		$update = SQLUpdate::create('ProductOption')->addWhere(['ID' => $this->ID]);
+		$update->addAssignments(['EnrollToAll'=> 0]);
+		$update->execute();
 	}
 }
 ?>
