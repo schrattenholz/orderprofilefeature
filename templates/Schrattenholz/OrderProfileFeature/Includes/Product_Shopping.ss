@@ -13,7 +13,7 @@
 					</div>
 					<% end_if %>
 				<!-- Produktvarianten/Staffelpreise -->
-				<% if $GroupPreise %>
+				<% if $GroupPreise && $OutOfStock==0 %>
 					<div class="product-variants" class="form-group product-variants" >
 						<h5 class="mt-4">Varianten</h5>
 						
@@ -42,7 +42,7 @@
 			
 					<% end_if %>
 				<!-- Produktoptionen -->
-				<% if $ProductOptions && not $GroupPreise %>
+				<% if $ProductOptions && not $GroupPreise && $OutOfStock==0 %>
 				
 				<div class="product-options" class="form-group product-options ">
 					<% loop $ProductOptions %>
@@ -57,7 +57,7 @@
 					<% end_if %>
 					<% end_loop %>
 				</div>
-				<% else_if $ProductOptions && $GroupPreise %>
+				<% else_if $ProductOptions && $GroupPreise  && $OutOfStock==0 %>
 				
 					<% loop $GroupPreise.Sort('SortID','ASC') %>
 					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
@@ -77,6 +77,7 @@
 				<% end_if %>
 
 				<!-- Bestellmenge -->
+				<% if $OutOfStock==0 %>
 				<div class="row">
 					<div class="col-3 form-group d-flex align-items-center">
 						<div class="quantity position-relative clearfix d-inline-block align-top mt-2 mt-md-4">
@@ -96,6 +97,7 @@
 					<div id="currentlyInBasket" class="col-7 offset-2 <% if $Top.loadSelectedParameters(0).Quantity %>d-block<% else %>d-none<% end_if %>" style="padding:10px 30px 10px 3px;"><p class="pl-3 mt-2 mt-md-4">Bereits im Warenkorb</p>
 					</div>
 				</div>
+				
 				<div class="form-group col-12 messageBox px-0">
 					<div class="col-12 pl-3 pr-3 alert  fade" style="display:none;" role="alert">
 					</div>
@@ -122,3 +124,4 @@
 						</div>
 					</div>
 				  </div>
+				  <% end_if %>
