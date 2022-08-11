@@ -49,7 +49,7 @@
 					<% if $ProductOptions_Product.Active %>
 					<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
 						<div class="custom-control custom-checkbox">
-						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
+						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" data-price="$ProductOptions_Product.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 						  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 						  /> 
 						  <label class="custom-control-label" for="productoption_$ID">$Title (zzgl. $Top.formattedNumber($ProductOptions_Product.PriceObject.Price) &euro;/Stk.)</label>
@@ -65,7 +65,7 @@
 						<% if $ProductOptions_Preis.Active %>
 						<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
 							<div class="custom-control custom-checkbox">
-							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
+							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" data-price="$ProductOptions_Preis.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 							  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 							  /> 
 							  <label class="custom-control-label" for="productoption_{$Up.ID}_{$ID}">$Title (zzgl. $Top.formattedNumber($ProductOptions_Preis.PriceObject.Price) &euro;/Stk.)</label>
@@ -95,6 +95,10 @@
 						</div>
 					</div>
 					<div id="currentlyInBasket" class="col-7 offset-2 <% if $Top.loadSelectedParameters(0).Quantity %>d-block<% else %>d-none<% end_if %>" style="padding:10px 30px 10px 3px;"><p class="pl-3 mt-2 mt-md-4">Bereits im Warenkorb</p>
+					</div>
+					<div class="col-12 form-group d-flex align-items-center">
+						<div id="price" class="col-12" style="padding:10px 30px 10px 3px;"><p class="pl-3 mt-2 mt-md-4"></p>
+						</div>
 					</div>
 				</div>
 				

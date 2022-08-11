@@ -21,6 +21,7 @@ function loadDiscountScale(priceBlockElementID,productID){
 		}
 	});
 }
+
 function loadFilteredProductList(type,id,close){
 		$(window).unbind('scroll',shopPageListener);
 		$('#categoryID').val(id);

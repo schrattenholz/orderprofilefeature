@@ -85,6 +85,7 @@ function addToList(id,action){
 
     
 function refreshSelectedProduct(action,id){
+
 		if($(id+' .variant01').length>0){
 		var selectedVariant=$(id+' .variant01 option[value=' + $(id+' .variant01').val() + ']');
 			if(selectedVariant.attr('data-caprice')=="1"){
@@ -178,12 +179,42 @@ function refreshSelectedProduct(action,id){
 				}
 				jQuery('#Quantity').html(data.QuantityLeft);
 				
-				calculatePrice(getAmountWithoutUnit(id));
+				calculatePrice();
 				showHideEditFunction(quantity);
 				refreshProductBadge(id);
 				loadShippingOptions($(id+' .variant01').val(), $(id).attr('data-productid'));
 			}
 		});
+}
+function calculatePrice(){
+	var quantity=jQuery('.quantity input').val();
+	jQuery('#price').html('&nbsp;');
+	if(jQuery('.product-variants').length>0){
+		var selectedVariant=jQuery('.product-variants .variant01  :selected');
+		
+		var productOptions=jQuery("#product-options_"+selectedVariant.attr("value"));
+		var productOptionsPrice=0;
+		productOptions.find('.product-option').each(function(){
+			if(jQuery(this).is(':checked')){
+				productOptionsPrice=parseFloat(jQuery(this).attr('data-price').replace(",","."))+parseFloat(productOptionsPrice);				
+			}
+		});
+		var price=(parseFloat(selectedVariant.attr('data-price').replace(",","."))+parseFloat(productOptionsPrice))*quantity;
+		/*
+		if(getVac()=="on"){
+			console.log("vac"+(parseInt(quantity)*parseFloat(jQuery('#vac').attr('data-price'))));
+			price=price+(parseInt(quantity)*parseFloat(jQuery('#vac').attr('data-price')));
+		}
+		*/
+	}else{
+		var price=jQuery('#variant01  :selected').attr('data-price')*quantity;
+	}
+	console.log("price="+price);
+	if(parseInt(quantity)>0){
+		jQuery('#price').html('ca. '+price.toFixed(2).replace(".",",")+' &euro;**');
+	}else{
+		jQuery('#price').html('&nbsp;');
+	}
 }
 function getAmountWithUnit(amount,id){
 	if(jQuery(id+' .amount').attr('data-portionable')=="1"){
@@ -256,23 +287,7 @@ function showHideEditFunction(quantity){
 		$('#addFunction').css('display','flex');
 	}
 }
-function calculatePrice(quantity,id){
-	if($(id+' .variant01').length>0){
-		var price=$(id+' .variant01  :selected').attr('data-price')*quantity;
-		if(getVac()=="on"){
-			console.log("vac"+(parseInt(quantity)*parseFloat($(id+' .vac').attr('data-price'))));
-			price=price+(parseInt(quantity)*parseFloat($(id+' .vac').attr('data-price')));
-		}
-	}else{
-		var price=$(id+' .variant01  :selected').attr('data-price')*quantity;
-	}
-	console.log("price="+price);
-	if(parseInt(quantity)>0){
-		$(id+' .price').html('ca. '+price.toFixed(2).replace(".",",")+' &euro;*');
-	}else{
-		$(id+' .price').html('&nbsp;');
-	}
-}
+
 
 
 function getVac(){
