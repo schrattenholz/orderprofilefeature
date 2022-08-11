@@ -52,7 +52,7 @@
 						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" data-price="$ProductOptions_Product.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 						  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 						  /> 
-						  <label class="custom-control-label" for="productoption_$ID">$Title (zzgl. $Top.formattedNumber($ProductOptions_Product.PriceObject.Price) &euro;/Stk.)</label>
+						  <label class="custom-control-label" for="productoption_$ID">$Title (zzgl. $Top.formattedNumber($ProductOptions_Product.PriceObject.Price) &euro;/Stk. **)</label>
 						</div>
 					<% end_if %>
 					<% end_loop %>
@@ -68,7 +68,7 @@
 							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" data-price="$ProductOptions_Preis.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 							  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
 							  /> 
-							  <label class="custom-control-label" for="productoption_{$Up.ID}_{$ID}">$Title (zzgl. $Top.formattedNumber($ProductOptions_Preis.PriceObject.Price) &euro;/Stk.)</label>
+							  <label class="custom-control-label" for="productoption_{$Up.ID}_{$ID}">$Title (zzgl. $Top.formattedNumber($ProductOptions_Preis.PriceObject.Price) &euro;/Stk. **)</label>
 							</div>
 							<% end_if %>
 						<% end_loop %>
