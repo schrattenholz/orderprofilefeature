@@ -48,7 +48,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 					
 					// Das Element ist für die aktive Benutzgruppe aktiviert
 					if($p->Inventory>0 || $p->InfiniteInventory){
-						Injector::inst()->get(LoggerInterface::class)->error(' getAvailability='.$p->Title);
+						//Injector::inst()->get(LoggerInterface::class)->error(' getAvailability='.$p->Title);
 						$availability=true;
 					}
 				}
@@ -267,7 +267,7 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 		
 			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->MainImage()->Filename);
 			
-		if ($defaultImage->DefaultImage->ID>0){
+		if ($defaultImage->DefaultImage->ID>0 && $this->owner->MainImageID!=0){
 			$defaultImage=$this->owner->MainImage();
 			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage ProductImage()->ID= default vorhanden');
 		//	Injector::inst()->get(LoggerInterface::class)->error('BlogExtension.php BasicExtension_DefaultImage ImageID='.$defaultImage->ID);
