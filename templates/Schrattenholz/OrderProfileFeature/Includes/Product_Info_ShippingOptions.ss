@@ -59,8 +59,10 @@
 							  </div>
 							</div>
 							<!-- Sub-categories -->
+							
 							<ul class="widget-list cz-filter-list pt-1" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
 							<% loop $getCities($Top.CurrentOrderCustomerGroup.ID).Sort('Title') %>
+							
 							  <li class="widget-list-item cz-filter-item">						
 								<% loop $Top.DeliveryDatesForCity($Top.CurrentOrderCustomerGroup.ID, $Delivery_ZIPCodes.First.Title,$Title).Dates %>
 								  <% if $First %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
