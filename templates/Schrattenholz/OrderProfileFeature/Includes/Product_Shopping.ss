@@ -15,7 +15,7 @@
 				<!-- Produktvarianten/Staffelpreise -->
 				<% if $GroupPreise && $OutOfStock==0 %>
 					<div class="product-variants" class="form-group product-variants" >
-						<h5 class="mt-4">Varianten</h5>
+						<% if $GroupPreise.Count>1 %><h5 class="mt-4">Varianten</h5><% end_if %>
 						
 						<div class="selectric-wrapper">
 							<select  class=" variant01 custom-select" style="width:100%;" onchange="refreshSelectedProduct('variantChange','#p_$Top.ID')" <% if $GroupPreise.Count<=1 %>disabled="disabled"<% end_if %>>
