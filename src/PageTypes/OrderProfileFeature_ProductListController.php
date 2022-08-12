@@ -87,10 +87,10 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		return $this->owner->getRequest()['start'];
 	}
 	public function AllProductsOfCategory($categoryID,$nextPageStart,$customerGroup){
-		if(!isset($categoryID)){$categoryID=$this->owner->ID;}
+		if($categoryID=="" && $categoryID==false){$categoryID=$this->owner->ID;}
 		if(!isset($nextPageStart)){$nextPageStart=0;}
 		$cat=SiteTree::get()->byID($categoryID);
-		//return $cat->ClassName;//new ArrayList($cat);
+		//new ArrayList($cat);
 		$products=new ArrayList();
 		
 		if($cat->ClassName=="Schrattenholz\Order\Product"){
