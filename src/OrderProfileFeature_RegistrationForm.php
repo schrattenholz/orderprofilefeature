@@ -212,9 +212,9 @@ class OrderProfileFeature_RegistrationForm extends Form
 		$required = new RequiredFields([
 			'Password',
 			'PasswordConfirm',
-			'Street',
-			'ZIP',
-			'City',
+			//'Street',
+			//'ZIP',
+			//'City',
 			'CustomerGroup',
 			'Gender',
 			'Surname',
