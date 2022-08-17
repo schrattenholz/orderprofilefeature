@@ -83,14 +83,15 @@ class OrderProfileFeature_ClientOrder extends DataObject{
 		if($this->ClientContainer()->ClientID){
 			$fields->addFieldToTab('Root.Kundendaten',new ReadonlyField('ClientID','Kundennummer',$this->ClientContainer()->ClientID));
 		}
+		$clientData=$this->ClientContainer();
 		$fields->addFieldToTab('Root.Kundendaten',new DropdownField('ClientContainer-_1_-Gender','Anrede',$this->ClientContainer()->dbObject('Gender')->enumValues()));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Surname','Nachname'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-FirstName','Vorname'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-PhoneNumber','Telefonnummer'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Email','E-Mail'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Street','Strasse'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-ZIP','PLZ'));
-		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-City','Ort'));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Surname','Nachname',$clientData->Surname));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-FirstName','Vorname',$clientData->FirstName));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-PhoneNumber','Telefonnummer',$clientData->PhoneNumber));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Email','E-Mail',$clientData->Email));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-Street','Strasse',$clientData->Street));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-ZIP','PLZ',$clientData->ZIP));
+		$fields->addFieldToTab('Root.Kundendaten',new TextField('ClientContainer-_1_-City','Ort',$clientData->City));
 		
 
 		return $fields;
