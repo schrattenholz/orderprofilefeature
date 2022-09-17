@@ -85,7 +85,7 @@ var pageLink="$Link";
 			  percentPosition: true
 			});
 		}
-		startUserActivityTimeout(false);
+		startUserActivityTimeout();
 	if($('.product-list-filter').length>0){
 		startShopPageListener();
 	}
@@ -315,7 +315,7 @@ function clearBasket(){
 	jQuery.ajax({
 		url: "$Link/deleteInactiveBasket",
 		success: function(data) {
-			var message="Dein Warenkorb wurde zurückgesetzt und die Produkte für andere Kunden wieder frei gegeben, weil Du 10 Minuten inaktiv warst und wir davon ausgehen, dass Du Deinen Einkauf nicht mehr abschliessen möchtest.";
+			var message="Ihr Warenkorb wurde zurückgesetzt und die Produkte für andere Kunden wieder frei zu gegeben, weil Sie 10 Minuten inaktiv waren und wir davon ausgehen, dass Sie Ihren Einkauf nicht mehr abschliessen möchten.";
 			var title="Warenkorb wurde geleert";
 			$('#clearBasket').addClass("d-none").attr("disabled","disabled");
 			$('#keepBasket').addClass("d-none").attr("disabled","disabled");
