@@ -12,7 +12,7 @@
 				</div>
 			<div class="row">
 			<% if $Children.Filter("ClassName","Schrattenholz\\Order\\ProductList") || $Children.Filter("ClassName","Schrattenholz\\Order\\Product")  %>
-				<% loop $Children.Sort('Date','DESC') %>
+				<% loop $Children.Sort('Sort','DESC') %>
 				<!-- Catogory-->
 				<div class="col-md-4 col-sm-6 mb-3">
 				<div class="card product-card border-0">
