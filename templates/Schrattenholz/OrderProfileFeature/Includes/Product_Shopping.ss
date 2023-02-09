@@ -106,7 +106,7 @@
 					<div class="col-12 pl-3 pr-3 alert  fade" style="display:none;" role="alert">
 					</div>
 				</div>
-				
+				<% if $OrderConfig.ShopIsActive %>
 				<div class="form-group d-flex align-items-center">
 					<div class="container">
 						<div id="addFunction" class="row" <% if $Top.loadSelectedParameters(0).Quantity>0 %>style="display:none;"<% end_if %>>
@@ -128,4 +128,14 @@
 						</div>
 					</div>
 				  </div>
+				  <% else %>
+				  <div class="form-group d-flex align-items-center">
+					<div class="container">
+						<div id="addFunction" class="row" >
+							<p>Der Shop ist zur Zeit noch deaktiviert.</p>
+						</div>
+					</div>
+				  </div>
+				  
+				    <% end_if %>
 				  <% end_if %>
