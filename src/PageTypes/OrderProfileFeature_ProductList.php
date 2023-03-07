@@ -8,15 +8,24 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Control\RequestHandler;
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\Image;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
 
 class OrderProfileFeature_ProductList extends DataExtension{
 	private static $db=[
-		"Design"=>"Enum('KategorieListe,Produktfilter,KategorieMosaik','KategorieListe')"
+		"Design"=>"Enum('KategorieListe,Produktfilter,KategorieMosaik,Abverkaufliste','KategorieListe')"
+	];
+	private static $has_one=[
+		"PreSaleImage"=>Image::class
+	];
+	private static $owns=[
+		"PreSaleImage"
 	];
 	public function updateCMSFields( FieldList $fields){
 		$fields->addFieldToTab("Root.Main", new DropdownField( 'Design', 'Design', singleton(ProductList::class)->dbObject('Design')->enumValues()),'Content'); 
+		$fields->addFieldToTab("Root.Bilder", new UploadField( 'PreSaleImage', 'PreSaleImage')); 
 	}
 	public function BasicExtension_DefaultImage($defaultImage){
 		//Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductList.php BasicExtension_DefaultImage ');

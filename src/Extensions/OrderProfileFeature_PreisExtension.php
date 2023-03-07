@@ -62,15 +62,23 @@ class OrderProfileFeature_PreisExtension extends DataExtension{
         ]
     ];
 
+public function getAvailability($customerGroup=0){
+	$availability=false;
+	if($this->owner->IsActive()){	
+		// Das Element ist für die aktive Benutzgruppe aktiviert
+		if($this->owner->Inventory>0 || $this->owner->InfiniteInventory){
+			//Injector::inst()->get(LoggerInterface::class)->error(' getAvailability='.$p->Title);
+			$availability=true;
+		}
+	}
+	return $availability;
+}
 public function CurrentGroup(){
 		$member = Security::getCurrentUser();
-		$customerGroups=OrderCustomerGroup::get();
-		
+		$customerGroups=OrderCustomerGroup::get();	
 		if($member){
-			
 				foreach($customerGroups as $cg){
 					if($member->inGroup($cg->Group)){
-
 						return Group::get()->byID($cg->GroupID);
 					}
 				}
@@ -88,11 +96,8 @@ public function CurrentGroup(){
 		$orderCustomerGroup=$this->getOwner()->ActiveCustomerGroup();
 		if($orderCustomerGroup){
 			$ocg_preis=OrderCustomerGroups_Preis::get()->filter('PreisID',$this->getOwner()->ID)->filter('OrderCustomerGroupID',$orderCustomerGroup->ID)->First();
-
-
 				//Bruttopreis anzeigen
 				$price=$ocg_preis->Price;
-			
 			return new ArrayData(["Brutto"=>$ocg_preis->Price,"Netto"=>$ocg_preis->getNetto($orderCustomerGroup->Vat),"Price"=>$price,"IncludedVat"=>$ocg_preis->getIncludedVAT($orderCustomerGroup->Vat),"VatExluded"=>$ocg_preis->getIncludedVAT($orderCustomerGroup->VatExluded)]);
 		}else{
 			return false;
@@ -129,15 +134,12 @@ public function CurrentGroup(){
 			$fields->removeFieldFromTab('Root.Main','Price');
 			$fields->removeByName('Preise');
 			$gridFieldConfig=GridFieldConfig::create()
-
 				->addComponent(new GridFieldButtonRow('before'))
 				->addComponent($dataColumns=new GridFieldDataColumns)
 				->addComponent($editableColumns=new GridFieldEditableColumns())
 				->addComponent(new GridFieldSortableHeader())
 				->addComponent(new GridFieldFilterHeader())
-				->addComponent(new GridFieldPaginator())
-				
-				
+				->addComponent(new GridFieldPaginator())			
 			;
 			$dataColumns->setDisplayFields([
 				'OrderCustomerGroup.Title' => 'Kundengruppe'
@@ -146,7 +148,6 @@ public function CurrentGroup(){
 			$priceField->setLocale("DE_De");
 			$priceField->setScale(2);
 			$editableColumns->setDisplayFields(array(
-
 				'Price'  =>array(
 						'title'=>'Preis',
 						'callback'=>function($record, $column, $grid) {
@@ -163,9 +164,7 @@ public function CurrentGroup(){
 							return CheckboxField::create($column);
 					})
 			));
-
 			$num1=new TextField("SoldQuantity","Verkaufte Stückzahl");
-
 			$portionable=new CheckboxField("Portionable","Wird portioniert angeboten");
 			$portion=NumericField::create("Portion","Größe einer Portion")->displayIf('Portionable')->isChecked()->end();
 			$portionableInfo=LiteralField::create("PortionableInfo", "<p><strong>Alle Eingaben in Gramm. 'Stückzahl' sollte durch 'Größe einer Portion' teilbar sein</strong></p>")->displayIf('Portionable')->isChecked()->end();

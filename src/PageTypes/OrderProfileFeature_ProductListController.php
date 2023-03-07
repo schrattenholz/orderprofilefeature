@@ -59,10 +59,17 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		));
 	}
 	public function getAside(){
+		if($this->owner->Design=="Produktfilter"){
 		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
 				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilterAside",
 				SSViewer::config()->uninherited('themes')
 			));
+		}else if($this->owner->Design=="Abverkaufliste"){
+		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
+				"Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleListAside",
+				SSViewer::config()->uninherited('themes')
+			));
+		}
 	}
 
 	public function getLayout(){
@@ -71,7 +78,12 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter",
 				SSViewer::config()->uninherited('themes')
 			));
-		}else if($this->owner->Design=="KategorieMosaik"){
+		}else if($this->owner->Design=="Abverkaufliste"){
+			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
+				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductPreSaleList",
+				SSViewer::config()->uninherited('themes')
+			));
+		}	else if($this->owner->Design=="KategorieMosaik"){
 			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
 				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListMasonry",
 				SSViewer::config()->uninherited('themes')
