@@ -54,5 +54,5 @@
 				<% end_if %>
                   </div>
                   <a class="btn btn-primary btn-sm btn-block mb-2 toaster" type="button" data-toggle="toastOFF" data-target="#cart-toast" href="javascript:addToList('$ProductID','$ID','new');"><i class="czi-cart font-size-sm mr-1"></i>In den Warenkorb</a>
-                  <div class="text-center"><a class="nav-link-style font-size-ms" href="#quick-view" data-toggle="modal"><i class="czi-eye align-middle mr-1"></i>Quick view</a></div>
+                  <div class="text-center"><a class="nav-link-style font-size-ms" href="$Product.Link"><i class="czi-eye align-middle mr-1"></i>Produktdetails</a></div>
                 </div>

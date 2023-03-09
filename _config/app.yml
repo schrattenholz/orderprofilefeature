@@ -18,6 +18,7 @@ Schrattenholz\Order\Preis:
     - Schrattenholz\OrderProfileFeature\OrderProfileFeature_PreisExtension
     - Schrattenholz\OrderProfileFeature\DiscountScale_PreisExtension
     - Schrattenholz\OrderProfileFeature\ProductOption_PreisExtension
+    - Schrattenholz\OrderProfileFeature\OrderProfileFeature_OrderExtension
 Schrattenholz\Order\Product:
   extensions:
     - Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductExtension

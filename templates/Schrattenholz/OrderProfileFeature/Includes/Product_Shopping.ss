@@ -30,7 +30,7 @@
 									<% end_if %>
 									data-caprice="$CaPrice" 
 									data-price="$Top.formattedNumber($PriceObject.Price)" 
-									data-quantity="$FreeQuantity" <% if $Top.loadSelectedParameters(0).Variant01==$ID %> 
+									data-quantity="$FreePortionalQuantity" <% if $Top.loadSelectedParameters(0).Variant01==$ID %> 
 									selected="selected"<% else_if $First %> selected="selected"<% end_if %>>
 								
 								$FullTitle(0)

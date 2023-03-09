@@ -213,9 +213,9 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 	public function GroupPreise(){
 		$list=new ArrayList();
 		foreach($this->getOwner()->Preise() as $price){
-			Injector::inst()->get(LoggerInterface::class)->error("GroupPreise  IsActive=  ".$price->IsActive());
+			//Injector::inst()->get(LoggerInterface::class)->error("GroupPreise  IsActive=  ".$price->IsActive());
 			if($price->IsActive()){
-				Injector::inst()->get(LoggerInterface::class)->error("GroupPreise  aktiv  ");
+				//Injector::inst()->get(LoggerInterface::class)->error("GroupPreise  aktiv  ");
 				$price->Price=$price->PriceObject()->Price;
 				$list->push($price);
 			}

@@ -50,15 +50,15 @@
 	
 	
 	<script>
-	
+	 setInterval( refreshStock, 5000);
 	jQuery( document ).ready(function() {
 		jQuery('#percentageSlider').css('height',calculatePrecentage()+'%');
 		
-		var ref = window.setInterval( refreshStock(), 1000);
+		
 	});
 	function refreshStock(){
-	console.log("refres");
-		jQuery('.product').each(function(){
+	//console.log("refres");
+			jQuery('.product').each(function(){
 			jQuery.ajax({
 			url: "{$Link}/FreeQuantityAjax?orderedProduct="+JSON.stringify(getOrderedProduct(jQuery(this).attr("data-productID"),jQuery(this).attr("data-variantID"))),
 				success: function(data) {
@@ -66,8 +66,16 @@
 					var response=JSON.parse(data);
 					var status=response.Status;
 					var message=response.Message;
-					var quantity=response.QuantityLeft;
-					alert(response.ProductDetails.ID);
+					var quantityLeft=response.QuantityLeft;
+					var productID=response.ProductDetails.ProductID;
+					var variantID=response.ProductDetails.ID;
+					
+					$('#pbE_'+variantID).attr('data-presalecurrentinventory',quantityLeft);
+					var startInventory=$('#pbE_'+variantID).attr('data-presalestartinventory');
+					$('#pbE_'+variantID+' .progress-bar').css('width',100-(quantityLeft/startInventory*100)+'%');
+					$('#pbE_'+variantID+' .progress-bar').attr("aria-valuenow",100-(quantityLeft/startInventory*100));
+					jQuery('#percentageSlider').css('height',calculatePrecentage()+'%');
+					
 					/*
 					JSON
 						$returnValues->Status=false;
@@ -86,9 +94,10 @@
 		
 			count++;
 			pVs=pVs+parseInt(jQuery(this).attr("aria-valuenow"));
-			console.log(pVs+"   "+jQuery(this).attr("aria-valuenow"))
+			//console.log(pVs+"   "+jQuery(this).attr("aria-valuenow"))
 		});	
 		var pV=pVs/count;
+		
 		return pV;
 	}
 		function refreshProductPrice(){
@@ -112,7 +121,7 @@
 		var rootSelector=".product-options";
 	}
 	
-	console.log("getProductOptions "+rootSelector);
+	//console.log("getProductOptions "+rootSelector);
 	$("#p"+id+' '+rootSelector).find("input").each(function(){
 	console.log("product-options "+$(this).attr("data-id"))
 		var option=[];
@@ -141,7 +150,7 @@ function getOrderedProduct(id,variantID){
 	console.log("addToList");
 
 		jQuery.ajax({
-		url: "{$Link}/addToList?orderedProduct="+JSON.stringify(getOrderedProduct(productID,variantID))+"&action=add",
+		url: "{$Link}/addToList?orderedProduct="+JSON.stringify(getOrderedProduct(productID,variantID))+"&action=list",
 			success: function(data) {
 				dataAr=data.split("|");
 					var response=JSON.parse(data);
@@ -184,6 +193,7 @@ function getOrderedProduct(id,variantID){
 					
 					var status="alert-danger";
 				}
+				refreshStock();
 				$('#cart-toast .toast-body').html(message);
 				
 			}
