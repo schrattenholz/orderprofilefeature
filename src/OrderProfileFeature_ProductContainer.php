@@ -22,7 +22,7 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 	private static $db=[
 		'Quantity'=>'Int',
 		'Vacuum'=>'Boolean',
-		'ProductSort'=>'Varchar(20)'
+		'ProductSort'=>'Varchar(20)' 
 	];
 	private static $has_one=[
 		'Basket'=>OrderProfileFeature_Basket::class,
