@@ -19,13 +19,24 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 	private static $allowed_actions=[
 		"getFilteredProductList",
 		"loadShopPage",
+		"ProductPreSaleList_QuickView"	
 	];
+	
 	 public function onAfterInit(){
 		$vars = [
 			"Link"=>$this->getOwner()->Link(),
 			"ID"=>$this->owner->ID
 		];
 		Requirements::javascriptTemplate("schrattenholz/orderprofilefeature:javascript/masonry.pkgd.min.js",$vars);
+		
+	}
+	public function ProductPreSaleList_QuickView($productData){
+		$productList=json_decode(utf8_encode($productData['productData']),true);
+		$data=new ArrayData(['Product'=>Product::get()->byID($productList['id'])]);
+		return $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
+				"Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleList_QuickView",
+				SSViewer::config()->uninherited('themes')
+			));
 		
 	}
 	public function loadShopPage($data){

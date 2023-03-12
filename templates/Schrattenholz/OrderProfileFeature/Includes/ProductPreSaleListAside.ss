@@ -36,9 +36,8 @@
               <div class="status-cow-inner widget widget-categories">
                 <img class="status-cow-image" src="$PreSaleImage.URL" />
 				<span id="percentageSlider" class="status-cow-slider bg-success"></span>
-
-        </span>
               </div>
+			  <% if $Content2 %>$Content2<% else %>$Content<% end_if %>
               <!-- Price range-->
              <!-- <div class="widget mb-4 pb-4 border-bottom">
                 <h3 class="widget-title">Price</h3>

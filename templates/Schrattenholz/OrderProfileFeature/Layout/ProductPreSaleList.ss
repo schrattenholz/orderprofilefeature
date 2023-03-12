@@ -40,32 +40,64 @@
       </div>
     </div>
 	</div>
+	<div id="QuickView_Holder">
 	
-	
-	
-	
-	
+	</div>
 
 	
 	
 	
 	<script>
-	 setInterval( refreshStock, 5000);
+	 setInterval( refreshStock, 10000);
 	jQuery( document ).ready(function() {
 		jQuery('#percentageSlider').css('height',calculatePrecentage()+'%');
-		
+		refreshStock();
 		
 	});
+	var productList=[];
+	var count=0;
+	
+	function loadQuickView(productID,variantID){
+	console.log("loadQuickView");
+	
+		jQuery.ajax({
+			url: "{$Link}/ProductPreSaleList_QuickView?productData="+JSON.stringify(getOrderedProduct(productID,variantID)),
+				success: function(data) {
+				
+					$('#QuickView_Holder').html(data);
+					$('#quick-view').modal('show');
+
+				}
+			});
+	
+	}
 	function refreshStock(){
 	//console.log("refres");
-			jQuery('.product').each(function(){
+			count=-1;
+			var count = 0;
+			jQuery('.product').each(function(index){
+				//count=count+1;
+				console.log("count="+$(this).attr("data-productid") );
+				productList[index]=getOrderedProduct($(this).attr("data-productid"),$(this).attr("data-variantid"));
+
+			});
 			jQuery.ajax({
-			url: "{$Link}/FreeQuantityAjax?orderedProduct="+JSON.stringify(getOrderedProduct(jQuery(this).attr("data-productID"),jQuery(this).attr("data-variantID"))),
+			url: "{$Link}/FreeQuantity_ProductList?productList="+JSON.stringify(productList),
 				success: function(data) {
 					dataAr=data.split("|");
 					var response=JSON.parse(data);
 					var status=response.Status;
-					var message=response.Message;
+					for(var i=0;i<response.length;i++){
+						//console.log("ql="+response[i]['QuantityLeft']);
+						var variantID=response[i]['VariantID'];
+						$('#pbE_'+variantID).attr('data-presalecurrentinventory',response[i]['QuantityLeft']);
+						var startInventory=$('#pbE_'+variantID).attr('data-presalestartinventory');
+						$('#pbE_'+variantID+' .progress-bar').css('width',100-(response[i]['QuantityLeft']/startInventory*100)+'%');
+						$('#pbE_'+variantID+' .progress-bar').attr("aria-valuenow",100-(response[i]['QuantityLeft']/startInventory*100));
+					}
+					jQuery('#percentageSlider').css('height',calculatePrecentage()+'%');
+					
+					/*var message=response.Message;
 					var quantityLeft=response.QuantityLeft;
 					var productID=response.ProductDetails.ProductID;
 					var variantID=response.ProductDetails.ID;
@@ -76,16 +108,16 @@
 					$('#pbE_'+variantID+' .progress-bar').attr("aria-valuenow",100-(quantityLeft/startInventory*100));
 					jQuery('#percentageSlider').css('height',calculatePrecentage()+'%');
 					
-					/*
-					JSON
-						$returnValues->Status=false;
-						$returnValues->Message="Das Passwort muss mindestens 8 Zeichen haben!";
-						$returnValues->Value='object';
-					*/	
 					
+					//JSON
+					//	$returnValues->Status=false;
+					//	$returnValues->Message="Das Passwort muss mindestens 8 Zeichen haben!";
+					//	$returnValues->Value='object';
+						
+					*/
 				}
 			});
-		});	
+
 	}
 	function calculatePrecentage(){
 		var pVs=0
@@ -139,7 +171,7 @@ function getOrderedProduct(id,variantID){
 
 	var orderedProductObj={
 		id:id,
-		title:$("#pbE_"+variantID).attr('data-title'),
+		//title:$("#pbE_"+variantID).attr('data-title'),
 		productoptions:getProductOptions(id),
 		variant01:variantID,
 		quantity:1
