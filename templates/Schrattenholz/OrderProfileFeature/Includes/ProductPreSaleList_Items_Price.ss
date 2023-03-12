@@ -3,6 +3,7 @@
 		<span class=""><% if $CaPrice %>ca. <% end_if %> $formattedNumber($PriceObject.Brutto) &euro;
 		
 		</span>
+		<span  class="font-weight-normal">($formattedNumber($Product.KiloPrice.Price) &euro;/$Product.Unit.Shortcode)</span>**
 	</div>
 	<div class="star-rating">
 	<!--

@@ -1,4 +1,4 @@
-<% loop $AllProductsOfCategory($CategoryID,$CurrentPageStart,$Top.CurrentOrderCustomerGroup.ID) %>
+<% loop $Children.Filter("ClassName","Schrattenholz\Order\Product") %>
 	<!-- Product-->
 	<% if $Preise.Count>0 %>
 		
@@ -13,16 +13,16 @@
 		-->
 		<% if $Up.DefaultImage %><a class="card-img-top d-block overflow-hidden" href="$Link"><img src="$Up.DefaultImage.Fill(518,484).URL" alt="Product"></a><% end_if %>
 		<div class="card-body py-2">
-		<a class="product-meta d-block font-size-xs pb-1" href="$Parent.Link">$Product.MenuTitle.XML</a>
-		  <h3 class="product-title font-size-sm">
-			<a href="$Link">$FullTitle.XML</a> 
-		  </h3>
-		  <% include Schrattenholz\OrderProfileFeature\Includes\ProductPreSaleList_Items_Price %>
-<!-- Success progress bar -->
-<div class="progress mb-3">
-  <div class="progress-bar font-weight-medium bg-success" role="progressbar" style="width: $SoldPercentage%" aria-valuenow="$SoldPercentage" aria-valuemin="0" aria-valuemax="100">
-  </div>
-</div>
+			<a class="product-meta d-block font-size-xs pb-1" href="$Parent.Link">$Product.MenuTitle.XML</a>
+			<h3 class="product-title font-size-sm">
+				<a href="$Link">$FullTitle.XML</a> 
+			</h3>
+			<% include Schrattenholz\OrderProfileFeature\Includes\ProductPreSaleList_Items_Price %>
+			<!-- Success progress bar -->
+			<div class="progress mb-3">
+				  <div class="progress-bar font-weight-medium bg-success" role="progressbar" style="width: $SoldPercentage%" aria-valuenow="$SoldPercentage" aria-valuemin="0" aria-valuemax="100">
+				  </div>
+			</div>
 		</div>
 
 		<% include Schrattenholz\OrderProfileFeature\Includes\ProductPreSaleList_Items_CardBody %>

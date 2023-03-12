@@ -27,6 +27,17 @@
 	
         </section>
       </div>
+		<div class="font-size-xs">
+		$OrderConfig.ProductFooter
+		<table>
+			<tbody>
+				<tr>
+					<td style="vertical-align: top; width: 21px;">**</td>
+					<td>$CurrentOrderCustomerGroup.VatNote<br /><br /></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
     </div>
 	<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center">
     <!-- Toast: Added to Cart-->
