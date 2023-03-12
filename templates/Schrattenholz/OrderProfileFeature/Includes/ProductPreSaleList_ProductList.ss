@@ -11,11 +11,11 @@
 			<i class="czi-heart"></i>
 		</button>
 		-->
-		<% if $Up.mDefaultImage %><a class="card-img-top d-block overflow-hidden" href="$Link"><img src="$Up.DefaultImage.Fill(518,484).URL" alt="Product"></a><% end_if %>
+		<% if $Up.DefaultImage %><a class="card-img-top d-block overflow-hidden" href="$Link"><img src="$Up.DefaultImage.Fill(518,484).URL" alt="Product"></a><% end_if %>
 		<div class="card-body py-2">
 		<a class="product-meta d-block font-size-xs pb-1" href="$Parent.Link">$Product.MenuTitle.XML</a>
 		  <h3 class="product-title font-size-sm">
-			<a href="$Link">$FullTitle.XML</a>
+			<a href="$Link">$FullTitle.XML</a> 
 		  </h3>
 		  <% include Schrattenholz\OrderProfileFeature\Includes\ProductPreSaleList_Items_Price %>
 <!-- Success progress bar -->
