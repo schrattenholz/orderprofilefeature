@@ -72,6 +72,17 @@ $OrderConfig.ConfirmationMailBeforeContent
 				<td><% if $CompletePrice.CaPrice %>ca. <% end_if %>$Up.Page.formattedNumber($CompletePrice.Price) &euro;</td>
 			</tr>
 		  <% end_loop %>
+		  
+		  <% if  $Basket.DeliveryType.Price>0 %>	
+		  <tr style="background-color:transparent!important;">
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"> $Basket.DeliveryType.Title</td>
+			<td style="background-color:transparent!important"> $Basket.DeliveryType.Price &euro;</td>
+			</tr>
+		  
+		 <% end_if %> 
+		  
 			<tr style="background-color:transparent!important;">
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
@@ -81,7 +92,8 @@ $OrderConfig.ConfirmationMailBeforeContent
 			<tr style="background-color:transparent;">
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
-			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"><% if $Top.CurrentOrderCustomerGroup.VatExluded %>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">
+				<% if $Top.CurrentOrderCustomerGroup.VatExluded %>
 			  zzgl. 
 			  <% else %>
 			  inkl. 
@@ -89,6 +101,24 @@ $OrderConfig.ConfirmationMailBeforeContent
 			  MwSt.({$Page.CurrentOrderCustomerGroup.Vat}%):</span></td>
 			<td style="background-color:transparent!important;"><% if $Basket.TotalPrice.CaPrice %>ca. <% end_if %>$Page.formattedNumber($Basket.TotalPrice.Vat) &euro;</td> 
 		  </tr>
+		  
+		  
+<% if  $Basket.DeliveryType.Price>0 %>		  
+		  
+			<tr style="background-color:transparent;">
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">
+				<% if $Top.CurrentOrderCustomerGroup.VatExluded %>
+			  zzgl. 
+			  <% else %>
+			  inkl. 
+			  <% end_if %>
+			  $Basket.DeliveryType.Title({$Basket.DeliveryType.Price}%):</span></td>
+			<td style="background-color:transparent!important;">$Page.formattedNumber($Basket.TotalPrice.DeliveryVat) &euro;</td> 
+		  </tr>
+		   <% end_if %>
+		  
 		  
 		 </tbody>
         </table>
