@@ -237,7 +237,7 @@ function getOrderedProduct(id,variantID){
 					var status="alert-danger";
 				}
 				refreshStock();
-				$('#ProductsInBasket').val(1);
+				$('#ProductInBasket').val(1);
 				$('#cart-toast .toast-body').html(message);
 				
 			}
