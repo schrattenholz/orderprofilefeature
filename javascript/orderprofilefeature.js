@@ -322,6 +322,7 @@ function clearBasket(){
 			$('#dialogBox .modal-title').html(title);
 			$('#dialogBox .modal-body').html(message);
 			$('#ProductInBasket').val(0);
+			loadBasketNavList();
 			//window.location.reload(false);
 		}
 	});
