@@ -36,7 +36,12 @@ class OrderProfileFeature_PriceCalculation_Extension extends DataExtension{
 			}
 		}
 		$vat=$this->getIncludedVat($orderCustomerGroup->Vat,$price);
-		return new ArrayData(array("Price"=>$price,"CaPrice"=>$caPrice,"Vat"=>$vat));
+		$deliveryVat=false;
+		if($this->owner->DeliveryType->Price>0){
+			$deliveryVat=$this->getIncludedVat(19,$this->owner->DeliveryType->Price);
+			$price+=$this->owner->DeliveryType->Price;
+		}
+		return new ArrayData(array("Price"=>$price,"CaPrice"=>$caPrice,"Vat"=>$vat,"DeliveryVat"=>$deliveryVat));
 	}
 	public function ActiveCustomerGroup(){
 			return OrderCustomerGroup::get()->filter('GroupID',$this->CurrentGroup()->ID)->First();
