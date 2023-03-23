@@ -274,10 +274,10 @@ function checkUserActivity(){
 				countdown(1);
 				
 				$('#dialogBox').modal()
-				$('#clearBasket').on('click',function(){
+				$('#clearBasket').removeClass("d-none").on('click',function(){
 					clearBasket();
 				});
-				$('#keepBasket').on('click',function(){
+				$('#keepBasket').removeClass("d-none").on('click',function(){
 					keepBasket();
 				});
 				
