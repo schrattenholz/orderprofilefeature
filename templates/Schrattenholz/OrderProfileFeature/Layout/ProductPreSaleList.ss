@@ -88,7 +88,7 @@
 			var count = 0;
 			jQuery('.product').each(function(index){
 				//count=count+1;
-				console.log("count="+$(this).attr("data-productid") );
+				//console.log("count="+$(this).attr("data-productid") );
 				productList[index]=getOrderedProduct($(this).attr("data-productid"),$(this).attr("data-variantid"));
 
 			});
