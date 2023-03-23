@@ -238,6 +238,7 @@ function getOrderedProduct(id,variantID){
 				}
 				refreshStock();
 				$('#ProductInBasket').val(1);
+				startUserActivityTimeout();
 				$('#cart-toast .toast-body').html(message);
 				
 			}
