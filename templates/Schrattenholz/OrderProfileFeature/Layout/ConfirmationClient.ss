@@ -114,7 +114,7 @@ $OrderConfig.ConfirmationMailBeforeContent
 			  <% else %>
 			  inkl. 
 			  <% end_if %>
-			  $Basket.DeliveryType.Title({$Basket.DeliveryType.Price}%):</span></td>
+			  $Basket.DeliveryType.Title(19%):</span></td>
 			<td style="background-color:transparent!important;">$Page.formattedNumber($Basket.TotalPrice.DeliveryVat) &euro;</td> 
 		  </tr>
 		   <% end_if %>
