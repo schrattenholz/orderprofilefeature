@@ -224,7 +224,7 @@ var pageLink="$Link";
 		});
 	});
 });
-var timeOutDelay=1000;
+var timeOutDelay=600000;
 function startUserActivityTimeout(){
 	
 	setTimeout(function(){
