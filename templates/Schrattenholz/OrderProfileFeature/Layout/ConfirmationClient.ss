@@ -86,8 +86,8 @@ $OrderConfig.ConfirmationMailBeforeContent
 			<tr style="background-color:transparent!important;">
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
-			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;">Gesamt</td>
-			<td style="background-color:transparent!important;"><% if $Basket.TotalPrice.CaPrice %>ca. <% end_if %>$Page.formattedNumber($Basket.TotalPrice.Price) &euro;</td>
+			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"><strong>Gesamt</strong></td>
+			<td style="background-color:transparent!important;"><strong><% if $Basket.TotalPrice.CaPrice %>ca. <% end_if %>$Page.formattedNumber($Basket.TotalPrice.Price) &euro;</strong></td>
 			</tr>
 			<tr style="background-color:transparent;">
 			<td style="background-color:transparent!important; border-top: 1px solid #dddddd;  line-height: 20px;  padding: 8px;  text-align: left;  vertical-align: top;"></td>
