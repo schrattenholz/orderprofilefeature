@@ -18,7 +18,15 @@
 					<% loop $Basket.ProductContainers.Sort('ProductSort') %>
 					<div class="widget-cart-item pb-2 border-bottom">
 						<a class="close text-danger" type="button" aria-label="Remove" href="javascript:removeProductFromBasketByID('$ID');" title="Produkt aus dem Warenkorb entfernen"><span aria-hidden="true">&times;</span></a>
-						<div class="media align-items-center"><a class="d-block mr-2" href="$Product.Link?id=$ID&v=$PriceBlockElement.ID&vac=$Vacuum"><img width="64" src="$Product.ProductImages.First.Fill(200,200).URL" alt="Product"/></a>
+						<div class="media align-items-center"><a class="d-block mr-2" href="$Product.Link?id=$ID&v=$PriceBlockElement.ID&vac=$Vacuum">
+						<% if $Product.ProductImages %>
+						<img width="64" src="$Product.ProductImages.First.Fill(200,200).URL" alt="Product"/>
+						<% else %>
+						<img width="64" src="$Product.DefaultImage.Fill(200,200).URL" alt="Product"/>
+						<%end_if %>
+						
+						
+						</a>
 						<div class="media-body">
 						<a href="$Product.Link?id=$ID&v=$PriceBlockElement.ID">
 							<h6 class="widget-product-title  <% if $PriceBlockElementID %>mb-n1"><% end_if %>
