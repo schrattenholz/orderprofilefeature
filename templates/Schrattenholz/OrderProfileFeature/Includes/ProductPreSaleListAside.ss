@@ -37,7 +37,7 @@
                 <img class="status-cow-image" src="$PreSaleImage.URL" />
 				<span id="percentageSlider" class="status-cow-slider bg-success"></span>
               </div>
-			  <% if $Content2 %>$Content2<% else %>$Content<% end_if %>
+
               <!-- Price range-->
              <!-- <div class="widget mb-4 pb-4 border-bottom">
                 <h3 class="widget-title">Price</h3>
@@ -407,5 +407,10 @@
               </div>
 			  -->
             </div>
+			<div class="cz-sidebar-body" data-simplebar data-simplebar-auto-hide="true">
+              <!-- Categories-->
+
+			  <% if $Content2 %>$Content2<% else %>$Content<% end_if %>
+			  </div>
           </div>
         </aside>

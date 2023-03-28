@@ -361,6 +361,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 		return $this->getOwner()->getSession()->get('orderid');
 	}
 	public function getBasket(){
+		//Injector::inst()->get(LoggerInterface::class)->error('getBasket '.$this->getSessionBasketID());
 		return OrderProfileFeature_Basket::get()->byID($this->getSessionBasketID());
 	}
 	public function getOrder(){
