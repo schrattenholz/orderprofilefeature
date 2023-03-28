@@ -661,9 +661,11 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 					$returnValues->Status='good';
 					$returnValues->Message="Benutzer wurde angelegt";
 				}
-				//Der neu angelegte Benutzer kann eingeloggt werden
+				//Der neu angelegte Benutzer kann eingeloggt werden nichtDSGVO - konform
+				
 					$identityStore = Injector::inst()->get(IdentityStore::class);
 					$identityStore->logIn($client);
+				
 			}else{
 					if($this->sendDoubleOptIn($client)){
 						$returnValues->Status='good';
