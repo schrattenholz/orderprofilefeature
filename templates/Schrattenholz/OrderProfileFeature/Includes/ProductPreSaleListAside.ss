@@ -407,6 +407,8 @@
               </div>
 			  -->
             </div>
+		</div>
+		 <div class="cz-sidebar mw-100" id="shop-sidebar-content">
 			<div class="cz-sidebar-body" data-simplebar data-simplebar-auto-hide="true">
               <!-- Categories-->
 
