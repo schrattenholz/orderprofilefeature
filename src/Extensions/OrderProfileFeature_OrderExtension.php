@@ -655,6 +655,10 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 					$returnValues->Status='info';
 					$returnValues->Message="Ihr Benutzerkonto wurde bis zur Prüfung vorerst als ".Group::get()->byID($defaultCostumerGroup->GroupID)->Title." angelegt. Sie erhalten eine E-Mail sobald wir Ihren Status geprüft haben. Es werden bis zur Bestätigung die Preise für Privatkunden angezeigt. Natürlich passen wir die Preise auf Ihrer Rechnung entsprechend Ihrer endgültigen Kundengruppe an.";
 					$this->getOwner()->sendGroupRequestToAdmin($client);
+					
+					//Der neu angelegte Benutzer kann eingeloggt werden
+					$identityStore = Injector::inst()->get(IdentityStore::class);
+					$identityStore->logIn($client);
 				}else{
 					$returnValues->Status='good';
 					$returnValues->Message="Benutzer wurde angelegt";
