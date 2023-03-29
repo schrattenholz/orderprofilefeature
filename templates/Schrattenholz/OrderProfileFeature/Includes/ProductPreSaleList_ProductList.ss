@@ -3,6 +3,7 @@
 	<% if $Preise.Count>0 %>
 		
 		<% loop $Preise %>
+		<% if $InPreSale %>
 		<div id="pbE_$ID" data-productid="$ProductID" data-variantid="$ID" data-title="$Up.MenuTitle.XML"  data-PreSaleCurrentInventory="$getPreSaleStatus.CurrentInventory" data-PreSaleStartInventory="$getPreSaleStatus.StartInventory" class="product col-12 col-sm-6 px-2 mb-4">
 	  <div class="card product-card">
 	  <% include Schrattenholz\OrderProfileFeature\Includes\ProductPreSaleList_Availability %>
@@ -30,6 +31,7 @@
 	  </div>
 	  <hr class="d-sm-none">
 	</div>
+	<% end_if %>
 		<% end_loop %>
 
 	<% end_if %>

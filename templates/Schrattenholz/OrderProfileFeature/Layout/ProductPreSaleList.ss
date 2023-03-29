@@ -102,7 +102,7 @@
 						//console.log("ql="+response[i]['QuantityLeft']);
 						var variantID=response[i]['VariantID'];
 						$('#pbE_'+variantID).attr('data-presalecurrentinventory',response[i]['QuantityLeft']);
-						var startInventory=$('#pbE_'+variantID).attr('data-presalestartinventory');
+						var startInventory=response[i]['StartInventory'];
 						$('#pbE_'+variantID+' .progress-bar').css('width',100-(response[i]['QuantityLeft']/startInventory*100)+'%');
 						$('#pbE_'+variantID+' .progress-bar').attr("aria-valuenow",100-(response[i]['QuantityLeft']/startInventory*100));
 					}
@@ -110,6 +110,7 @@
 					
 					/*var message=response.Message;
 					var quantityLeft=response.QuantityLeft;
+					var startInventory=response.StartInventory;
 					var productID=response.ProductDetails.ProductID;
 					var variantID=response.ProductDetails.ID;
 					
