@@ -9,7 +9,7 @@ use SilverStripe\ORM\Queries\SQLUpdate;
 use Silverstripe\ORM\DataObject;
 use Silverstripe\Forms\TextField;
 use Silverstripe\Forms\NumericField;
-
+use SilverStripe\Security\Permission;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
 
@@ -78,5 +78,24 @@ class ProductOption extends DataObject{
 		$update->addAssignments(['EnrollToAll'=> 0]);
 		$update->execute();
 	}
+	public function canView($member = null) 
+    {
+        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+    }
+
+    public function canEdit($member = null) 
+    {
+        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+    }
+
+    public function canDelete($member = null) 
+    {
+        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+    }
+
+    public function canCreate($member = null, $context = []) 
+    {
+        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+    }
 }
 ?>
