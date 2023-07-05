@@ -265,18 +265,18 @@ class OrderProfileFeature_ProductExtension extends DataExtension{
 	public function BasicExtension_DefaultImage($defaultImage){
 		
 		
-			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->MainImage()->Filename);
+		//	Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage TeaserImage()->ID='.$this->owner->MainImage()->Filename);
 			
 		if ($defaultImage->DefaultImage->ID>0 && $this->owner->MainImageID!=0){
 			$defaultImage=$this->owner->MainImage();
-			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage ProductImage()->ID= default vorhanden');
+			
 		//	Injector::inst()->get(LoggerInterface::class)->error('BlogExtension.php BasicExtension_DefaultImage ImageID='.$defaultImage->ID);
 		
 		}else if($this->owner->ProductImages()->Count()>0){
-			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage erstes produktbild='.$this->owner->ProductImages()->First()->Filename);
+		
 			$defaultImage->DefaultImage= $this->owner->ProductImages()->Sort("SortOrder","ASC")->First();
 		}else{
-			Injector::inst()->get(LoggerInterface::class)->error('OrderProfileFeature_ProductExtension.php BasicExtension_DefaultImage kein produktbild='. OrderConfig::get()->First()->ProductImage()->Filename);
+			
 			$defaultImage->DefaultImage= OrderConfig::get()->First()->ProductImage();
 		}
 		return $defaultImage;

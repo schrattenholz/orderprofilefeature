@@ -21,7 +21,6 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 	private static $table_name="OrderProfileFeature_ProductContainer";
 	private static $db=[
 		'Quantity'=>'Int',
-		'Vacuum'=>'Boolean',
 		'ProductSort'=>'Varchar(20)' 
 	];
 	private static $has_one=[
@@ -45,7 +44,6 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 	private static $summary_fields = [
         'Product.getSummaryTitle' => 'Produkt',
 		'PriceBlockElement.getSummaryTitle'=>'Variante',
-		'Vacuum'=>'Vakuumiert',
 		'Quantity'=>'Menge'
     ];
 	private static $singular_name="Produkt";
@@ -57,15 +55,24 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 		$fields->removeByName('BasketID');
 		$fields->removeByName('ClientOrderID');
 		$fields->removeByName('ProductSort');
+		$fields->removeByName("ProductID");
+		$fields->removeByName("Quantity");
+		
+		$fields->addFieldToTab('Root.Main',new DropdownField('ProductID','Produkt',Product::get()->map('ID', 'SummaryTitle')));
 		if($this->Product()->InPreSale){
 			$fields->addFieldToTab('Root.Main',new LiteralField('Test','<h2>Der Artikel wird abverkauft.</h2> <p>Die eingebene Menge wird eventuell an den aktuellen Bestand angepasst.</p>'));
 		}
-		$fields->addFieldToTab('Root.Main',new TextField('Quantity','Menge'));
-		$fields->addFieldToTab('Root.Main',new CheckboxField('Vacuum','Vakuumieren'));
-		$fields->addFieldToTab('Root.Main',new TreeDropdownField('ProductID','Produkt',"Schrattenholz\Order\Product"));
-		if($this->ProductID!=0){
-			$fields->addFieldToTab('Root.Main',new DropdownField('PriceBlockElementID','Produktvariante',Preis::get()->filter('ProductID',$this->ProductID)->map('ID','Title')));
+		if ($this->isInDB() && $this->ProductID && !$this->PriceBlockElementID){
+			$fields->addFieldToTab('Root.Main',new DropdownField('PriceBlockElementID','Variante',Preis::get()->map('ID', 'CompleteProductTitle')));
+			$fields->addFieldToTab('Root.Main',new LiteralField("Info","<h3>Bitte wählen Sie eine Produktvariante und speichern Sie die Eingabe um weiteren Einstellungen vornehmen zu können.</h3>"));
+		}else if ($this->isInDB() && $this->ProductID && $this->PriceBlockElementID){
+			$freeQuantity=Preis::get()->byID($this->PriceBlockElementID)->Inventory;
+			$fields->addFieldToTab('Root.Main',new TextField('Quantity','Menge','Produkt'));
+		}else{			
+			$fields->addFieldToTab('Root.Main',new LiteralField("Info","<h3>Bitte wählen Sie ein Produkt und speichern Sie die Eingabe um weiteren Einstellungen vornehmen zu können.</h3>"));			
 		}
+
+		
 		return $fields;
 	}
 	 public function getCMSValidator()
@@ -82,7 +89,7 @@ class OrderProfileFeature_ProductContainer extends DataObject{
 		}
     }
 	public function onBeforeWrite(){
-		if($this->ProductID!=0 && $this->PriceBlockElementID!=0 & $this->Quantity<1)
+		if($this->ProductID!=0 && $this->PriceBlockElementID!==0 && $this->Quantity<=0)
 		{
 			 throw new ValidationException('Bitte geben Sie eine Mengenangabe ein.');
 		}
