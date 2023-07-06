@@ -1,7 +1,6 @@
 	<% if $OutOfStock==0 %>
 	
 	<% loop $loadSelectedParameters() %>
-	loadSelectedParameters
 		<% if not $ProductDetails.InfiniteInventory %>
 		<div class="product-badge <% if $QuantityLeft>=2 %>product-available<% else_if $QuantityLeft>0 && $QuantityLeft<=2 %>product-little-available<% else %>product-not-available<% end_if %> <% if not $ProductDetails.InPreSale %>mt-n3 <% else %>mt-n1 <% end_if %>">
 		<% if not $ProductDetails.InPreSale %>
