@@ -1,5 +1,6 @@
 	<% include PageTitle_Dark %>
     <!-- Page Content-->
+
 <div class="container pb-4 pb-sm-5">
       <!-- Categories grid-->
 	<div class="<% if $HeaderImage %>spacer-white<% end_if %> bg-white">
