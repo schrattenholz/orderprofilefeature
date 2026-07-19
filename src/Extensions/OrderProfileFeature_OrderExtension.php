@@ -240,14 +240,14 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 			$oldLastEdited=$basket->LastEdited;
 			$basket->TimeStamp=microtime(true);
 			$basket->write();
-			return $oldLastEdited." - ".$this->getOwner()->ThemeDir();
+			return $oldLastEdited;
 		}else{
 			return false;
 		}
 	}
 	public function getBasketLiveTime(){
 		$basket=$this->getBasket();
-		return $basket->LastEdited."-".$this->getOwner()->ThemeDir();
+		return $basket->LastEdited;
 	}
 	public function ClearOutdatedBaskets(){
 		$now = date("Y-m-d H:i:s");
