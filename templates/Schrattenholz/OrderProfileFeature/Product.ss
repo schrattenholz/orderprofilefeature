@@ -13,7 +13,7 @@
 	<% include RevoSlider %>
 <% else_if $MainImage %>
 	<div class="container-fluid headerImage px-0">
-		<div class="inner" style="background-image:url(<% if $MainImage %>$MainImage.URL<% else_if $Parent.MainImage %>$Parent.MainImage.URL<% else %>$ThemeDir/images/default.jpg<% end_if %>);"></div>
+		<div class="inner" style="background-image:url(<% if $MainImage %>$MainImage.URL<% else_if $Parent.MainImage %>$Parent.MainImage.URL<% else %>$themedResourceURL('images/default.jpg')<% end_if %>);"></div>
 		<div class="text<% if $MainImage && $DarkImage %> darkBg<% else_if $Parent.MainImage && $DarkImage %>darkBg <% end_if %> ">
 			<% if not $NoHeadline %>
 				<h1><% if $Headline %>$Headline<% else %>$MenuTitle.XML<% end_if %></h1>
@@ -23,7 +23,7 @@
 	</div>
 <% else %>
 	<div class="container-fluid headerImage px-0" style="position:relative;">
-		<div class="inner" style="background-image:url($ThemeDir/images/default.jpg);"></div>
+		<div class="inner" style="background-image:url($themedResourceURL('images/default.jpg'));"></div>
 		<div class="text"<% if $DarkImage %> darkBg<% end_if %>">
 		<% if not $NoHeadline %>
 			<h1><% if $Headline %>$Headline<% else %>$MenuTitle.XML<% end_if %></h1>
