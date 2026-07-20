@@ -3,7 +3,7 @@
 namespace Schrattenholz\OrderProfileFeature;
 
 use SChrattenholz\Order\ProductList;
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\ValidationException;
@@ -14,7 +14,7 @@ use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use Psr\Log\LoggerInterface;
 
-class OrderProfileFeature_ProductList extends DataExtension{
+class OrderProfileFeature_ProductList extends Extension{
 	private static $db=[
 		"Design"=>"Enum('KategorieListe,Produktfilter,KategorieMosaik,Abverkaufliste','KategorieListe')",
 		"Content2"=>"HTMLText"

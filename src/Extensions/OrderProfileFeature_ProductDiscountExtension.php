@@ -5,13 +5,13 @@ namespace Schrattenholz\OrderProfileFeature;
 use Schrattenholz\Order\OrderExtension;
 use Schrattenholz\Order\Product;
 use Schrattenholz\Order\OrderConfig;
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
-use Silverstripe\Forms\TextField;
-use Silverstripe\Forms\OptionsetField;
-use Silverstripe\Forms\ConfirmedPasswordField ;
-use Silverstripe\ORM\ArrayList;
+use SilverStripe\Security\Group;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\OptionsetField;
+use SilverStripe\Forms\ConfirmedPasswordField ;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -26,13 +26,13 @@ use SilverStripe\Control\Controller;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\ThemeResourceLoader;
 use SilverStripe\SiteConfig\SiteConfig;
 use Schrattenholz\Order\Preis;
-class OrderProfileFeature_ProductDiscountExtension extends DataExtension{
+class OrderProfileFeature_ProductDiscountExtension extends Extension{
 
 	private static $allowed_actions = array (
 		'ProductDiscountScale',

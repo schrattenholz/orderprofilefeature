@@ -4,18 +4,18 @@ namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\Order\Product;
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\ThemeResourceLoader;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
-use SilverStripe\ORM\PaginatedList;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\Model\List\PaginatedList;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\View\Requirements;
-class OrderProfileFeature_ProductListController extends DataExtension{
+class OrderProfileFeature_ProductListController extends Extension{
 	private static $allowed_actions=[
 		"getFilteredProductList",
 		"loadShopPage",
@@ -33,10 +33,7 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 	public function ProductPreSaleList_QuickView($productData){
 		$productList=json_decode(utf8_encode($productData['productData']),true);
 		$data=new ArrayData(['Product'=>Product::get()->byID($productList['id'])]);
-		return $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleList_QuickView",
-				SSViewer::config()->uninherited('themes')
-			));
+		return $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleList_QuickView");
 		
 	}
 	public function loadShopPage($data){
@@ -57,53 +54,29 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		$paginatedProducts->setPageLength(9);
 		
 		$data=new ArrayData(['CurrentPageStart'=>$page,'CategoryID'=>$categoryID]);
-		return $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Includes\\ProductListFilter_ProductList",
-				SSViewer::config()->uninherited('themes')
-			));
+		return $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\ProductListFilter_ProductList");
 		//return $paginatedProducts;
 	}
 	public function index(HTTPRequest $request){
-		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-			  "Page",
-			SSViewer::config()->uninherited('themes')
-		));
+		return $this->getOwner()->renderWith("Page");
 	}
 	public function getAside(){
 		if($this->owner->Design=="Produktfilter"){
-		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilterAside",
-				SSViewer::config()->uninherited('themes')
-			));
+		return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilterAside");
 		}else if($this->owner->Design=="Abverkaufliste"){
-		return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleListAside",
-				SSViewer::config()->uninherited('themes')
-			));
+		return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleListAside");
 		}
 	}
 
 	public function getLayout(){
 		if($this->owner->Design=="Produktfilter"){
-			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter",
-				SSViewer::config()->uninherited('themes')
-			));
+			return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter");
 		}else if($this->owner->Design=="Abverkaufliste"){
-			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductPreSaleList",
-				SSViewer::config()->uninherited('themes')
-			));
+			return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductPreSaleList");
 		}	else if($this->owner->Design=="KategorieMosaik"){
-			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListMasonry",
-				SSViewer::config()->uninherited('themes')
-			));
+			return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductListMasonry");
 		}else{
-			return $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductList",
-				SSViewer::config()->uninherited('themes')
-			));
+			return $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductList");
 		}
 	}
 	public function PaginationPos(){
@@ -163,9 +136,6 @@ class OrderProfileFeature_ProductListController extends DataExtension{
 		
 		//return $list->MenuTitle;
 		$templateData=new ArrayData(['Products'=>$this->owner->AllProductsOfCategory($data['id'])]);
-		return $this->owner->customise($templateData)->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter_Items",
-				SSViewer::config()->uninherited('themes')
-			));
+		return $this->owner->customise($templateData)->renderWith("Schrattenholz\\OrderProfileFeature\\Layout\\ProductListFilter_Items");
 	}
 }

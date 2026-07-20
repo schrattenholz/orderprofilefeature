@@ -1,10 +1,10 @@
 <?php
 namespace Schrattenholz\OrderProfileFeature;
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use Schrattenholz\Order\OrderConfig;
 use Schrattenholz\OrderProfileFeature\OrderCustomerGroup;
-class OrderConfigExtension extends DataExtension{
+class OrderConfigExtension extends Extension{
 	private static $has_many=[
 		'CustomerGroups'=>'Schrattenholz\\OrderProfileFeature\\OrderCustomerGroup'
 	];

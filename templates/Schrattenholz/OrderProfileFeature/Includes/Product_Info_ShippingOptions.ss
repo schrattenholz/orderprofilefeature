@@ -11,7 +11,7 @@
 			$BasketDeliverySetup($ID,$v).DeliverySetup.ContentProductShippingInfo
 		</div>
 		<% end_if %>
-		<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
+		<% with BasketDeliverySetup($ID,$v).DeliverySetup %>
 			<% if $Up.DeliverySpecial %>
 			<div class="card-body font-size-sm">
 				<p class="font-size-md">Die Lieferoptionen werden durch ein Produkt in deinem Warenkorb vorgegeben, dass spezielle Lieferoptionen ($Title) hat.</p>
@@ -74,11 +74,11 @@
 					<!- Ende Lieferorte -->
 					
 					
-					<% end_loop %>
+					<% end_with %>
 					</div>
 					</div>
 <% else %>
-				<% loop BasketDeliverySetup($ID,$v).DeliverySetup %>
+				<% with BasketDeliverySetup($ID,$v).DeliverySetup %>
 					<% if $Up.DeliverySpecial %>
 					<div class="card-body font-size-sm">
 					<p class="font-size-md">Die Lieferoptionen werden durch ein Produkt in deinem Warenkorb vorgegeben, dass spezielle Lieferoptionen ($Title) hat.</p>
@@ -144,5 +144,5 @@
 					<!- Ende Lieferorte -->
 					
 					
-					<% end_loop %>
+					<% end_with %>
 					<% end_if %>

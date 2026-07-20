@@ -7,9 +7,9 @@ use Schrattenholz\OrderProfile\Preis;
 use Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductContainer;
 
 
-use Silverstripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\NumericField;
@@ -33,7 +33,7 @@ use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Control\RequestHandler;
@@ -42,7 +42,7 @@ use Psr\Log\LoggerInterface;
 
 use UncleCheese\DisplayLogic;
 
-class OrderProfileFeature_PreisExtension extends DataExtension{
+class OrderProfileFeature_PreisExtension extends Extension{
 	private static $allowed_actions=[
 		'FullTitle'
 	];

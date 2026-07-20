@@ -6,9 +6,9 @@ namespace Schrattenholz\OrderProfileFeature;
 use Schrattenholz\Order\Product;
 
 use SilverStripe\ORM\Queries\SQLUpdate;
-use Silverstripe\ORM\DataObject;
-use Silverstripe\Forms\TextField;
-use Silverstripe\Forms\NumericField;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\NumericField;
 use SilverStripe\Security\Permission;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;

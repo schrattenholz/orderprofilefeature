@@ -3,9 +3,9 @@
 namespace Schrattenholz\OrderProfileFeature;
 
 use PageController;
-use Silverstripe\Security\Group;
-use Silverstripe\Security\Member;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Security\Group;
+use SilverStripe\Security\Member;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Email\Email;
 use Schrattenholz\Order\OrderConfig;
 

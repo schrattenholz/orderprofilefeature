@@ -9,8 +9,8 @@ Join-Tabelle für die many_many Beziehung der Produkte mit den entsprechenden Pr
 namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\Order\Preis;
-use Silverstripe\ORM\DataObject;
-use SilverStripe\View\ArrayData;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Security\Permission;
 class ProductOptions_Preis extends DataObject{
 	private static $table_name="ProductOptions_Preis";

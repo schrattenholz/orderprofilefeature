@@ -8,7 +8,7 @@ Join-Tabelle für die many_many Beziehung der Produkte mit den entsprechenden Pr
 
 namespace Schrattenholz\OrderProfileFeature;
 
-use Silverstripe\ORM\DataObject;
+use SilverStripe\ORM\DataObject;
 
 class ProductOptions_ProductContainer extends DataObject{
 	private static $table_name="ProductOptions_ProductContainer";

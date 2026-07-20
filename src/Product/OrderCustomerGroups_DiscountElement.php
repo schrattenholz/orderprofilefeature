@@ -9,7 +9,7 @@ Join-Tabelle für die many_many Beziehung der Produkte mit der entsprechenden Ku
 namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\Order\Product;
-use Silverstripe\ORM\DataObject;
+use SilverStripe\ORM\DataObject;
 
 class OrderCustomerGroups_DiscountElement extends DataObject{
 	private static $table_name="OrderCustomerGroups_DiscountElement";

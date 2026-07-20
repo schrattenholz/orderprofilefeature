@@ -3,14 +3,14 @@
 namespace Schrattenholz\OrderProfileFeature;
 
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use Schrattenholz\Order\Product;
 use Schrattenholz\OrderProfile\Preis;
 use Schrattenholz\OrderProfileFeature\OrderProfileFeature_ProductContainer;
@@ -20,7 +20,7 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
 
-class OrderProfileFeature_PriceCalculation_Extension extends DataExtension{
+class OrderProfileFeature_PriceCalculation_Extension extends Extension{
 	public function TotalPrice(){
 		$orderCustomerGroup=$this->getOwner()->ActiveCustomerGroup();
 		$price=0;

@@ -5,7 +5,7 @@ namespace Schrattenholz\OrderProfileFeature;
 use Schrattenholz\Order\Preis;
 
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\NumericField;
@@ -28,13 +28,13 @@ use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
-class ProductOption_PreisExtension extends DataExtension{
+class ProductOption_PreisExtension extends Extension{
 
 	private static $many_many=[
         'ProductOptions' => [

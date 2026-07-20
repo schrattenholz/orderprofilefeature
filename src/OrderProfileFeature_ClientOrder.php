@@ -6,16 +6,16 @@ use Schrattenholz\OrderProfileFeature\OrderCustomerGroup;
 
 use SGN\HasOneEdit\ProvidesHasOneInlineFields;
 
-use Silverstripe\ORM\DataObject;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator as RequiredFields;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\ValidationException;

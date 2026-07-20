@@ -5,7 +5,7 @@ namespace Schrattenholz\OrderProfileFeature;
 use Schrattenholz\Order\Preis;
 
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\NumericField;
@@ -31,13 +31,13 @@ use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SwiftDevLabs\DuplicateDataObject\Forms\GridField\GridFieldDuplicateAction;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
-class DiscountScale_PreisExtension extends DataExtension{
+class DiscountScale_PreisExtension extends Extension{
 	private static $has_many=[
         'DiscountElements' => DiscountScale_DiscountElement::class
     ];

@@ -2,18 +2,18 @@
 
 namespace Schrattenholz\OrderProfileFeature;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
-use Silverstripe\Forms\TextField;
-use Silverstripe\Forms\EmailField;
-use Silverstripe\Forms\LiteralField;
-use Silverstripe\Forms\CheckboxField;
-use Silverstripe\Forms\ConfirmedPasswordField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\EmailField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\ConfirmedPasswordField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\OptionsetField;
 use UndefinedOffset\NoCaptcha\Forms\NocaptchaField;
-use Silverstripe\Security\Group;
-class OrderProfileFeatureMemberExtension extends DataExtension 
+use SilverStripe\Security\Group;
+class OrderProfileFeatureMemberExtension extends Extension 
 {
 
 	  private static $db = array(

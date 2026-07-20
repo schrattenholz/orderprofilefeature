@@ -2,7 +2,7 @@
 
 namespace Schrattenholz\OrderProfileFeature;
 
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\NumericField;
@@ -24,11 +24,11 @@ use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use Silverstripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use SilverStripe\ORM\ValidationException;
 use Schrattenholz\Order\OrderConfig;
 use SilverStripe\Control\RequestHandler;
@@ -36,7 +36,7 @@ use SilverStripe\Core\Injector\Injector;
 use Psr\Log\LoggerInterface;
 
 
-class OrderProfileFeature_ProductExtension extends DataExtension{
+class OrderProfileFeature_ProductExtension extends Extension{
 		public function getAvailability($customerGroup=0){
 
 		// Pruefen ob das Preiselement eine Bestand hat und für die aktive Nutzergruppe aktiviert ist.

@@ -5,13 +5,13 @@ namespace Schrattenholz\OrderProfileFeature;
 use Schrattenholz\Order\OrderExtension;
 use Schrattenholz\Order\Product;
 use Schrattenholz\Order\OrderConfig;
-use Silverstripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
-use Silverstripe\Forms\TextField;
-use Silverstripe\Forms\OptionsetField;
-use Silverstripe\Forms\ConfirmedPasswordField ;
-use Silverstripe\ORM\ArrayList;
+use SilverStripe\Security\Group;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\OptionsetField;
+use SilverStripe\Forms\ConfirmedPasswordField ;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -26,13 +26,13 @@ use SilverStripe\Control\Controller;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\ThemeResourceLoader;
 use SilverStripe\SiteConfig\SiteConfig;
 use Schrattenholz\Order\Preis;
-class OrderProfileFeature_OrderExtension extends DataExtension{
+class OrderProfileFeature_OrderExtension extends Extension{
 
 	private static $allowed_actions = array (
 		'TestCall',
@@ -104,10 +104,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 
 		$data=new ArrayData(['id'=>$productID,'v'=>$priceBlockElementID]);
 		if($this->owner->ProductDiscountScale($productID,$priceBlockElementID)->Count()>0){
-			return $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
-				"Schrattenholz\\OrderProfileFeature\\Includes\\Product_Info_DiscountScale",
-				SSViewer::config()->uninherited('themes')
-			));
+			return $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\Product_Info_DiscountScale");
 		}else{
 			return "nodiscount";
 		}
@@ -399,10 +396,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
     {
 		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
            $this->getOwner()->OrderConfig=$this->getOwner()->OrderConfig();
-            $basket = $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-                "Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_BasketNavList",
-                SSViewer::config()->uninherited('themes')
-            ));
+            $basket = $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_BasketNavList");
         $data=new ArrayData(array("MarkUp"=>$basket,"BasketObject"));
 		// Es fehlen Eingaben
 		return $basket;
@@ -412,10 +406,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
     {
 		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
            $this->getOwner()->OrderConfig=$this->getOwner()->OrderConfig();
-            $basket = $this->getOwner()->renderWith(ThemeResourceLoader::inst()->findTemplate(
-                "Includes\\HandheldToolbar",
-                SSViewer::config()->uninherited('themes')
-            ));
+            $basket = $this->getOwner()->renderWith("Includes\\HandheldToolbar");
         
 		// Es fehlen Eingaben
 		return $basket;
@@ -428,10 +419,7 @@ class OrderProfileFeature_OrderExtension extends DataExtension{
 	   }else{
 		   $data=array();
 	   }
-        $productBadge = $this->owner->customise($data)->renderWith(ThemeResourceLoader::inst()->findTemplate(
-            "Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge",
-            SSViewer::config()->uninherited('themes')
-        ));
+        $productBadge = $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge");
         return $productBadge;
     }
 	public function BooleanVac($vac){

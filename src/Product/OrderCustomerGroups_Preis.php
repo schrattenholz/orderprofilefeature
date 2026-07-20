@@ -9,7 +9,7 @@ Join-Tabelle für die many_many Beziehung der Preise mit der entsprechenden Kund
 namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\Order\Preis;
-use Silverstripe\ORM\DataObject;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 
 class OrderCustomerGroups_Preis extends DataObject{

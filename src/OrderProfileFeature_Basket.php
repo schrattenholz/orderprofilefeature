@@ -4,10 +4,10 @@ namespace Schrattenholz\OrderProfileFeature;
 
 use Schrattenholz\OrderProfileFeature\OrderCustomerGroup;
 
-use SilverStripe\View\ArrayData;
-use Silverstripe\ORM\DataObject;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Security;
-use Silverstripe\Security\Group;
+use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
 
 class OrderProfileFeature_Basket extends DataObject{
