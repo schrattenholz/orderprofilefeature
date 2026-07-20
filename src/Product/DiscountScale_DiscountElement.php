@@ -36,7 +36,7 @@ use Psr\Log\LoggerInterface;
 
 class DiscountScale_DiscountElement extends DataObject
 {
-	private static $default_sort=['SortOrder'];
+	private static $default_sort='SortOrder';
 	private static $db = array (
 		'Min'=>'Int',
 		'Max'=>'Int',
