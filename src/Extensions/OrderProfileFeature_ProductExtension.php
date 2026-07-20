@@ -259,8 +259,7 @@ class OrderProfileFeature_ProductExtension extends Extension{
 				//throw new ValidationException("Bitte geben Sie zuvor Kilopreise für die verschiedenen Kundengruppen an.");
 			}
 		}
-		
-		parent::onAfterWrite();
+
 	}
 	public function BasicExtension_DefaultImage($defaultImage){
 		

@@ -226,7 +226,6 @@ $data->Title=$title;
 		}
 		
 		$this->updateGroupPrices();
-		parent::onAfterWrite();
 	}
 	public function updateGroupPrices(){
 

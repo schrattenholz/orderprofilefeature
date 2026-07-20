@@ -107,6 +107,5 @@ class ProductOption_PreisExtension extends Extension{
 						$option->write();
 					}
 		}
-		parent::onAfterWrite();
 	}
 }
