@@ -13,7 +13,7 @@
 					</div>
 					<% end_if %>
 				<!-- Produktvarianten/Staffelpreise -->
-				<% if $GroupPreise && $OutOfStock==0 %>
+				<% if $GroupPreise && not $OutOfStock %>
 					<div class="product-variants" class="form-group product-variants" >
 						<h5 class="mt-4"><% if $GroupPreise.Count>1 %>Varianten<% end_if %></h5>
 						
@@ -42,7 +42,7 @@
 			
 					<% end_if %>
 				<!-- Produktoptionen -->
-				<% if $ProductOptions && not $GroupPreise && $OutOfStock==0 %>
+				<% if $ProductOptions && not $GroupPreise && not $OutOfStock %>
 				
 				<div class="product-options" class="form-group product-options ">
 					<% loop $ProductOptions %>
@@ -57,7 +57,7 @@
 					<% end_if %>
 					<% end_loop %>
 				</div>
-				<% else_if $ProductOptions && $GroupPreise  && $OutOfStock==0 %>
+				<% else_if $ProductOptions && $GroupPreise  && not $OutOfStock %>
 				
 					<% loop $GroupPreise.Sort('SortID','ASC') %>
 					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
@@ -77,7 +77,7 @@
 				<% end_if %>
 
 				<!-- Bestellmenge -->
-				<% if $OutOfStock==0 %>
+				<% if not $OutOfStock %>
 				<div class="row">
 					<div class="col-3 form-group d-flex align-items-center">
 						<div class="quantity position-relative clearfix d-inline-block align-top mt-2 mt-md-4">

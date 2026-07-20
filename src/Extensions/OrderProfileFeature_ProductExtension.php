@@ -43,9 +43,8 @@ class OrderProfileFeature_ProductExtension extends Extension{
 		$availability=false;
 		if(!$this->owner->OutOfStock){
 			foreach($this->owner->Preise() as $p){
-				
 				if($p->IsActive()){
-					
+
 					// Das Element ist für die aktive Benutzgruppe aktiviert
 					if($p->Inventory>0 || $p->InfiniteInventory){
 						//Injector::inst()->get(LoggerInterface::class)->error(' getAvailability='.$p->Title);

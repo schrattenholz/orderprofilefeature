@@ -412,14 +412,14 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		return $basket;
 
     }
-	public function getProductBadge($ajaxData) 
+	public function getProductBadge($ajaxData)
     {
 	   if(isset($ajaxData['v'])){
 			$data=new ArrayData(["VariantID"=>$ajaxData['v']]);
+			$productBadge = $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge");
 	   }else{
-		   $data=array();
+			$productBadge = $this->owner->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge");
 	   }
-        $productBadge = $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_ProductBadge");
         return $productBadge;
     }
 	public function BooleanVac($vac){
