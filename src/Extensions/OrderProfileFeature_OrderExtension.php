@@ -235,7 +235,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		$basket=$this->getBasket();
 		if($basket){
 			$oldLastEdited=$basket->LastEdited;
-			$basket->TimeStamp=microtime(true);
+			$basket->TimeStamp=(string)microtime(true);
 			$basket->write();
 			return $oldLastEdited;
 		}else{

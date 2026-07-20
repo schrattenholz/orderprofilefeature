@@ -24,7 +24,7 @@ class OrderProfileFeature_Basket extends DataObject{
 	];
 	public function onBeforeWrite(){
 		if(!$this->TimeStamp){
-			$this->TimeStamp=microtime(true);
+			$this->TimeStamp=(string)microtime(true);
 		}
 		parent::onBeforeWrite();
 	}
