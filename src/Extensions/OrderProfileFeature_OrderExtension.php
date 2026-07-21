@@ -126,8 +126,8 @@ class OrderProfileFeature_OrderExtension extends Extension{
 				
 				$result=array();
 				foreach(Product::get()->filter(['MenuTitle:PartialMatch' => $searchTerm]) as $p){
-					$defaultImage=$p->DefaultImage()->Fill(128,128)->URL;
-					array_push($result,array("ID"=>$p->ID,"Title"=>$p->MenuTitle,"Link"=>$p->Link(),"CoverImage"=>$defaultImage));
+					$defaultImage=$p->DefaultImage()->Fill(128,128);
+					array_push($result,array("ID"=>$p->ID,"Title"=>$p->MenuTitle,"Link"=>$p->Link(),"CoverImage"=>$defaultImage ? $defaultImage->URL : null));
 				}
 
 				return json_encode($result);
