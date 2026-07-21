@@ -38,7 +38,7 @@ class OrderProfileFeature_DoubleOptIn_Controller extends PageController{
 					if($defaultCostumerGroup->GroupID!=$client->RequestedGroupID){
 						
 						$doc->Content.="Da du dich als ".$client->RequestedGroup->Title." angemeldet hast, prüfen wir nun deine Gruppenzugehörigkeit und benachrichtigen dich dann umgehend per E-Mail. Bis dahin wirst Du im Shop als ".$defaultCostumerGroup->Group()->Title." behandelt. Natürlich werden wir die Preise auf der entgültigen Rechnung entsprechend deiner tatsächlichen Gruppenzugehörikeit anpassen.";
-						$this->owner->sendGroupRequestToAdmin($client);
+						$this->sendGroupRequestToAdmin($client);
 					}
 					$client->NeedsDoubleOptIn=false;
 					$message="confirmed";
