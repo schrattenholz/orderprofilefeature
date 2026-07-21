@@ -21,6 +21,7 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\PasswordField;
 use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
 use UncleCheese\DisplayLogic\Wrapper;
 use SilverStripe\View\Requirements;
 use Schrattenholz\Order\Product;
@@ -32,7 +33,7 @@ class OrderProfileFeature_Profile_ProfileDataController extends PageController{
 	private static $allowed_actions = ['SaveProfileData','SavePassword'];
 	public function SaveProfileData($data){
 		$personenDaten=json_decode($this->getOwner()->utf8_urldecode($data['profiledata']),true);
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$client=Member::get()->filter('Email',$personenDaten['Email'])->First();
 		if($client){
 			$client->Email=$personenDaten['Email'];
@@ -69,7 +70,7 @@ class OrderProfileFeature_Profile_ProfileDataController extends PageController{
 	}
 	public function SavePassword($data){
 		$personenDaten=json_decode($this->getOwner()->utf8_urldecode($data['passwords']),true);
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$client=Security::getCurrentUser();
 		if($personenDaten['Password']==$personenDaten['PasswordConfirm']){
 			$validateResult=$client->changePassword($personenDaten['Password'],1);

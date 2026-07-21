@@ -134,7 +134,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		
 	}
 	public function saveOrderModel($data){
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$data=json_decode(utf8_encode($data['orderModel']),true);
 		$clientOrderID=$data['id'];
 		$orderName=$data['title'];
@@ -159,7 +159,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	}
 	public function removeProductFromBasket($data){
 		
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$pd=$this->owner->genProductdata(json_decode(utf8_encode($data['orderedProduct']),true));
 		$productDetails=$this->owner->getProductDetails($pd);
 		$basket=$this->getOwner()->getBasket();
@@ -181,7 +181,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	}
 	public function removeProductFromBasketByID($data){
 		
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$pC=OrderProfileFeature_ProductContainer::get()->byID($data['id']);
 		$basket=$pC->Basket();
 		$productDetails=$this->owner->getProductDetails(array('productID'=>$pC->ProductID,'variant01'=>$pC->PriceBlockElementID));
@@ -299,7 +299,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	public function registerMember($data){
 		$personenDaten=json_decode($this->getOwner()->utf8_urldecode($data['person']),true);
 		if(isset($data['sec'])){$personenDaten['NeedsDoubleOptIn']=true;}else{$personenDaten['NeedsDoubleOptIn']=false;}
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		//Create UserAccount
 		$client=$this->CreateClient($personenDaten);
 			if($client->Status!="error"){
@@ -317,7 +317,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	}
 	public function loginMember($data){
 		$personenDaten=json_decode($this->getOwner()->utf8_urldecode($data['person']),true);
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		//$request = Injector::inst()->get(HTTPRequest::class);
 		$member=Member::get()->filter('Email',$personenDaten['UserAccountEmail']);
 
@@ -394,7 +394,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	}
 	public function getBasketNavList() 
     {
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
            $this->getOwner()->OrderConfig=$this->getOwner()->OrderConfig();
             $basket = $this->getOwner()->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\OrderProfileFeature_BasketNavList");
         $data=new ArrayData(array("MarkUp"=>$basket,"BasketObject"));
@@ -404,7 +404,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
     }
 		public function getHandheldToolbar() 
     {
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
            $this->getOwner()->OrderConfig=$this->getOwner()->OrderConfig();
             $basket = $this->getOwner()->renderWith("Includes\\HandheldToolbar");
         
@@ -485,7 +485,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		return $clientContainer;
 	}
 	public function setCheckoutAddress($data){
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		$personenDaten=json_decode($this->getOwner()->utf8_urldecode($data['person']),true);
 		if(isset($data['sec'])){$personenDaten['NeedsDoubleOptIn']=true;}else{$personenDaten['NeedsDoubleOptIn']=false;}
 		$basket=$this->getBasket();
@@ -593,7 +593,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		}
 	}
 	public function CreateClient($personenDaten){
-		$returnValues=new ArrayList(['Status'=>'error','Message'=>false,'Value'=>false]);
+		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
 		if(Member::get()->filter('Email',$personenDaten['Email'])->Count()>0){
 			//Es besteht ein Account zu der E-Mail-Adresse
 			$returnValues->Status='error';
