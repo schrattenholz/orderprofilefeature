@@ -116,7 +116,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		return $acountRoot->Title;
 	}
 	public function searchProducts($data){
-		$searchTerm=utf8_encode($data['searchTerm']);
+		$searchTerm=$data['searchTerm'];
 		/*$suggestions = ExtensibleSearchSuggestion::get()->filter(array(
 					'Term:StartsWith' => $term,
 					'Approved' => (int)$approved,
@@ -135,7 +135,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	}
 	public function saveOrderModel($data){
 		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
-		$data=json_decode(utf8_encode($data['orderModel']),true);
+		$data=json_decode($data['orderModel'],true);
 		$clientOrderID=$data['id'];
 		$orderName=$data['title'];
 
@@ -160,7 +160,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 	public function removeProductFromBasket($data){
 		
 		$returnValues=new ArrayData(['Status'=>'error','Message'=>false,'Value'=>false]);
-		$pd=$this->owner->genProductdata(json_decode(utf8_encode($data['orderedProduct']),true));
+		$pd=$this->owner->genProductdata(json_decode($data['orderedProduct'],true));
 		$productDetails=$this->owner->getProductDetails($pd);
 		$basket=$this->getOwner()->getBasket();
 		if(isset($pd['variant01'])){
@@ -432,7 +432,7 @@ class OrderProfileFeature_OrderExtension extends Extension{
 
 	public function addProductFromOrderList($data){
 
-		$product=$this->owner->genProductdata(json_decode(utf8_encode($data['orderedProduct']),true));
+		$product=$this->owner->genProductdata(json_decode($data['orderedProduct'],true));
 		//return $this->getOwner()->httpError(500,'blockedFromOtherUsers='.$product['productID']);
 		$p=Product::get()->byID($product['productID']);
 

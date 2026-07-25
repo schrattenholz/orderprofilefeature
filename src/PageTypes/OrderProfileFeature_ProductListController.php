@@ -31,7 +31,7 @@ class OrderProfileFeature_ProductListController extends Extension{
 		
 	}
 	public function ProductPreSaleList_QuickView($productData){
-		$productList=json_decode(utf8_encode($productData['productData']),true);
+		$productList=json_decode($productData['productData'],true);
 		$data=new ArrayData(['Product'=>Product::get()->byID($productList['id'])]);
 		return $this->owner->customise($data)->renderWith("Schrattenholz\\OrderProfileFeature\\Includes\\ProductPreSaleList_QuickView");
 		
