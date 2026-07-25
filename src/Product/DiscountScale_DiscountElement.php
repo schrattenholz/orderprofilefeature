@@ -47,7 +47,7 @@ class DiscountScale_DiscountElement extends DataObject
 	private static $summary_fields = [
 		'Min' => 'Minimale Menge',
 		'Max' => 'Maximale Menge',
-		'FixedDiscount' => 'Abzuziehender Betrag (ohne €-Zeichen)',
+		'FixedDiscount' => 'Abzuziehender Betrag (ohne â‚¬-Zeichen)',
 		'PercentageDiscount' => 'Nachlass in Prozent (ohne %-Zeichen)',
     ];
 	private static $has_one=[
@@ -73,10 +73,10 @@ class DiscountScale_DiscountElement extends DataObject
 		$min=new NumericField("Min","Mindestmenge");
 		$min->setLocale("DE_De");
 		$min->setScale(0);
-		$max=new NumericField("Max",utf8_encode("Höchstmenge"));
+		$max=new NumericField("Max","HÃ¶chstmenge");
 		$max->setLocale("DE_De");
 		$max->setScale(0);
-		$fixedDiscount=new NumericField("FixedDiscount",utf8_encode("Abzuziehender Betrag (ohne EUR-Zeichen)"));
+		$fixedDiscount=new NumericField("FixedDiscount","Abzuziehender Betrag (ohne EUR-Zeichen)");
 		$fixedDiscount->setLocale("DE_De");
 		$fixedDiscount->setScale(2);
 		$percentageDiscount=new NumericField("PercentageDiscount","Prozentualer Rabatt (ohne %-Zeichen)");
@@ -181,7 +181,7 @@ class DiscountScale_DiscountElement extends DataObject
 						$groupPrice=$this->getOwner()->OrderCustomerGroups()->add($ocg,array('Price' => $price)); 
 					}
 				}else{
-					//throw new ValidationException("Bitte geben Sie für das Produkt zuvor Kilopreise an.");
+					//throw new ValidationException("Bitte geben Sie fÃ¼r das Produkt zuvor Kilopreise an.");
 					return false;
 				}
 			}
