@@ -158,8 +158,6 @@ class OrderProfileFeature_RegistrationForm extends Form
 		
 
 
-
-		
 		$company->addExtraClass('col-sm-6');
 		$street->addExtraClass('col-sm-6');
 		$zip->addExtraClass('col-sm-6');

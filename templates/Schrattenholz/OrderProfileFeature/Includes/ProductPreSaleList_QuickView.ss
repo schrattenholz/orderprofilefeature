@@ -13,19 +13,19 @@
 					<% if $Product.ProductImages %>					
 						<% loop $Product.ProductImages.Sort('SortOrder') %>
 							<div class="cz-preview order-sm-2">
-								<div class="cz-preview-item <% if $First %>active<% end_if %>" id="IMG_$ID">
+								<div class="cz-preview-item <% if $IsFirst %>active<% end_if %>" id="IMG_$ID">
 									<img class="" src="$ScaleWidth(600).URL"  alt="$Filename">
 								</div>
 							</div>					  
 						<% end_loop %>					
 						 <div class="cz-thumblist order-sm-1">
 							<% loop $Product.ProductImages.Sort('SortOrder') %>
-								<a class="cz-thumblist-item  <% if $First %>active<% end_if %>" href="#IMG_$ID"><img src="$Fill(150,150).URL" alt="$Filename"></a>
+								<a class="cz-thumblist-item  <% if $IsFirst %>active<% end_if %>" href="#IMG_$ID"><img src="$Fill(150,150).URL" alt="$Filename"></a>
 							<% end_loop %>
 						 </div>
 						<% else %>				   
 							<div class="cz-preview order-sm-2">
-								<div class="cz-preview-item <% if $First %>active<% end_if %>" id="first">
+								<div class="cz-preview-item <% if $IsFirst %>active<% end_if %>" id="first">
 									<img class="" src="$Product.DefaultImage.ScaleWidth(600).URL"  alt="$Product.DefaultImage.Filename">
 								</div>
 							</div>					  				  

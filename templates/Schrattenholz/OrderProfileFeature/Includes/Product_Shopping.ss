@@ -6,7 +6,7 @@
 						<div class="selectric-wrapper">
 							<select id="products"   class="custom-select" style="width:100%;" onchange="loadPage()">
 							<% loop $Parent.Children %>
-								<option value="$Link" <% if $Top.ID==$ID %> selected="selected"<% else_if $First %> selected="selected"<% end_if %>>$MenuTitle.XML</option>
+								<option value="$Link" <% if $Top.ID==$ID %> selected="selected"<% else_if $IsFirst %> selected="selected"<% end_if %>>$MenuTitle.XML</option>
 							<% end_loop %>
 							</select>
 						</div>
@@ -31,7 +31,7 @@
 									data-caprice="$CaPrice" 
 									data-price="$Top.formattedNumber($PriceObject.Price)" 
 									data-quantity="$FreePortionalQuantity" <% if $Top.loadSelectedParameters(0).Variant01==$ID %> 
-									selected="selected"<% else_if $First %> selected="selected"<% end_if %>>
+									selected="selected"<% else_if $IsFirst %> selected="selected"<% end_if %>>
 								
 								$FullTitle(0)
 								</option>
@@ -47,7 +47,7 @@
 				<div class="product-options" class="form-group product-options ">
 					<% loop $ProductOptions %>
 					<% if $ProductOptions_Product.Active %>
-					<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
+					<% if $IsFirst %><h5 class="mt-4">Optionen</h5><% end_if %>
 						<div class="custom-control custom-checkbox">
 						  <input type="checkbox" class="custom-control-input product-option" id="productoption_$ID" data-id="$ID" data-price="$ProductOptions_Product.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 						  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>
@@ -60,10 +60,10 @@
 				<% else_if $ProductOptions && $GroupPreise  && not $OutOfStock %>
 				
 					<% loop $GroupPreise.Sort('SortID','ASC') %>
-					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
+					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $IsFirst %> d-none<% end_if %>">
 						<% loop $ProductOptions %>
 						<% if $ProductOptions_Preis.Active %>
-						<% if $First %><h5 class="mt-4">Optionen</h5><% end_if %>
+						<% if $IsFirst %><h5 class="mt-4">Optionen</h5><% end_if %>
 							<div class="custom-control custom-checkbox">
 							  <input type="checkbox" class="custom-control-input product-option" id="productoption_{$Up.ID}_{$ID}" data-id="$ID" data-price="$ProductOptions_Preis.PriceObject.Price" onchange="refreshSelectedProduct('attributeChange','#p_$Top.ID')" 
 							  <% if $Top.loadSelectedParameters(0).Variant01==$ID %> selected="selected"<% end_if %>

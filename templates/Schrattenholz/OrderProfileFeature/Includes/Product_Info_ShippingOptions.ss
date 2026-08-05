@@ -28,7 +28,7 @@
 						<div>
 							<p class="font-weight-semibold">
 							<% loop $getNextCollectionDays($Top.CurrentOrderCustomerGroup.ID,$ID,$Top.loadSelectedParameters.ProductDetails.ProductID,$Top.loadSelectedParameters.ProductDetails.ID) %>							
-									$DayTranslatedShort<% if not $Last %>, <% end_if %>				
+									$DayTranslatedShort<% if not $IsLast %>, <% end_if %>				
 							<% end_loop %>
 							</p>
 						</div>
@@ -61,7 +61,7 @@
 							  <li class="widget-list-item cz-filter-item">						
 								<% loop $Top.DeliveryDatesForCity($Top.CurrentOrderCustomerGroup.ID, $Delivery_ZIPCodes.First.Title,$Title,$Top.loadSelectedParameters.ProductDetails.ProductID,$Top.loadSelectedParameters.ProductDetails.ID).Dates %>
 								$Title
-								  <% if $First %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
+								  <% if $IsFirst %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
 								  
 								<% end_loop %>
 							  </li>
@@ -131,8 +131,8 @@
 							  <li class="widget-list-item cz-filter-item">						
 								<% loop $Top.DeliveryDatesForCity($Top.CurrentOrderCustomerGroup.ID, $Delivery_ZIPCodes.First.Title,$Title,$Top.loadSelectedParameters.ProductDetails.ProductID,$Top.loadSelectedParameters.ProductDetails.ID).Dates %>
 								$Title
-								  <% if $First %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
-								  <% if $First %><span class="font-size-xs text-muted ml-3"><% end_if %>$Short<% if not $Last %>, <% end_if %><% if $Last %></span><% end_if %>
+								  <% if $IsFirst %><span class="cz-filter-item-text">$Up.ZIPs.First.Title, $Up.Title</span><% end_if %>
+								  <% if $IsFirst %><span class="font-size-xs text-muted ml-3"><% end_if %>$Short<% if not $IsLast %>, <% end_if %><% if $IsLast %></span><% end_if %>
 								<% end_loop %>
 							  </li>
 								<% end_loop %>

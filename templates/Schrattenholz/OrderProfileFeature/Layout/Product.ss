@@ -36,7 +36,7 @@ height:180px;
                 <div class=" order-sm-2">
 				<% if $ProductImages %>
 					<% loop $ProductImages.Sort('SortOrder') %>
-					  <div class=" <% if $First %>active<% end_if %>" id="ProductImage_$ID">
+					  <div class=" <% if $IsFirst %>active<% end_if %>" id="ProductImage_$ID">
 					  <% if $Top.ShowQualityLabel %>
 					  <div class="picLabel"><img src="/_resources/themes/sehnenmuehle/img/bioland.png" /></div>
 					  <% end_if %>
@@ -45,7 +45,7 @@ height:180px;
 					  </div>
 					<% end_loop %>
 				 <% else %>
-				 <div class=" <% if $First %>active<% end_if %>" id="ProductImage_$ID">
+				 <div class=" <% if $IsFirst %>active<% end_if %>" id="ProductImage_$ID">
 				 <% if $Top.ShowQualityLabel %>
 				 <div class="picLabel"><img src="/_resources/themes/sehnenmuehle/img/bioland.png" /></div>
 				   <% end_if %>
@@ -58,7 +58,7 @@ height:180px;
                 <div class="cz-thumblist order-sm-1">
 				<% if $ProductImages.Count>1 %>
 				<% loop $ProductImages.Sort('SortOrder') %>
-				<a class="cz-thumblist-item <% if $First %>active<% end_if %>" href="#ProductImage_$ID"><img src="$Fill(100,100).URL" alt="$Filename"></a>
+				<a class="cz-thumblist-item <% if $IsFirst %>active<% end_if %>" href="#ProductImage_$ID"><img src="$Fill(100,100).URL" alt="$Filename"></a>
 				<% end_loop %>
 				<% end_if %>
 				<!--

@@ -11,7 +11,7 @@
 								<% if $Attributes %>
 									<% loop $Attributes %>
 										<% if $Shortcode %>$Shortcode<% else %>$Title<%end_if %>
-										<% if not $Last %>, <% end_if %>
+										<% if not $IsLast %>, <% end_if %>
 									<% end_loop %>
 									<% if $ShowAmount && $DisplayAmount %>, <% end_if %>
 								<% end_if %>
@@ -38,7 +38,7 @@
 				</div>
 				<% else_if $ProductOptions && $GroupPreise %>
 					<% loop $GroupPreise.Sort('Price','ASC') %>
-					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $First %> d-none<% end_if %>">
+					<div id="product-options_$ID" data-id="$ID" class="form-group product-options <% if not $IsFirst %> d-none<% end_if %>">
 						<% loop $ProductOptions %>
 						<% if $ProductOptions_Preis.Active %>
 							<div class="custom-control custom-checkbox">
