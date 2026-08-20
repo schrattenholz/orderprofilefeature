@@ -6,6 +6,7 @@ use Schrattenholz\Order\OrderExtension;
 use Schrattenholz\Order\Product;
 use Schrattenholz\Order\OrderConfig;
 use SilverStripe\Core\Extension;
+use SilverStripe\Core\Environment;
 use SilverStripe\Security\Security;
 use SilverStripe\Security\Group;
 use SilverStripe\Forms\TextField;
@@ -246,7 +247,32 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		$basket=$this->getBasket();
 		return $basket->LastEdited;
 	}
+	/**
+	 * Schutz fuer die Wartungsaufrufe.
+	 *
+	 * ClearOutdatedBaskets und SetOrderStatusOfOutdatedOrders sind ueber eine
+	 * URL erreichbar, damit ein Cron sie auf Servern ohne CLI-PHP anstossen
+	 * kann. Beide veraendern Daten -- ohne Schluessel duerfen sie das nicht.
+	 *
+	 * Der Schluessel steht in der .env:
+	 *
+	 *     SOLA_WARTUNG_TOKEN="..."   (erzeugen mit: openssl rand -hex 24)
+	 *
+	 * Aufruf dann mit ?token=... -- oder, besser, ueber die Kommandozeile:
+	 * sake tasks:warenkoerbe-aufraeumen
+	 */
+	protected function wartungErlaubt(){
+		$erwartet=Environment::getEnv('SOLA_WARTUNG_TOKEN');
+		$mitgegeben=$this->getOwner()->getRequest()->getVar('token');
+		if(!$erwartet || !$mitgegeben){
+			return false;
+		}
+		return hash_equals((string)$erwartet,(string)$mitgegeben);
+	}
 	public function ClearOutdatedBaskets(){
+		if(!$this->wartungErlaubt()){
+			return $this->getOwner()->httpError(403,'Für diesen Aufruf fehlt der Wartungsschlüssel.');
+		}
 		$now = date("Y-m-d H:i:s");
 		$timestamp = "2016-04-20 00:37:15";
 		$start_date = date($now);
@@ -278,6 +304,9 @@ class OrderProfileFeature_OrderExtension extends Extension{
 		return true;
 	}
 	public function SetOrderStatusOfOutdatedOrders(){
+		if(!$this->wartungErlaubt()){
+			return $this->getOwner()->httpError(403,'Für diesen Aufruf fehlt der Wartungsschlüssel.');
+		}
 		$count=0;
 		$now = date("Y-m-d");
 		foreach(OrderProfileFeature_ClientOrder::get()->filter([
