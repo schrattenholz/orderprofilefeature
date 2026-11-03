@@ -26,7 +26,13 @@ class OrderProfileFeature_ClientOrder extends DataObject{
 		'Title'=>'Text',
 		'AdditionalNotes'=>'Text',
 		'OrderStatus'=>'Enum("offen,inBearbeitung,abgeschlossen","offen")',
-		'IsModel'=>'Boolean'
+		'IsModel'=>'Boolean',
+		// Herkunft: Shop, Telefon, Mail, Zettel, Hofladen. Bewusst kein Enum:
+		// ein Enum hat einen Vorgabewert, und der stuende nach dem dev/build in
+		// jeder alten Bestellung. Leer heisst "vor Einfuehrung, unbekannt".
+		'Quelle'=>'Varchar(20)',
+		// Wer die Bestellung erfasst hat (Geraet oder Name), nur bei Erfassung in der App
+		'ErfasstVon'=>'Varchar(100)'
 	];
 	private static $default_sort = 'Created DESC';
 	public function getExportFields() {
@@ -58,6 +64,11 @@ class OrderProfileFeature_ClientOrder extends DataObject{
 		$fields->removeByName('ClientContainerID');
 		$fields->removeByName('ProductContainers');
 		$fields->removeByName('IsModel');
+		$fields->removeByName(['Quelle','ErfasstVon']);
+		$fields->addFieldToTab('Root.Main',new ReadonlyField('QuelleAnzeige','Herkunft',$this->Quelle ?: 'unbekannt (vor Einführung erfasst)'));
+		if($this->ErfasstVon){
+			$fields->addFieldToTab('Root.Main',new ReadonlyField('ErfasstVon','Erfasst von'));
+		}
 		$fields->addFieldToTab('Root.Main',new TextField('Title','Titel'));
 		$fields->addFieldToTab('Root.Main',new TextareaField('AdditionalNotes','Bemerkungen zur Bestellungen'));
 		$fields->addFieldToTab('Root.Main',new DropdownField('OrderStatus','Bestellstatus',$this->dbObject('OrderStatus')->enumValues()));
