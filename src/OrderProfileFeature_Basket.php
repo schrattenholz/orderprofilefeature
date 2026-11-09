@@ -14,7 +14,10 @@ class OrderProfileFeature_Basket extends DataObject{
 	private static $table_name='OrderProfileFeature_Basket';
 	private static $db=[
 		'TimeStamp'=>'Varchar(255)',
-		'AdditionalNotes'=>'Text'
+		'AdditionalNotes'=>'Text',
+		// Entwurf aus der Bestell-App (api/erfassung/entwurf); die Schnittstelle
+		// fasst nur solche Koerbe an, nie den Warenkorb eines Shop-Besuchers
+		'Erfassung'=>'Boolean'
 	];
 	private static $has_one=[
 		'ClientContainer'=>OrderProfileFeature_ClientContainer::class
